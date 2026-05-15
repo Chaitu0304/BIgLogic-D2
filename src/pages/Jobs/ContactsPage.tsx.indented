@@ -1,0 +1,936 @@
+import { useState, useMemo, useEffect } from "react";
+import {
+  Users,
+  Search,
+  Filter,
+  Building2,
+  Plus,
+  ChevronRight,
+  ChevronLeft,
+  Phone,
+  Mail,
+  X,
+  Trophy,
+  ExternalLink,
+  FileUp,
+  UserCheck,
+  Calendar,
+  BadgeCheck,
+  Star,
+  Pencil,
+  Trash2,
+  Loader2,
+  Copy
+} from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { useTheme } from "@/components/ThemeProvider";
+import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { motion, AnimatePresence } from "framer-motion";
+import { useSearchParams } from "react-router-dom";
+import { cn } from "@/lib/utils";
+import { DESIGNATIONS, CONTACT_FIELD_CONFIG, FieldConfig } from "@/lib/contact-config";
+import { useContacts, Contact } from "@/hooks/useContacts";
+import { AddContactForm } from "./AddContactForm";
+import { BulkUploadModal } from "./BulkUploadModal";
+import axios from "axios";
+
+const PAGE_SIZE = 12;
+
+const ContactsPage = () => {
+  const { theme } = useTheme();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlCategory = searchParams.get("category");
+
+  const [search, setSearch] = useState("");
+  const [selectedDesignation, setSelectedDesignation] = useState(urlCategory || "Adjusters");
+
+  // Sync state with URL param changes
+  useEffect(() => {
+    if (urlCategory && urlCategory !== selectedDesignation && DESIGNATIONS.some(d => d.label === urlCategory)) {
+      setSelectedDesignation(urlCategory);
+    }
+  }, [urlCategory, selectedDesignation]);
+
+  const handleDesignationChange = (label: string) => {
+    setSelectedDesignation(label);
+    setSearchParams({ category: label });
+    setCurrentPage(1);
+    setSelectedContact(null);
+  };
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isBulkModalOpen, setIsBulkModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
+  const [sortBy, setSortBy] = useState<string>("name");
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>("asc");
+
+  const [newContactData, setNewContactData] = useState<any>({});
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editFormData, setEditFormData] = useState<any>({});
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+
+  const {
+    contacts,
+    isLoading,
+    createContact,
+    isCreating,
+    updateContact,
+    isUpdating,
+    bulkDelete,
+    isBulkDeleting
+  } = useContacts(selectedDesignation, search, sortBy, sortOrder);
+
+  const isDark = theme === "dark";
+
+  const copyToClipboard = (text: string, label: string) => {
+    if (!text || text === "N/A") return;
+    navigator.clipboard.writeText(text);
+    toast.success(`${label} copied to clipboard`);
+  };
+
+  const activeColumns = useMemo(() => {
+    const config = CONTACT_FIELD_CONFIG[selectedDesignation] || [];
+    return config.filter(f => f.visibleOverall);
+  }, [selectedDesignation]);
+  const validateForm = (data: any, label: string) => {
+    const config = CONTACT_FIELD_CONFIG[label] || CONTACT_FIELD_CONFIG["All Contacts"];
+    const missingFields = config
+    .filter(f => f.mandatory && !data[f.key] && data[f.key] !== 0)
+    .map(f => f.label);
+
+    if (missingFields.length > 0) {
+      toast.error(`Mandatory fields missing: ${missingFields.join(", ")}`);
+      return false;
+    }
+    return true;
+  };
+
+  const handleAddContact = async () => {
+    try {
+      const label = newContactData.designation || selectedDesignation;
+      if (!validateForm(newContactData, label)) return;
+
+      const apiValue = DESIGNATIONS.find(d => d.label === label)?.apiValue || "Customer";
+
+      await createContact({
+        ...newContactData,
+        designation: apiValue
+      });
+
+      toast.success("Contact added successfully");
+      setIsAddModalOpen(false);
+      setNewContactData({});
+    } catch (error) {
+      console.error("Add contact failed:", error);
+      toast.error("Failed to add contact");
+    }
+  };
+
+  const handleUpdateContact = async () => {
+    if (!selectedContact) return;
+    try {
+      const label = editFormData.designation || "All Contacts";
+      if (!validateForm(editFormData, label)) return;
+
+      const apiValue = DESIGNATIONS.find(d => d.label === label)?.apiValue || selectedContact.designation;
+
+      await updateContact({
+        id: selectedContact._id,
+        data: {
+          ...editFormData,
+          designation: apiValue
+        }
+      });
+
+      toast.success("Contact updated successfully");
+      setIsEditModalOpen(false);
+      setSelectedContact(prev => prev ? { ...prev, ...editFormData, designation: apiValue } : null);
+    } catch (error) {
+      console.error("Update contact failed:", error);
+      toast.error("Failed to update contact");
+    }
+  };
+
+  const openEditModal = () => {
+    if (!selectedContact) return;
+    const label = DESIGNATIONS.find(d => d.apiValue === selectedContact.designation)?.label || "All Contacts";
+    setEditFormData({ ...selectedContact, designation: label });
+    setIsEditModalOpen(true);
+  };
+
+  const paginatedContacts = useMemo(() => {
+    const start = (currentPage - 1) * PAGE_SIZE;
+    return contacts.slice(start, start + PAGE_SIZE);
+  }, [contacts, currentPage]);
+
+  const toggleSelectAll = () => {
+    if (selectedIds.size === paginatedContacts.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(paginatedContacts.map(c => c._id)));
+    }
+  };
+
+  const toggleSelectOne = (id: string) => {
+    const newSelected = new Set(selectedIds);
+    if (newSelected.has(id)) newSelected.delete(id);
+    else newSelected.add(id);
+    setSelectedIds(newSelected);
+  };
+
+  const handleBulkDelete = async () => {
+    if (selectedIds.size === 0) return;
+
+    try {
+      await bulkDelete(Array.from(selectedIds));
+      toast.success(`Deleted ${selectedIds.size} contacts`);
+      setSelectedIds(new Set());
+      setIsDeleteDialogOpen(false);
+    } catch (error) {
+      toast.error("Failed to delete contacts");
+    }
+  };
+
+  const totalPages = Math.ceil(contacts.length / PAGE_SIZE);
+
+  const getInitials = (name: string) =>
+  name?.split(" ").map((n: string) => n[0]).join("").slice(0, 2).toUpperCase() || "?";
+
+  const avatarColors = [
+    "bg-indigo-500", "bg-emerald-500", "bg-amber-500",
+    "bg-rose-500", "bg-violet-500", "bg-cyan-500", "bg-orange-500"
+  ];
+  const getAvatarColor = (id: string) => avatarColors[(id?.charCodeAt(0) || 0) % avatarColors.length];
+
+  const getFieldValue = (contact: Contact, col: FieldConfig) => {
+    if (col.calculated && col.key === "convRate") {
+      const received = Number(contact.received || 0);
+      const signed = Number(contact.signed || 0);
+      return received > 0 ? Math.round((signed / received) * 100) : 0;
+    }
+    const val = contact[col.key];
+    if (val === undefined || val === null || val === "") return "N/A";
+    return val;
+  };
+
+  const renderCell = (contact: Contact, col: FieldConfig) => {
+    const val = getFieldValue(contact, col);
+    const alignCls = col.align === "center" ? "text-center" : col.align === "right" ? "text-right" : "";
+
+    switch (col.type) {
+      case "name":
+      return (
+        <div className="flex items-center gap-3 min-w-0 pr-2">
+          <div className={cn("w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-black flex-shrink-0 overflow-hidden", !contact.avatar && getAvatarColor(contact._id))}>
+            {contact.avatar ? (
+              <img src={contact.avatar} alt={contact.name} className="w-full h-full object-cover" />
+            ) : (
+              getInitials(contact.name)
+            )}
+          </div>
+          <div className="min-w-0">
+            <p className={cn("font-bold text-sm leading-tight truncate", isDark ? "text-indigo-300" : "text-indigo-600")}>{contact.name}</p>
+              <p className="text-[10px] text-muted-foreground truncate opacity-60 font-medium tracking-tight">ID: {contact._id.slice(-6).toUpperCase()}</p>
+              </div>
+            </div>
+          );
+          case "currency":
+          return (
+            <span className={cn("text-sm font-bold tabular-nums", alignCls)}>
+              {val !== undefined && val !== null ? `$ ${Number(val).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "—"}
+            </span>
+          );
+          case "number":
+          return <span className={cn("text-sm font-semibold tabular-nums", alignCls, col.key.includes("active") ? "text-indigo-500" : "opacity-80")}>{val ?? 0}</span>;
+          case "percent":
+          return (
+            <div className="px-1">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[10px] font-black tracking-tight">{val != null ? `${val}%` : "0%"}</span>
+                </div>
+                <div className="h-1 w-full bg-muted rounded-full overflow-hidden">
+                  <div className="h-full bg-indigo-500 rounded-full" style={{ width: `${Math.min(val || 0, 100)}%` }} />
+                </div>
+              </div>
+            );
+            case "badge":
+            case "select":
+            const badgeLabel = String(val || "—").toUpperCase();
+            const isStatus = col.key.toLowerCase().includes("status") || col.key === "tier" || col.key.toLowerCase().includes("comp");
+
+            if (col.type === "select" && !isStatus) {
+              return <span className={cn("text-sm font-medium opacity-80", alignCls)}>{val || "—"}</span>;
+            }
+
+            return (
+              <div className={cn("flex", col.align === "center" && "justify-center")}>
+                <Badge variant="outline" className={cn(
+                  "text-[9px] font-black uppercase tracking-widest px-1.5 py-0 h-5 border rounded flex items-center justify-center",
+                  isStatus && (badgeLabel.includes("ACTIVE") || badgeLabel.includes("COMPLIANT")) ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" :
+                  isStatus && (badgeLabel.includes("INACTIVE") || badgeLabel.includes("NON") || badgeLabel.includes("PENDING")) ? "bg-rose-500/10 text-rose-500 border-rose-500/20" :
+                  isStatus && badgeLabel.includes("BLUE") ? "bg-blue-500/10 text-blue-500 border-blue-500/20" :
+                  "bg-slate-500/10 text-slate-500 border-slate-500/20"
+                )}>
+                {col.key === "tier" ? `TIER ${val}` : badgeLabel}
+              </Badge>
+            </div>
+          );
+          case "rating":
+          return (
+            <div className={cn("flex items-center gap-1", col.align === "center" && "justify-center")}>
+              <Star size={10} className="text-amber-500 fill-amber-500" />
+              <span className="text-sm font-bold tabular-nums">{val || "0.0"}</span>
+              </div>
+            );
+            case "activity":
+            case "date":
+            return <span className="text-sm font-medium opacity-80">{val ? new Date(val).toLocaleDateString() : "—"}</span>;
+            default:
+            return <span className={cn("text-sm font-medium truncate opacity-80", alignCls)}>{val || "—"}</span>;
+          }
+        };
+
+        return (
+          <div className="w-full h-full flex overflow-hidden animate-in fade-in duration-500">
+            {/* Main Content Area - Contracts when dossier opens */}
+            <div className="flex-1 min-w-0 flex flex-col space-y-4 overflow-hidden px-4 py-4">
+              {/* Filter Tabs */}
+              <div className={cn(
+                "flex items-center gap-1 overflow-x-auto scrollbar-hide border-b pb-0",
+                isDark ? "border-white/10" : "border-slate-200"
+              )}>
+              {DESIGNATIONS.map(({ label, icon: Icon }) => (
+                <button
+                  key={label}
+                  onClick={() => handleDesignationChange(label)}
+                  className={cn(
+                    "relative flex items-center gap-2 px-4 py-3 text-sm font-semibold whitespace-nowrap transition-all border-b-2 -mb-px",
+                    selectedDesignation === label
+                    ? "border-indigo-600 text-indigo-600"
+                    : isDark
+                    ? "border-transparent text-gray-400 hover:text-gray-200"
+                    : "border-transparent text-slate-500 hover:text-slate-800"
+                  )}
+                  >
+                  <Icon size={15} />
+                  {label}
+                  {selectedDesignation === label && !isLoading && (
+                    <span className="ml-1 bg-indigo-600 text-white text-[10px] font-black rounded-full px-1.5 py-0.5">
+                      {contacts.length}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* Action Bar */}
+            <div className="flex items-center justify-between gap-4 flex-nowrap shrink-0">
+              <div className="flex items-center gap-3 shrink-0">
+                <h2 className={cn("text-xl font-bold whitespace-nowrap", isDark ? "text-white" : "text-slate-900")}>
+                  {selectedDesignation} <span className={cn("text-sm font-medium ml-1", isDark ? "text-gray-400" : "text-slate-400")}>{contacts.length}</span>
+                </h2>
+              </div>
+
+              <div className="flex items-center gap-3 min-w-0 flex-1 justify-end">
+                <div className="relative flex-1 max-w-md min-w-[140px]">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Search contacts..."
+                    value={search}
+                    onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
+                    className={cn(
+                      "pl-9 h-9 w-full rounded-lg text-sm transition-all",
+                      isDark ? "bg-white/5 border-white/10" : "bg-white border-slate-200"
+                    )}
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-3 shrink-0">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setIsBulkModalOpen(true)}
+                      disabled={isBulkDeleting}
+                      className={cn("h-9 gap-2 rounded-lg font-bold text-xs uppercase tracking-widest px-4 transition-all duration-300 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 hover:shadow-lg hover:shadow-indigo-500/20", isDark ? "border-white/10 bg-white/5" : "border-slate-200")}
+                      >
+                      {isBulkDeleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <FileUp size={14} />} Bulk Upload
+                    </Button>
+
+                    <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
+                      <DialogTrigger asChild>
+                        <Button className="h-9 bg-indigo-600 hover:bg-indigo-700 text-white px-4 rounded-lg font-bold text-xs uppercase tracking-widest shadow-lg shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]">
+                          + Single Add
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className={cn("sm:max-w-[700px] max-h-[90vh] overflow-y-auto scrollbar-hide", isDark ? "bg-[#1A1C23] border-white/10 shadow-2xl" : "bg-white")}>
+                        <DialogHeader>
+                          <DialogTitle className="text-xl font-black uppercase tracking-widest">Add New {selectedDesignation.slice(0, -1)}</DialogTitle>
+                            <p className="text-xs text-muted-foreground font-medium uppercase tracking-tight">Enter details for the selected category</p>
+                            </DialogHeader>
+
+                            <AddContactForm
+                              designation={selectedDesignation}
+                              formData={newContactData}
+                              setFormData={setNewContactData}
+                              />
+
+                              <DialogFooter className="pt-4 border-t border-white/5">
+                                <Button variant="ghost" onClick={() => setIsAddModalOpen(false)} disabled={isCreating} className="font-bold text-xs uppercase tracking-widest hover:bg-rose-500/10 hover:text-rose-500 transition-colors">Cancel</Button>
+                                  <Button onClick={handleAddContact} disabled={isCreating} className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 font-bold text-xs uppercase tracking-widest shadow-lg shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] min-w-[160px]">
+                                    {isCreating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                                    {isCreating ? "Creating..." : "Create Contact"}
+                                  </Button>
+                                </DialogFooter>
+                              </DialogContent>
+                            </Dialog>
+                          </div>
+                        </div>
+
+                        {/* Table Container */}
+                        <div className={cn(
+                          "flex-1 border rounded-xl overflow-hidden flex flex-col",
+                          isDark ? "border-white/5 bg-card/50 shadow-inner" : "border-slate-200 bg-white shadow-sm"
+                        )}>
+                        <div className="flex-1 overflow-x-auto overflow-y-auto custom-scrollbar">
+                          <div className="min-w-[1000px]">
+                            {/* Header */}
+                            <div
+                              className={cn(
+                                "grid gap-4 px-4 py-4 text-[10px] font-black uppercase tracking-[0.2em] sticky top-0 z-10 transition-colors items-center",
+                                isDark ? "bg-[#0F1117] text-gray-500 border-b border-white/5" : "bg-slate-50 text-slate-400 border-b border-slate-200"
+                              )}
+                              style={{ gridTemplateColumns: "40px " + activeColumns.map(c => c.width).join(" ") + " 30px" }}
+                              >
+                              <div className="flex justify-center">
+                                <Checkbox
+                                  checked={selectedIds.size > 0 && selectedIds.size === paginatedContacts.length}
+                                  onCheckedChange={toggleSelectAll}
+                                  className={cn(isDark ? "border-white/20" : "border-slate-300")}
+                                  />
+                                </div>
+                                {activeColumns.map(col => (
+                                  <div
+                                    key={col.key + col.label}
+                                    className="leading-tight flex items-center gap-2 cursor-pointer hover:text-indigo-500 transition-colors group justify-start text-left"
+                                    onClick={() => {
+                                      if (sortBy === col.key) setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+                                      else { setSortBy(col.key); setSortOrder('asc'); }
+                                    }}
+                                    >
+                                    {col.label}
+                                    {sortBy === col.key && (
+                                      <span className="text-indigo-500 animate-in fade-in duration-300">
+                                        {sortOrder === 'asc' ? '↑' : '↓'}
+                                      </span>
+                                    )}
+                                  </div>
+                                ))}
+                                <span></span>
+                                </div>
+
+                                {/* Body */}
+                                {isLoading ? (
+                                  <div className="p-4 space-y-3">
+                                    {[...Array(PAGE_SIZE)].map((_, i) => (
+                                      <div key={i} className="flex gap-4">
+                                        <Skeleton className="h-10 w-full rounded-lg" />
+                                      </div>
+                                    ))}
+                                  </div>
+                                ) : (
+                                  <AnimatePresence mode="popLayout">
+                                    {Array.isArray(paginatedContacts) && paginatedContacts.length > 0 ? paginatedContacts.map((contact: Contact) => (
+                                      <motion.div
+                                        key={contact._id}
+                                        layout
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, scale: 0.95 }}
+                                        onClick={() => setSelectedContact(contact)}
+                                        className={cn(
+                                          "grid gap-4 px-4 py-3 text-sm cursor-pointer transition-all group items-center",
+                                          isDark
+                                          ? "hover:bg-white/[0.03] border-b border-white/[0.02]"
+                                          : "hover:bg-slate-50 border-b border-slate-100",
+                                          selectedContact?._id === contact._id && (isDark ? "bg-indigo-500/10" : "bg-indigo-50"),
+                                          selectedIds.has(contact._id) && (isDark ? "bg-rose-500/5" : "bg-rose-50/30")
+                                        )}
+                                        style={{ gridTemplateColumns: "40px " + activeColumns.map(c => c.width).join(" ") + " 30px" }}
+                                        >
+                                        <div className="flex justify-center" onClick={(e) => e.stopPropagation()}>
+                                          <Checkbox
+                                            checked={selectedIds.has(contact._id)}
+                                            onCheckedChange={() => toggleSelectOne(contact._id)}
+                                            className={cn(isDark ? "border-white/20" : "border-slate-300")}
+                                            />
+                                          </div>
+                                          {activeColumns.map(col => (
+                                            <div key={col.key + col.label} className="min-w-0">{renderCell(contact, col)}</div>
+                                            ))}
+                                            {selectedContact?._id === contact._id && (
+                                              <motion.div layoutId="table-active-indicator" className="absolute left-0 top-2 bottom-2 w-1 bg-indigo-600 rounded-r-full" />
+                                            )}
+                                            <ChevronRight size={14} className={cn("transition-transform", selectedContact?._id === contact._id ? "text-indigo-500 translate-x-1" : "text-muted-foreground/20 group-hover:text-muted-foreground/60")} />
+                                          </motion.div>
+                                        )) : (
+                                          <div className="p-20 flex flex-col items-center justify-center text-center space-y-4 opacity-20">
+                                            <Users size={64} />
+                                            <p className="text-sm font-black uppercase tracking-[0.2em]">No contacts found in this category</p>
+                                            </div>
+                                          )}
+                                        </AnimatePresence>
+                                      )}
+                                    </div>
+                                  </div>
+
+                                  {/* Pagination */}
+                                  <div className={cn("px-4 py-4 flex items-center justify-between border-t text-[10px] font-black uppercase tracking-widest text-muted-foreground flex-shrink-0", isDark ? "border-white/5 bg-white/[0.01]" : "border-slate-100 bg-slate-50/30")}>
+                                    <span className="opacity-60">Showing {Math.min(paginatedContacts.length, (currentPage - 1) * PAGE_SIZE + 1)} to {Math.min(currentPage * PAGE_SIZE, contacts.length)} of {contacts.length} entries</span>
+                                      <div className="flex gap-2">
+                                        <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg hover:bg-indigo-600/10 hover:text-indigo-500" disabled={currentPage === 1} onClick={() => setCurrentPage(p => p - 1)}><ChevronLeft size={16} /></Button>
+                                          {[...Array(totalPages)].map((_, i) => (
+                                            <Button
+                                              key={i}
+                                              variant={currentPage === i + 1 ? "default" : "ghost"}
+                                              size="icon"
+                                              className={cn(
+                                                "h-8 w-8 rounded-lg text-[10px] font-black transition-all",
+                                                currentPage === i + 1 ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 scale-110" : "hover:bg-white/5"
+                                              )}
+                                              onClick={() => setCurrentPage(i + 1)}
+                                              >
+                                              {i + 1}
+                                            </Button>
+                                          ))}
+                                          <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg hover:bg-indigo-600/10 hover:text-indigo-500" disabled={currentPage === totalPages || totalPages === 0} onClick={() => setCurrentPage(p => p + 1)}><ChevronRight size={16} /></Button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    {/* Right Sidebar - Flex Sibling Panel */}
+                                    <AnimatePresence>
+                                      {selectedContact && (
+                                        <motion.div
+                                          initial={{ width: 0, opacity: 0 }}
+                                          animate={{ width: 420, opacity: 1 }}
+                                          exit={{ width: 0, opacity: 0 }}
+                                          transition={{ type: "spring", damping: 32, stiffness: 210 }}
+                                          className="flex-shrink-0 border-l overflow-hidden flex flex-col h-full"
+                                          >
+                                          <div className={cn(
+                                            "w-[420px] h-full flex flex-col overflow-y-auto custom-scrollbar px-8",
+                                            isDark ? "bg-[#0A0C10] border-white/5" : "bg-white border-slate-200"
+                                          )}>
+                                          {/* Sidebar Header */}
+                                          <div className="p-8 pb-4 flex flex-col items-center text-center">
+                                            <div className="absolute top-4 right-4 flex gap-1">
+                                              <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full hover:bg-indigo-500/10 hover:text-indigo-500 transition-colors" onClick={openEditModal}><Pencil size={16} /></Button>
+                                                <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full hover:bg-rose-500/10 hover:text-rose-500 transition-colors" onClick={() => setSelectedContact(null)}><X size={16} /></Button>
+                                                </div>
+
+                                                <div className="relative group mb-6">
+                                                  <div className={cn("w-24 h-24 rounded-full flex items-center justify-center text-white text-3xl font-black ring-8 transition-transform group-hover:scale-105 overflow-hidden",
+                                                    isDark ? "ring-white/[0.02]" : "ring-slate-50",
+                                                    !selectedContact.avatar && getAvatarColor(selectedContact._id))}>
+                                                    {selectedContact.avatar ? (
+                                                      <img src={selectedContact.avatar} alt={selectedContact.name} className="w-full h-full object-cover" />
+                                                    ) : (
+                                                      getInitials(selectedContact.name)
+                                                    )}
+                                                  </div>
+                                                  <div className="absolute -bottom-1 -right-1 bg-indigo-600 text-white p-2 rounded-full border-4 border-[#13151b] shadow-xl"><BadgeCheck size={16} /></div>
+                                                  </div>
+
+                                                  <h3 className={cn("text-2xl font-black tracking-tight", isDark ? "text-white" : "text-slate-900")}>{selectedContact.name}</h3>
+                                                    <p className="text-sm font-bold uppercase tracking-[0.1em] text-indigo-500 mt-1">{selectedContact.company || "Independent"}</p>
+                                                      <div className="mt-4 flex flex-wrap justify-center gap-2">
+                                                        <Badge className="bg-indigo-600/10 text-indigo-500 border-indigo-500/20 text-[10px] font-black uppercase tracking-[0.1em] px-3 py-1">{selectedContact.designation}</Badge>
+                                                          {selectedDesignation === "Adjusters" && selectedContact.tier && selectedContact.tier !== "N/A" && (
+                                                            <Badge className="bg-amber-500/10 text-amber-500 border-amber-500/20 text-[10px] font-black uppercase tracking-[0.1em] px-3 py-1">Tier {selectedContact.tier}</Badge>
+                                                            )}
+                                                          </div>
+                                                        </div>
+
+                                                        {/* Action Buttons */}
+                                                        <div className="px-8 grid grid-cols-2 gap-3 mb-8">
+                                                          <Button
+                                                            asChild={!!selectedContact.phone && selectedContact.phone !== "N/A"}
+                                                            disabled={!selectedContact.phone || selectedContact.phone === "N/A"}
+                                                            className="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black h-12 rounded-xl gap-2 shadow-xl shadow-indigo-500/20 uppercase tracking-widest disabled:opacity-50"
+                                                            >
+                                                            {!!selectedContact.phone && selectedContact.phone !== "N/A" ? (
+                                                              <a href={`tel:${selectedContact.phone}`}><Phone size={16} /> Call</a>
+                                                              ) : (
+                                                                <><Phone size={16} /> Call</>
+                                                              )}
+                                                            </Button>
+                                                            <Button
+                                                              asChild={!!(selectedContact.email || selectedContact.email1) && (selectedContact.email || selectedContact.email1) !== "N/A"}
+                                                              variant="outline"
+                                                              disabled={!(selectedContact.email || selectedContact.email1) || (selectedContact.email || selectedContact.email1) === "N/A"}
+                                                              className={cn("text-xs font-black h-12 rounded-xl gap-2 uppercase tracking-widest disabled:opacity-50", isDark ? "border-white/10 hover:bg-white/5" : "border-slate-200")}
+                                                              >
+                                                              {!!(selectedContact.email || selectedContact.email1) && (selectedContact.email || selectedContact.email1) !== "N/A" ? (
+                                                                <a href={`mailto:${selectedContact.email || selectedContact.email1}`}><Mail size={16} /> Email</a>
+                                                                ) : (
+                                                                  <><Mail size={16} /> Email</>
+                                                                )}
+                                                              </Button>
+                                                            </div>
+
+                                                            {/* Dynamic Field Content */}
+                                                            <div className="flex-1 px-8 pb-8 space-y-10">
+                                                              {(() => {
+                                                                const allFields = CONTACT_FIELD_CONFIG[selectedDesignation] || [];
+                                                                const detailFields = allFields.filter(f => f.detailView);
+
+                                                                const sections = selectedDesignation === "Adjusters" ? [
+                                                                  {
+                                                                    title: "Performance Dashboard",
+                                                                    fields: detailFields.filter(f => ["received", "signed", "completed", "revenue", "convRate", "tier", "activeJobs", "lastActivity"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "Adjuster Identity",
+                                                                    fields: detailFields.filter(f => ["adjusterType"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "Contact Matrix",
+                                                                    fields: detailFields.filter(f => ["phone", "phone2", "phone3", "email1", "email2", "fax"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "Location Intel",
+                                                                    fields: detailFields.filter(f => ["address", "city", "state", "zip"].includes(f.key))
+                                                                  }
+                                                                ] : selectedDesignation === "Vendors" ? [
+                                                                  {
+                                                                    title: "Performance & Compliance",
+                                                                    fields: detailFields.filter(f => ["vendorRating", "activeJobs", "totalJobs", "avgJobValue", "complianceStatus", "insuranceExp", "lastActivity"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "Professional Credentials",
+                                                                    fields: detailFields.filter(f => ["trades", "subTrades", "licenseNumber"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "Contact Hub",
+                                                                    fields: detailFields.filter(f => ["phone", "phone2", "phone3", "email", "email2", "fax", "preferredContact"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "Location Intel",
+                                                                    fields: detailFields.filter(f => ["address", "city", "state", "zip"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "Workers' Compensation",
+                                                                    fields: detailFields.filter(f => ["workersComp", "wcCompany", "wcPolicy", "wcExpDate"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "Liability Insurance",
+                                                                    fields: detailFields.filter(f => ["liabilityIns", "liabCompany", "liabPolicy", "liabExpDate"].includes(f.key))
+                                                                  }
+                                                                ] : selectedDesignation === "Employees" ? [
+                                                                  {
+                                                                    title: "Performance & Metrics",
+                                                                    fields: detailFields.filter(f => ["utilization", "activeJobs", "yearsOfService", "lastActivity"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "Organizational Context",
+                                                                    fields: detailFields.filter(f => ["role", "department", "hireDate", "status", "manager"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "Contact Hub",
+                                                                    fields: detailFields.filter(f => ["phone", "phone2", "phone3", "email", "email2", "fax"].includes(f.key))
+                                                                  },
+                                                                ] : selectedDesignation === "TPAs / Clients" ? [
+                                                                  {
+                                                                    title: "Portfolio Performance",
+                                                                    fields: detailFields.filter(f => ["totalClaims", "revenue", "activeJobs", "clientRating"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "SLA & Protocol",
+                                                                    fields: detailFields.filter(f => ["responseTarget", "guidelines", "lastActivity", "notes"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "Communication Hub",
+                                                                    fields: detailFields.filter(f => ["primaryContact", "phone", "phone2", "phone3", "email", "email2", "fax"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "Location Details",
+                                                                    fields: detailFields.filter(f => ["address", "city", "state", "zip"].includes(f.key))
+                                                                  }
+                                                                ] : selectedDesignation === "HOAs" ? [
+                                                                  {
+                                                                    title: "Management Portfolio",
+                                                                    fields: detailFields.filter(f => ["managedUnits", "avgJobSize", "activeJobs", "totalJobs"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "Account Identity",
+                                                                    fields: detailFields.filter(f => ["accountStatus", "lastActivity"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "Communication Hub",
+                                                                    fields: detailFields.filter(f => ["primaryContact", "phone", "phone2", "phone3", "email", "email2", "fax"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "Property Logistics",
+                                                                    fields: detailFields.filter(f => ["address", "city", "state", "zip", "accessNotes"].includes(f.key))
+                                                                  }
+                                                                ] : selectedDesignation === "Property Mgmt" ? [
+                                                                  {
+                                                                    title: "Portfolio Metrics",
+                                                                    fields: detailFields.filter(f => ["managedUnits", "avgJobSize", "activeJobs", "totalJobs"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "Account Identity",
+                                                                    fields: detailFields.filter(f => ["accountStatus", "lastActivity"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "Communication Hub",
+                                                                    fields: detailFields.filter(f => ["name", "phone", "phone2", "phone3", "email", "email2", "fax"].includes(f.key))
+                                                                  },
+                                                                  {
+                                                                    title: "Management Scope",
+                                                                    fields: detailFields.filter(f => ["address", "city", "state", "zip", "propertiesManaged"].includes(f.key))
+                                                                  }
+                                                                ] : [
+                                                                  {
+                                                                    title: "Contact Details",
+                                                                    fields: detailFields.filter(f => f.key !== "name")
+                                                                  }
+                                                                ];
+
+                                                                return sections.filter(s => s.fields.length > 0).map(section => (
+                                                                  <div key={section.title} className="space-y-5">
+                                                                    <div className="flex items-center gap-3">
+                                                                      <h4 className="text-[10px] font-black uppercase tracking-[0.25em] text-indigo-500/80 whitespace-nowrap">{section.title}</h4>
+                                                                        <div className="h-px w-full bg-indigo-500/5" />
+                                                                      </div>
+
+                                                                      <div className="grid grid-cols-2 gap-x-5 gap-y-4">
+                                                                        {section.fields.map(field => {
+                                                                          const val = getFieldValue(selectedContact, field);
+                                                                          const isFullWidth = ["address", "notes", "guidelines", "email", "email1", "email2", "email3", "phone", "phone2", "phone3", "trades", "subTrades", "accessNotes", "propertiesManaged"].includes(field.key);
+                                                                          const isNA = !val || val === "N/A" || val === "—";
+
+                                                                          const isCommunicable = field.key.toLowerCase().includes("phone") || field.key.toLowerCase().includes("email") || field.key.toLowerCase().includes("fax");
+
+                                                                          const isStatusField = ["accountStatus", "status", "complianceStatus"].includes(field.key);
+                                                                          const isTogglable = isStatusField && !isNA;
+
+                                                                          const handleStatusToggle = async (checked: boolean) => {
+                                                                            const isHOA = selectedDesignation === "HOAs" || selectedDesignation === "Property Mgmt";
+                                                                            const isVendor = selectedDesignation === "Vendors";
+                                                                            const isEmployee = selectedDesignation === "Employees";
+
+                                                                            let newStatus = "";
+                                                                            if (isHOA || isEmployee) newStatus = checked ? "Active" : "Inactive";
+                                                                            else if (isVendor) newStatus = checked ? "Compliant" : "Non-Compliant";
+
+                                                                            if (!newStatus) return;
+
+                                                                            try {
+                                                                              const token = localStorage.getItem('token');
+                                                                              await axios.put(`${import.meta.env.VITE_API_URL}/api/contacts/${selectedContact._id}`, {
+                                                                                [field.key]: newStatus
+                                                                              }, {
+                                                                                headers: { Authorization: `Bearer ${token}` }
+                                                                              });
+
+                                                                              // Using selectedContact update locally for immediate feedback
+                                                                              setSelectedContact(prev => prev ? { ...prev, [field.key]: newStatus } : null);
+                                                                              toast.success(`${selectedContact.name} is now ${newStatus}`);
+                                                                            } catch (error) {
+                                                                              console.error("Error updating status:", error);
+                                                                              toast.error("Failed to update status");
+                                                                            }
+                                                                          };
+
+                                                                          return (
+                                                                            <div key={field.key} className={cn("space-y-1.5 group", isFullWidth && "col-span-2")}>
+                                                                              <div className="flex items-center justify-between">
+                                                                                <p className="text-[9px] font-black uppercase tracking-[0.15em] opacity-30 group-hover:opacity-100 transition-opacity leading-none">{field.label}</p>
+                                                                                  {isTogglable && (
+                                                                                    <Switch
+                                                                                      checked={val === "Active" || val === "Compliant"}
+                                                                                      onCheckedChange={handleStatusToggle}
+                                                                                      className="scale-50 origin-right data-[state=checked]:bg-emerald-500"
+                                                                                      />
+                                                                                    )}
+                                                                                  </div>
+                                                                                  <div className="flex items-center justify-between gap-4">
+                                                                                    <div className={cn("text-[13px] font-bold tracking-tight break-all", isNA ? "opacity-30" : "opacity-90")}>
+                                                                                      {field.type === 'currency' ? `$ ${Number(val || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` :
+                                                                                      field.type === 'percent' ? `${val || 0}%` :
+                                                                                      field.type === 'rating' ? `★ ${val || "0.0"}` :
+                                                                                      (field.type === 'activity' || field.type === 'date') ? (val ? new Date(val).toLocaleDateString() : 'N/A') :
+                                                                                      String(val || 'N/A')}
+                                                                                    </div>
+                                                                                    <div className="flex items-center gap-2">
+                                                                                      {isCommunicable && !isNA && (
+                                                                                        <Button
+                                                                                          variant="ghost"
+                                                                                          size="icon"
+                                                                                          className="h-5 w-5 rounded-md hover:bg-indigo-500/10 hover:text-indigo-500 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                                                                                          onClick={() => copyToClipboard(String(val), field.label)}
+                                                                                          >
+                                                                                          <Copy size={10} />
+                                                                                        </Button>
+                                                                                      )}
+                                                                                      {field.type === 'percent' && !isNA && (
+                                                                                        <div className="w-10 h-1 bg-muted rounded-full overflow-hidden shrink-0">
+                                                                                          <div className="h-full bg-indigo-500" style={{ width: `${val || 0}%` }} />
+                                                                                        </div>
+                                                                                      )}
+                                                                                    </div>
+                                                                                  </div>
+                                                                                </div>
+                                                                              );
+                                                                            })}
+                                                                          </div>
+                                                                        </div>
+                                                                      ));
+                                                                    })()}
+                                                                  </div>
+
+                                                                  {/* Internal Notes */}
+                                                                  <div className="space-y-4 pt-4">
+                                                                    <div className="flex items-center gap-3">
+                                                                      <h4 className="text-[10px] font-black uppercase tracking-[0.25em] text-rose-500/60 whitespace-nowrap">Internal Notes</h4>
+                                                                        <div className="h-px w-full bg-rose-500/10" />
+                                                                      </div>
+                                                                      <div className={cn("p-4 rounded-xl text-xs font-medium leading-relaxed italic opacity-80 border border-dashed", isDark ? "bg-white/[0.03] border-white/10" : "bg-slate-50 border-slate-200")}>
+                                                                        {selectedContact.notes || "No internal notes available for this contact."}
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </motion.div>
+                                                              )}
+                                                            </AnimatePresence>
+
+                                                            <BulkUploadModal isOpen={isBulkModalOpen} onClose={() => setIsBulkModalOpen(false)} />
+                                                            {/* Edit Contact Modal */}
+                                                            <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+                                                              <DialogContent className={cn("sm:max-w-[700px] max-h-[90vh] overflow-y-auto scrollbar-hide", isDark ? "bg-[#1A1C23] border-white/10 shadow-2xl" : "bg-white")}>
+                                                                <DialogHeader>
+                                                                  <DialogTitle className="text-xl font-black uppercase tracking-widest">Edit Contact</DialogTitle>
+                                                                    <p className="text-xs text-muted-foreground font-medium uppercase tracking-tight">Modify contact information below</p>
+                                                                    </DialogHeader>
+
+                                                                    <AddContactForm
+                                                                      designation={editFormData.designation || "All Contacts"}
+                                                                      formData={editFormData}
+                                                                      setFormData={setEditFormData}
+                                                                      />
+
+                                                                      <DialogFooter className="pt-4 border-t border-white/5">
+                                                                        <Button variant="ghost" onClick={() => setIsEditModalOpen(false)} disabled={isUpdating} className="font-bold text-xs uppercase tracking-widest hover:bg-rose-500/10 hover:text-rose-500 transition-colors">Cancel</Button>
+                                                                          <Button onClick={handleUpdateContact} disabled={isUpdating} className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 font-bold text-xs uppercase tracking-widest shadow-lg shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] min-w-[160px]">
+                                                                            {isUpdating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                                                                            {isUpdating ? "Updating..." : "Save Changes"}
+                                                                          </Button>
+                                                                        </DialogFooter>
+                                                                      </DialogContent>
+                                                                    </Dialog>
+
+                                                                    {/* Bulk Action Bar */}
+                                                                    <AnimatePresence>
+                                                                      {selectedIds.size > 0 && (
+                                                                        <motion.div
+                                                                          initial={{ y: 100, opacity: 0 }}
+                                                                          animate={{ y: 0, opacity: 1 }}
+                                                                          exit={{ y: 100, opacity: 0 }}
+                                                                          className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50"
+                                                                          >
+                                                                          <div className={cn(
+                                                                            "flex items-center gap-6 px-6 py-4 rounded-2xl border shadow-2xl backdrop-blur-xl",
+                                                                            isDark ? "bg-[#1A1C23]/90 border-white/10 shadow-black/50" : "bg-white/90 border-slate-200 shadow-slate-200/50"
+                                                                          )}>
+                                                                          <div className="flex flex-col">
+                                                                            <span className="text-[10px] font-black uppercase tracking-widest text-indigo-500">Selection Mode</span>
+                                                                              <span className={cn("text-sm font-black", isDark ? "text-white" : "text-slate-900")}>{selectedIds.size} Contacts Selected</span>
+                                                                              </div>
+
+                                                                              <div className="h-8 w-px bg-muted-foreground/20" />
+
+                                                                              <div className="flex gap-2">
+                                                                                <Button
+                                                                                  variant="ghost"
+                                                                                  size="sm"
+                                                                                  onClick={() => setSelectedIds(new Set())}
+                                                                                  className="font-bold text-xs uppercase tracking-widest hover:bg-white/5"
+                                                                                  >
+                                                                                  Deselect
+                                                                                </Button>
+                                                                                <Button
+                                                                                  variant="destructive"
+                                                                                  size="sm"
+                                                                                  onClick={() => setIsDeleteDialogOpen(true)}
+                                                                                  className="font-bold text-xs uppercase tracking-widest bg-rose-600 hover:bg-rose-700 shadow-lg shadow-rose-500/20 gap-2"
+                                                                                  >
+                                                                                  <Trash2 size={14} /> Delete Selected
+                                                                                  </Button>
+                                                                                </div>
+                                                                              </div>
+                                                                            </motion.div>
+                                                                          )}
+                                                                        </AnimatePresence>
+
+                                                                        {/* Bulk Delete Confirmation Dialog */}
+                                                                        <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+                                                                          <AlertDialogContent className={cn(isDark ? "bg-[#1A1C23] border-white/10" : "bg-white")}>
+                                                                            <AlertDialogHeader>
+                                                                              <AlertDialogTitle className="text-xl font-black uppercase tracking-widest">Confirm Bulk Deletion</AlertDialogTitle>
+                                                                                <AlertDialogDescription className="text-sm font-medium opacity-70">
+                                                                                  This will permanently remove <span className="font-black text-rose-500">{selectedIds.size}</span> selected contacts from your directory. This action cannot be undone.
+                                                                                </AlertDialogDescription>
+                                                                              </AlertDialogHeader>
+                                                                              <AlertDialogFooter className="mt-6">
+                                                                                <AlertDialogCancel disabled={isBulkDeleting} className="font-bold text-xs uppercase tracking-widest border-none hover:bg-white/5 transition-colors">Cancel</AlertDialogCancel>
+                                                                                  <AlertDialogAction
+                                                                                    onClick={handleBulkDelete}
+                                                                                    disabled={isBulkDeleting}
+                                                                                    className="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs uppercase tracking-widest shadow-lg shadow-rose-500/20 transition-all duration-300 hover:scale-[1.02] min-w-[140px]"
+                                                                                    >
+                                                                                    {isBulkDeleting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                                                                                    {isBulkDeleting ? "Deleting..." : "Confirm Delete"}
+                                                                                  </AlertDialogAction>
+                                                                                </AlertDialogFooter>
+                                                                              </AlertDialogContent>
+                                                                            </AlertDialog>
+                                                                          </div>
+                                                                        );
+                                                                      };
+
+                                                                      export default ContactsPage;
