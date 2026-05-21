@@ -1,158 +1,105 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { MessageSquareQuote } from 'lucide-react';
-import { useTheme } from "../ThemeProvider";
-// Testimonials Column Component
-const TestimonialsColumn = ({ testimonials, duration = 15, className = "" }: { testimonials: any[], duration?: number, className?: string }) => {
-    return (
-        <div className={className}>
-            <motion.div
-                animate={{
-                    translateY: "-50%",
-                }}
-                transition={{
-                    duration: duration,
-                    repeat: Infinity,
-                    ease: "linear",
-                    repeatType: "loop",
-                }}
-                className="flex flex-col gap-6 pb-6"
-            >
-                {[...new Array(2)].fill(0).map((_, index) => (
-                    <React.Fragment key={index}>
-                        {testimonials.map(({ text, image, name, role }, i) => (
-                            <div
-                                className="p-6 sm:p-7 md:p-8 rounded-2xl border border-border bg-card/50 backdrop-blur-sm shadow-lg max-w-[280px] sm:max-w-xs w-full hover:bg-card transition-all duration-300 hover:border-indigo-500/30 group"
-                                key={i}
-                            >
-                                <div className="text-muted-foreground text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6">{text}</div>
-                                <div className="flex items-center gap-3">
-                                    <div className="relative">
-                                        <img
-                                            width={40}
-                                            height={40}
-                                            src={image}
-                                            alt={name}
-                                            className="h-10 w-10 rounded-full border border-indigo-500/30 object-cover  transition-all"
-                                        />
-                                        <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-indigo-500 rounded-full flex items-center justify-center border border-background">
-                                            <MessageSquareQuote className="w-2.5 h-2.5 text-white" />
-                                        </div>
-                                    </div>
-                                    <div className="flex flex-col">
-                                        <div className="font-bold tracking-tight leading-5 text-foreground">{name}</div>
-                                        <div className="leading-5 text-indigo-400 tracking-tight text-xs font-medium">{role}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </React.Fragment>
-                ))}
-            </motion.div>
-        </div>
-    );
-};
-
-const testimonials = [
-    {
-        text: "The material extraction accuracy is unmatched. We cut our supplement preparation time by 70% in the first week.",
-        image: "https://randomuser.me/api/portraits/women/32.jpg",
-        name: "Sarah Mitchell",
-        role: "Ops Director, Apex Restoration",
-    },
-    {
-        text: "Finally, an AI that understands Xactimate logic. The draw schedules are audit-proof right out of the box.",
-        image: "https://randomuser.me/api/portraits/men/45.jpg",
-        name: "Michael Rodriguez",
-        role: "Senior Adjuster, Nexus Claims",
-    },
-    {
-        text: "BigLogic's ability to find hidden line items saved us thousands on a single large loss commercial project.",
-        image: "https://randomuser.me/api/portraits/women/67.jpg",
-        name: "Emma Thompson",
-        role: "Estimator, BuildRight Construction",
-    },
-    {
-        text: "We integrated their API into our CRM, and the automated status updates have completely transformed our client communication.",
-        image: "https://randomuser.me/api/portraits/men/23.jpg",
-        name: "David Chen",
-        role: "CTO, Rebuild Pro",
-    },
-    {
-        text: "The peace of mind knowing every draw schedule complies with carrier guidelines is worth every penny.",
-        image: "https://randomuser.me/api/portraits/women/54.jpg",
-        name: "Lisa Johnson",
-        role: "Finance Manager, Elite Roofing",
-    },
-    {
-        text: "I was skeptical about AI in estimating, but the precision here is scary good. It catches things even my senior estimators miss.",
-        image: "https://randomuser.me/api/portraits/men/41.jpg",
-        name: "Marcus Thorne",
-        role: "Owner, Thorne General Contracting",
-    },
-    {
-        text: "Implementation was seamless. We were generating schedules within minutes of connecting our Xactimate account.",
-        image: "https://randomuser.me/api/portraits/men/38.jpg",
-        name: "James Wilson",
-        role: "Project Manager, Swift Restore",
-    },
-    {
-        text: "The clean data export feature allowed us to finally visualize our estimating KPIs in PowerBI. A game changer.",
-        image: "https://randomuser.me/api/portraits/women/29.jpg",
-        name: "Amanda Foster",
-        role: "Analytics Lead, ClaimFlow",
-    },
-    {
-        text: "Professional reports that look like they took hours to format, generated in seconds. My lenders love them.",
-        image: "https://randomuser.me/api/portraits/men/52.jpg",
-        name: "Ryan Park",
-        role: "CFO, Structure Builders",
-    },
-];
-
-
-const firstColumn = testimonials.slice(0, 3);
-const secondColumn = testimonials.slice(3, 6);
-const thirdColumn = testimonials.slice(6, 9);
+import { Star, ShieldCheck, Quote } from "lucide-react";
 
 export const Testimonials = () => {
+  const proof = [
+    {
+      metric: "Draw cycles cut from 38 days to 4 days.",
+      quote: "We had over $1.2M in outstanding lender draws choked in bank inspection cycles. BigLogic's AI Draw Scheduler parsed our Xactimate files and mapped them perfectly to bank milestones. We had the cash in our bank in 4 days. Absolutely life-changing for cash flow.",
+      author: "Greg S.",
+      role: "CEO, Apex Restoration",
+      location: "Dallas, Texas",
+      verified: true
+    },
+    {
+      metric: "Saved 18 hours of PM review per project.",
+      quote: "Deep material extraction used to take our Project Managers hours of manual reading. BigLogic isolates homeowner cabinetry, flooring, and paint specs instantly. We've eliminated all purchasing errors and completely freed up our team to focus on site execution.",
+      author: "Mark T.",
+      role: "COO, Titan Reconstruction",
+      location: "Orlando, Florida",
+      verified: true
+    },
+    {
+      metric: "99.8% compliance rate. Zero carrier pushbacks.",
+      quote: "We were skeptical about using AI for carrier-facing documents. But BigLogic's auditor engine is trained exactly on the top 10 insurance guidelines. We have processed 120+ estimates in 6 months without a single compliance rejection.",
+      author: "Sarah D.",
+      role: "Principal Adjuster, Elite Claims",
+      location: "Sacramento, California",
+      verified: true
+    }
+  ];
 
-    const { theme } = useTheme();
-    return (
-        <section id="testimonials" className="bg-background py-24 relative overflow-hidden">
-            {/* Background decorations */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(99,102,241,0.08),transparent_70%)]"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(168,85,247,0.05),transparent_70%)]"></div>
+  return (
+    <section id="testimonials" className="py-24 bg-[#FCFBFE] bg-grid-landeros border-b border-[#311081]/5 font-sans-landeros text-[#1C1629] relative overflow-hidden">
+      {/* Background radial glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-[#6D28D9]/3 to-[#4F46E5]/3 rounded-full blur-[120px] pointer-events-none" />
 
-            <div className="container z-10 mx-auto px-4 relative">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                    viewport={{ once: true }}
-                    className="flex flex-col items-center justify-center max-w-[540px] mx-auto mb-16"
-                >
-                    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 ${theme === "dark" ? "text-indigo-400" : "text-indigo-800"} text-sm font-medium mb-6`}>
-                        <MessageSquareQuote className="w-4 h-4" />
-                        <span>Trusted by Industry Leaders</span>
-                    </div>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-center text-foreground">
-                        Don't Just Take <br />
-                        <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme === "dark" ? "from-indigo-400 to-purple-400" : "from-indigo-800 to-purple-800"}`}>
-                            Our Word For It
-                        </span>
-                    </h2>
-                    <p className="text-center mt-6 text-foreground text-lg leading-relaxed">
-                        Join hundreds of restoration companies streamlining their workflows with BigLogic.ai.
-                    </p>
-                </motion.div>
+      <div className="container mx-auto px-4 max-w-7xl relative z-10">
+        
+        {/* Header */}
+        <div className="max-w-4xl text-left mb-20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F6F1FC] border border-[#311081]/10 text-xs font-bold text-[#311081] tracking-wide mb-6">
+            <span>CLIENT EVIDENCE BOARD</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-black mb-6 leading-[1.08] tracking-tight font-display-landeros text-[#311081]">
+            Bold Claims. <br />
+            Backed By Specific Proof.
+          </h2>
+          <p className="text-lg md:text-xl font-semibold text-[#3C354D] max-w-2xl leading-relaxed">
+            We don't deal in vague promises. Here is the exact data and direct feedback from active restoration owners operating commercial and residential operations.
+          </p>
+        </div>
 
-                <div className="flex justify-center gap-4 sm:gap-6 mt-8 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)] max-h-[600px] overflow-hidden">
-                    <TestimonialsColumn testimonials={firstColumn} duration={25} />
-                    <TestimonialsColumn testimonials={secondColumn} duration={35} className="hidden sm:block" />
-                    <TestimonialsColumn testimonials={thirdColumn} duration={30} />
+        {/* Testimonials Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {proof.map((item, index) => (
+            <div 
+              key={index} 
+              className="bg-white border border-[#311081]/8 p-8 shadow-landeros hover-premium-card rounded-3xl flex flex-col justify-between relative overflow-visible !overflow-visible transition-all duration-300 group"
+            >
+              {/* Giant Watermark Quote Decoration */}
+              <div className="absolute top-6 right-8 text-[#311081]/5 z-0 transition-colors group-hover:text-[#6D28D9]/10 pointer-events-none">
+                <Quote className="w-16 h-16 fill-current rotate-180" />
+              </div>
+
+              <div className="relative z-10">
+                {/* Stars */}
+                <div className="flex items-center gap-1 mb-6 text-yellow-500">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-current" />
+                  ))}
                 </div>
+
+                {/* Big Metric Callout */}
+                <h3 className="font-tech-landeros text-base md:text-lg font-bold mb-6 text-[#311081] leading-snug border-b border-[#311081]/5 pb-4">
+                  "{item.metric}"
+                </h3>
+
+                {/* Testimonial Quote */}
+                <p className="font-bold text-xs md:text-sm leading-relaxed text-[#1C1629] mb-8">
+                  "{item.quote}"
+                </p>
+              </div>
+
+              {/* Author Info */}
+              <div className="flex items-center justify-between border-t border-[#311081]/5 pt-5 mt-auto bg-[#F6F1FC]/20 -mx-8 -mb-8 p-6 rounded-b-[22px] relative z-10">
+                <div className="text-left">
+                  <h4 className="font-bold text-sm text-[#311081] font-tech-landeros">{item.author}</h4>
+                  <p className="text-xs font-bold text-[#3C354D] mt-0.5">{item.role}</p>
+                  <p className="text-[10px] font-bold text-[#6D28D9] uppercase font-tech-landeros mt-1">{item.location}</p>
+                </div>
+                {item.verified && (
+                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-[#311081]/10 text-[9px] font-bold uppercase tracking-wider text-[#311081] shrink-0 shadow-sm">
+                    <ShieldCheck className="w-3.5 h-3.5 text-green-500" />
+                    <span>VERIFIED</span>
+                  </span>
+                )}
+              </div>
+
             </div>
-        </section>
-    );
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
 };

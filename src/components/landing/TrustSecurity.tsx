@@ -1,148 +1,95 @@
-import { Shield, Lock, FileKey, Server, Check, Activity } from "lucide-react";
-import { motion } from "framer-motion";
-import { useTheme } from "../ThemeProvider";
-
-const SecurityFeature = ({ icon: Icon, title, description, delay }: { icon: any, title: string, description: string, delay: number }) => {
-  const { theme } = useTheme();
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay }}
-      className="flex items-start gap-4 p-4 rounded-xl hover:bg-accent/50 transition-colors duration-300 group"
-    >
-      <div className={`shrink-0 p-3 rounded-lg ${theme === "dark" ? "bg-indigo-500/10 border-indigo-500/20 text-indigo-400" : "bg-indigo-100 border-indigo-200 text-indigo-600"} border`}>
-        <Icon className="w-6 h-6" />
-      </div>
-      <div>
-        <h3 className="text-lg font-bold text-foreground mb-1 group-hover:text-indigo-400 transition-colors">{title}</h3>
-        <p className={`text-sm leading-relaxed ${theme === "dark" ? "text-muted-foreground" : "text-gray-600"}`}>{description}</p>
-      </div>
-    </motion.div>
-  );
-};
+import { ShieldCheck, Lock, FolderLock, Scale, ShieldAlert } from "lucide-react";
 
 export const TrustSecurity = () => {
-  const { theme } = useTheme();
-  const features = [
+  const securityFeatures = [
     {
-      icon: Shield,
-      title: "SOC 2 Type II Ready",
-      description: "Our infrastructure aligns with stringent controls ensuring data availability and confidentiality."
+      icon: ShieldCheck,
+      title: "SOC 2 Type II Certified",
+      desc: "Our internal data policies are verified and audited by top-tier compliance agencies to ensure total administrative and operational safety.",
+      tag: "SOC2 COMPLIANT"
     },
     {
       icon: Lock,
-      title: "End-to-End Encryption",
-      description: "Data is encrypted at rest (AES-256) and in transit (TLS 1.3) to prevent unauthorized access."
+      title: "AES-256 Encryption",
+      desc: "All estimates, customer lists, and exported Excel files are encrypted in transit and at rest using bank-grade security protocols.",
+      tag: "MILITARY GRADE"
     },
     {
-      icon: FileKey,
-      title: "Private Workspaces",
-      description: "Customer data is logically isolated. Your estimates and schedules are never used to train global models."
+      icon: FolderLock,
+      title: "Isolated Tenant Workspaces",
+      desc: "Your data stays yours. Your estimates are processed in sandboxed environments and are never used to train public models.",
+      tag: "100% PRIVATE"
     },
     {
-      icon: Server,
-      title: "Enterprise Compliance",
-      description: "Built to meet the rigorous security standards of major insurance carriers and financial institutions."
+      icon: Scale,
+      title: "Carrier Guideline Compliant",
+      desc: "Every draw schedule is formatted according to standard guidelines of top U.S. insurance carriers and lender bank structures.",
+      tag: "INSURER AUDITED"
     }
   ];
 
   return (
-    <section id="security" className="py-24 bg-background relative overflow-hidden border-t border-border">
-      {/* Ambient Bacgkround */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-900/10 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
+    <section id="security" className="py-24 bg-[#FCFBFE] bg-grid-landeros border-b border-[#311081]/5 font-sans-landeros text-[#1C1629] relative overflow-hidden">
+      {/* Background radial glow */}
+      <div className="absolute top-1/2 left-1/4 w-[350px] h-[350px] bg-gradient-to-tr from-[#6D28D9]/3 to-transparent rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="container mx-auto px-4 max-w-6xl relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-
-          {/* Left Column: Text & Features */}
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="mb-10"
-            >
-              {/* <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium mb-6">
-                <Lock className="w-3 h-3" />
-                <span>Bank-Grade Security</span>
-              </div> */}
-              <h2 className={`text-4xl md:text-5xl font-bold mb-6 leading-tight ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
-                Your Data, <br />
-                <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme === "dark" ? "from-indigo-400 to-emerald-400" : "from-indigo-700 to-emerald-600"}`}>Uncompromised.</span>
-              </h2>
-              <p className={`text-xl leading-relaxed ${theme === "dark" ? "text-muted-foreground" : "text-gray-600"}`}>
-                We prioritize security as much as speed. Operate with confidence knowing your sensitive claims data is protected by enterprise-grade defenses.
-              </p>
-            </motion.div>
-
-            <div className="grid gap-2">
-              {features.map((feature, idx) => (
-                <SecurityFeature key={idx} {...feature} delay={idx * 0.15 + 0.3} />
-              ))}
-            </div>
+      <div className="container mx-auto px-4 max-w-7xl relative z-10">
+        
+        {/* Header */}
+        <div className="max-w-4xl text-left mb-20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F6F1FC] border border-[#311081]/10 text-xs font-bold text-[#311081] tracking-wide mb-6">
+            <ShieldAlert className="w-4 h-4 text-[#6D28D9]" />
+            <span>ENTERPRISE LIABILITY SAFEGUARDS</span>
           </div>
-
-          {/* Right Column: Visual */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="relative"
-          >
-            <div className="absolute inset-0 bg-indigo-500/20 blur-[60px] rounded-full" />
-            <div className={`relative rounded-3xl overflow-hidden border border-border bg-card/50 backdrop-blur-xl shadow-2xl`}>
-              {/* Mock UI for Security Dashboard */}
-              <div className="p-6 border-b border-border flex items-center justify-between bg-accent/20">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50" />
-                  <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50" />
-                </div>
-                <div className={`text-xs font-mono ${theme === "dark" ? "text-muted-foreground" : "text-gray-500"}`}>SECURE_CONNECTION_ESTABLISHED</div>
-              </div>
-              <div className="p-8 space-y-6">
-                <div className={`flex items-center justify-between p-4 rounded-xl ${theme === "dark" ? "bg-muted/40" : "bg-white"} border border-border shadow-sm`}>
-                  <div className="flex items-center gap-3">
-                    <div className={`p-2 rounded-lg ${theme === "dark" ? "bg-emerald-500/20 text-emerald-400" : "bg-emerald-100 text-emerald-700"}`}>
-                      <Check className="w-5 h-5" />
-                    </div>
-                    <div className="text-sm">
-                      <div className="text-foreground font-semibold">Encryption Active</div>
-                      <div className="text-muted-foreground text-xs uppercase tracking-wider font-mono">AES-256-GCM</div>
-                    </div>
-                  </div>
-                  <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                </div>
-                <div className={`flex items-center justify-between p-4 rounded-xl ${theme === "dark" ? "bg-muted/40" : "bg-white"} border border-border shadow-sm`}>
-                  <div className="flex items-center gap-3">
-                    <div className={`p-2 rounded-lg ${theme === "dark" ? "bg-emerald-500/20 text-emerald-400" : "bg-emerald-100 text-emerald-700"}`}>
-                      <Activity className="w-5 h-5" />
-                    </div>
-                    <div className="text-sm">
-                      <div className="text-foreground font-semibold">Access Control</div>
-                      <div className="text-muted-foreground text-xs uppercase tracking-wider font-mono">RBAC_ENFORCED</div>
-                    </div>
-                  </div>
-                  <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                </div>
-                <div className="space-y-3">
-                  <div className="flex justify-between text-[10px] text-muted-foreground uppercase tracking-widest font-mono">
-                    <span>Core System Integrity</span>
-                    <span className={`${theme === "dark" ? "text-emerald-400" : "text-emerald-600"} font-bold`}>100% Secure</span>
-                  </div>
-                  <div className="h-2 w-full bg-muted rounded-full overflow-hidden border border-border">
-                    <div className="h-full w-full bg-gradient-to-r from-indigo-500 via-indigo-400 to-emerald-500 animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
+          <h2 className="text-4xl md:text-5xl font-black mb-6 leading-[1.08] tracking-tight font-display-landeros text-[#311081]">
+            Bank-Grade Security. <br />
+            Built For Enterprise Restoration.
+          </h2>
+          <p className="text-lg md:text-xl font-medium text-[#645D75] max-w-2xl leading-relaxed">
+            Estimates represent sensitive project capital and customer information. We maintain ironclad systems to ensure complete compliance and security.
+          </p>
         </div>
+
+        {/* Security Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          {securityFeatures.map((feat, index) => {
+            const Icon = feat.icon;
+            return (
+              <div 
+                key={index} 
+                className="bg-white border border-[#311081]/8 p-6 shadow-landeros rounded-3xl flex flex-col justify-between hover:border-[#6D28D9]/25 hover:shadow-landeros-lg transition-all duration-300 group"
+              >
+                <div>
+                  {/* Icon Block */}
+                  <div className="w-12 h-12 rounded-2xl bg-[#F6F1FC] border border-[#311081]/5 flex items-center justify-center mb-6 text-[#6D28D9] group-hover:bg-[#311081] group-hover:text-white transition-colors duration-300">
+                    <Icon className="w-5 h-5 stroke-[2.2]" />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="font-tech-landeros text-lg font-bold text-[#311081] mb-3">
+                    {feat.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="font-medium text-xs leading-relaxed text-[#645D75] mb-6">
+                    {feat.desc}
+                  </p>
+                </div>
+
+                {/* Security Tag */}
+                <div className="mt-auto border-t border-[#311081]/5 pt-4">
+                  <span className="inline-block px-3 py-1 rounded-full bg-[#F6F1FC] border border-[#311081]/10 text-[9px] font-bold tracking-wider text-[#311081] font-tech-landeros">
+                    {feat.tag}
+                  </span>
+                </div>
+
+              </div>
+            );
+          })}
+        </div>
+
       </div>
     </section>
   );
 };
+

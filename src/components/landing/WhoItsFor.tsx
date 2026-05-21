@@ -1,102 +1,135 @@
-import { Building2, HardHat, Calculator, Briefcase, ChevronRight } from "lucide-react";
-import { motion } from "framer-motion";
-import { useTheme } from "../ThemeProvider";
+import { Check, X, Users2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-
-const ProfessionalCard = ({ label, icon: Icon, description, delay }: { label: string, icon: any, description: string, delay: number }) => {
-  const { theme } = useTheme();
-  const navigate = useNavigate();
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay }}
-      whileHover={{ y: -5 }}
-      className="group relative p-8 rounded-3xl bg-card/50 border border-border hover:border-indigo-500/50 hover:bg-card transition-all duration-300 overflow-hidden"
-    >
-      {/* Hover Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 via-indigo-500/0 to-purple-500/0 group-hover:from-indigo-500/10 group-hover:to-purple-500/10 transition-all duration-500" />
-
-      <div className="relative z-10 flex flex-col items-center text-center">
-        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${theme === "dark" ? "from-indigo-500/20 to-purple-500/20" : "from-indigo-100 to-purple-100"} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 ring-1 ring-border group-hover:ring-indigo-500/50`}>
-          <Icon className={`w-8 h-8 ${theme === "dark" ? "text-white group-hover:text-indigo-400" : "text-indigo-600 group-hover:text-indigo-700"} transition-colors`} />
-        </div>
-
-        <h3 className="text-xl font-bold text-foreground mb-3">{label}</h3>
-        <p className={`text-sm leading-relaxed mb-6 ${theme === "dark" ? "text-muted-foreground" : "text-gray-600 font-medium"}`}>
-          {description}
-        </p>
-
-        <div onClick={() => navigate("/dashboard")} className={`cursor-pointer flex items-center ${theme === "dark" ? "text-indigo-400" : "text-indigo-600"} text-sm font-medium opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300`}>
-          Get Started <ChevronRight className="w-4 h-4 ml-1" />
-        </div>
-      </div>
-    </motion.div>
-  )
-};
-
 export const WhoItsFor = () => {
-  const { theme } = useTheme();
-  const professionals = [
+  const navigate = useNavigate();
+
+  const fits = [
     {
-      icon: HardHat,
-      label: "Restoration Contractors",
-      description: "Automate Xactimate workflows to focus on rebuilding, not paperwork."
+      title: "Active Restoration Contractors",
+      desc: "Contractors managing residential or commercial claims who are sick of wasting 15+ hours a week manually copy-pasting estimate details."
     },
     {
-      icon: Building2,
-      label: "Construction Firms",
-      description: "Scale your estimating capacity without adding administrative overhead."
+      title: "Firms Struggling With Lender Draws",
+      desc: "Owners whose working capital is constantly choked because banks take weeks to review disorganized draw schedules and line items."
     },
     {
-      icon: Calculator,
-      label: "Insurance Estimators",
-      description: "Ensure carrier-grade accuracy and compliance in every line item."
+      title: "Growth-Minded Estimators",
+      desc: "Estimating teams who want to process 5x more files per week, avoid human purchasing errors, and guarantee carrier-compliant outputs."
+    }
+  ];
+
+  const nonFits = [
+    {
+      title: "Contractors Who Enjoy Manual Admin",
+      desc: "Firms that prefer keeping estimators chained to spreadsheets typing line items rather than scheduling projects and completing jobs."
     },
     {
-      icon: Briefcase,
-      label: "Operations Teams",
-      description: "Streamline project management with audit-ready data at your fingertips."
+      title: "Firms With Infinite Cash Reserves",
+      desc: "If your bank account has millions in excess liquidity and you don't care if a lender takes 60 days to pay out your draws, you don't need us."
+    },
+    {
+      title: "Magic Bullet Seekers",
+      desc: "Our AI is highly optimized, but it requires estimate files as inputs. It streamlines estimates and cash flows, but it won't do physical construction."
     }
   ];
 
   return (
-    <section id="who-its-for" className="py-32 bg-background relative overflow-hidden">
-      {/* Ambient Glow */}
-      <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] ${theme === "dark" ? "bg-indigo-900/20" : "bg-indigo-500/10"} blur-[120px] rounded-full`} />
+    <section id="who-its-for" className="py-24 bg-[#FCFBFE] bg-grid-landeros border-b border-[#311081]/5 font-sans-landeros text-[#1C1629] relative overflow-hidden">
+      {/* Background radial glow */}
+      <div className="absolute bottom-10 left-10 w-[350px] h-[350px] bg-gradient-to-tr from-[#6D28D9]/3 to-transparent rounded-full blur-[100px] pointer-events-none" />
 
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
-        <div className="text-center mb-20">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold text-foreground mb-6"
-          >
-            Built For <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme === "dark" ? "from-indigo-400 to-purple-400" : "from-indigo-800 to-purple-800"}`}>Industry Leaders</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-xl text-foreground max-w-2xl mx-auto"
-          >
-            Empowering every stakeholder in the restoration ecosystem with diverse intelligence.
-          </motion.p>
+        
+        {/* Header */}
+        <div className="max-w-4xl text-left mb-20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F6F1FC] border border-[#311081]/10 text-xs font-bold text-[#311081] tracking-wide mb-6">
+            <Users2 className="w-4 h-4 text-[#6D28D9]" />
+            <span>QUALIFICATION FILTER</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-black mb-6 leading-[1.08] tracking-tight font-display-landeros text-[#311081]">
+            Is BigLogicAI Actually <br />
+            Right For Your Business?
+          </h2>
+          <p className="text-lg md:text-xl font-semibold text-[#3C354D] max-w-2xl leading-relaxed">
+            Let's be completely transparent. We built this tool for high-performance reconstruction teams. Read below to see if your operation fits our model.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {professionals.map((prof, idx) => (
-            <ProfessionalCard
-              key={idx}
-              {...prof}
-              delay={idx * 0.1}
-            />
-          ))}
+        {/* Stark Split Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto items-stretch">
+          
+          {/* WHO WE HELP */}
+          <div className="bg-white border border-[#311081]/8 p-8 rounded-3xl flex flex-col justify-between text-left relative overflow-hidden hover-premium-card z-10">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-green-500/5 to-transparent rounded-full pointer-events-none" />
+            
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-green-50 border border-green-500/10 text-green-700 font-bold uppercase tracking-wider text-[10px] mb-8 font-tech-landeros">
+                <Check className="w-3.5 h-3.5 stroke-[3]" />
+                WHO THIS IS FOR:
+              </div>
+              
+              <div className="space-y-8">
+                {fits.map((fit, i) => (
+                  <div key={i} className="flex gap-4 items-start">
+                    <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center shrink-0 mt-1 text-white">
+                      <Check className="w-3.5 h-3.5 stroke-[3]" />
+                    </div>
+                    <div>
+                      <h4 className="font-tech-landeros text-lg font-bold text-[#311081] mb-1">{fit.title}</h4>
+                      <p className="font-semibold text-xs text-[#3C354D] leading-relaxed">{fit.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="border-t border-[#311081]/5 pt-6 mt-12">
+              <button
+                onClick={() => navigate("/signup")}
+                className="w-full py-4 text-center font-bold uppercase text-xs tracking-widest btn-landeros-primary"
+              >
+                THIS IS ME &mdash; LET'S START FREE
+              </button>
+            </div>
+
+          </div>
+
+          {/* WHO WE DO NOT HELP */}
+          <div className="bg-[#F6F1FC]/20 border border-[#311081]/5 p-8 rounded-3xl flex flex-col justify-between text-left relative hover-premium-card z-10">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-red-500/5 to-transparent rounded-full pointer-events-none" />
+            
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#311081]/5 text-[#311081]/60 font-bold uppercase tracking-wider text-[10px] mb-8 font-tech-landeros">
+                <X className="w-3.5 h-3.5 stroke-[3]" />
+                WHO WE CANNOT HELP:
+              </div>
+              
+              <div className="space-y-8">
+                {nonFits.map((fit, i) => (
+                  <div key={i} className="flex gap-4 items-start opacity-70">
+                    <div className="w-6 h-6 rounded-full bg-[#311081]/10 flex items-center justify-center shrink-0 mt-1 text-[#311081]/60">
+                      <X className="w-3.5 h-3.5 stroke-[3]" />
+                    </div>
+                    <div>
+                      <h4 className="font-tech-landeros text-lg font-bold text-[#311081]/70 mb-1">{fit.title}</h4>
+                      <p className="font-semibold text-xs text-[#3C354D]/90 leading-relaxed">{fit.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="border-t border-[#311081]/5 pt-6 mt-12 relative z-10">
+              <div className="w-full py-4 text-center font-bold uppercase text-xs tracking-widest text-[#311081]/40 border border-[#311081]/10 rounded-full bg-[#FCFBFE] select-none">
+                NOT A FIT FOR OUR SYSTEM
+              </div>
+            </div>
+
+          </div>
+
         </div>
+
       </div>
     </section>
   );

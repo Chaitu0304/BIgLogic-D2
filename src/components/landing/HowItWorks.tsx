@@ -1,182 +1,108 @@
-import React, { useRef } from 'react';
-import { Search, Calendar, Clock, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { motion, useInView } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { useTheme } from "../ThemeProvider";
-
-const StepCard = ({ step, title, description, icon, index }: { step: string, title: string, description: string, icon: React.ReactElement, index: number }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.2, ease: "easeOut" }}
-      className="relative flex flex-col items-center text-center group"
-    >
-      {/* Step Number with Indigo Ring */}
-      <div className="relative mb-6">
-        <div className="w-20 h-20 rounded-full bg-card/80 border-2 border-indigo-500/30 flex items-center justify-center group-hover:bg-indigo-600 group-hover:border-indigo-500 transition-all duration-300 shadow-[0_0_20px_rgba(99,102,241,0.15)] group-hover:shadow-[0_0_30px_rgba(99,102,241,0.5)]">
-          <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-foreground to-muted-foreground group-hover:text-white group-hover:bg-none transition-colors">{step}</div>
-        </div>
-        {/* Icon */}
-        <div className="absolute -top-2 -right-2 bg-indigo-500 p-2 rounded-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
-          {React.cloneElement(icon, { className: "w-5 h-5 text-white" })}
-        </div>
-      </div>
-
-      {/* Content */}
-      <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-indigo-400 transition-colors duration-300">
-        {title}
-      </h3>
-      <p className="text-muted-foreground leading-relaxed max-w-sm">
-        {description}
-      </p>
-    </motion.div>
-  );
-};
+import { Upload, Cpu, DollarSign, ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const HowItWorks = () => {
-  const { theme } = useTheme();
   const navigate = useNavigate();
-  const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
   const steps = [
     {
-      step: "1",
-      title: "Connect Xactimate",
-      description: "Securely link your Xactimate instance or upload ESX files directly to our encrypted platform.",
-      icon: <Search className="w-6 h-6" />
+      num: "01",
+      icon: Upload,
+      title: "Upload The Estimate",
+      description: "Drag and drop any standard PDF estimate or ESX file directly into the secure portal. Zero manual mapping or pre-formatting is required.",
+      badge: "Supports PDF & ESX",
     },
     {
-      step: "2",
-      title: "AI Analysis",
-      description: "Our Gemini-powered agents parse line items, pricing, and materials in real-time.",
-      icon: <CheckCircle2 className="w-6 h-6" />
+      num: "02",
+      icon: Cpu,
+      title: "Agents Go To Work",
+      description: "Our Gemini-powered agents parse the estimate, extract hidden material items, verify carrier compliance, and build the lender-draw schedules.",
+      badge: "Average time: 45 seconds",
     },
     {
-      step: "3",
-      title: "Instant Output",
-      description: "Receive audit-ready draw schedules and material lists formatted for your specific workflow.",
-      icon: <Clock className="w-6 h-6" />
+      num: "03",
+      icon: DollarSign,
+      title: "Submit & Get Paid",
+      description: "Download ready-to-use, professional Excel spreadsheets, draw schedules, and carrier-ready compliance audit files to accelerate funding.",
+      badge: "Draws cleared in 48 hours",
     }
   ];
 
   return (
-    <section id='how-it-works' className="relative py-24 bg-background text-foreground overflow-hidden">
-      {/* Background with overlay */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/40 to-background z-10" />
-        <img
-          src='/ai-core.png' // Utilizing the generated asset as ambient background if appropriate or keeping it cleaner
-          alt='ambient-bg'
-          className="w-full h-full object-cover opacity-5 blur-3xl scale-125"
-        />
-      </div>
+    <section id="how-it-works" className="py-24 bg-[#FCFBFE] bg-grid-landeros border-b border-[#311081]/5 font-sans-landeros text-[#1C1629] relative overflow-hidden">
+      {/* Accent Glow */}
+      <div className="absolute top-10 right-0 w-[400px] h-[400px] bg-gradient-to-bl from-[#6D28D9]/5 to-transparent rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div
-          ref={containerRef}
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center mb-20 max-w-3xl mx-auto"
-        >
-          {/* <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/60 mb-6 backdrop-blur-sm">
-            <Clock className="w-4 h-4" />
-            <span className="text-sm font-medium">Efficiency Redefined</span>
-          </div> */}
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Intelligent Automation
+      <div className="container mx-auto px-4 max-w-7xl relative z-10">
+        
+        {/* Header */}
+        <div className="max-w-4xl text-left mb-20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F6F1FC] border border-[#311081]/10 text-xs font-bold text-[#311081] tracking-wide mb-6">
+            <span>ZERO COMPLEXITY</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-black mb-6 leading-[1.08] tracking-tight font-display-landeros text-[#311081]">
+            From PDF Upload To <br />
+            Approved Lender Draws. In 3 Steps.
           </h2>
-          <p className="text-xl md:text-2xl font-light text-muted-foreground mb-6">
-            From Upload to Actionable Data in <span className={`${theme === "dark" ? "text-indigo-400" : "text-indigo-600"} font-bold`}>Seconds</span>
+          <p className="text-lg md:text-xl font-semibold text-[#3C354D] max-w-2xl leading-relaxed">
+            No long training programs. No complicated configurations. Just drop your file, watch the agents extract the details, and cash out draws immediately.
           </p>
-          <p className={`text-lg leading-relaxed max-w-2xl mx-auto ${theme === "dark" ? "text-white/80" : "text-gray-600"}`}>
-            Bypass the manual data entry bottleneck. Our AI handles the heavy lifting so your team can focus on adjusting and building.
-          </p>
-        </motion.div>
-
-        {/* Steps Section - Desktop */}
-        <div className="hidden lg:block relative max-w-6xl mx-auto">
-          {/* Connecting Line */}
-          <div className="absolute top-10 left-[16%] w-[68%] h-0.5 bg-border/50">
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
-              className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 origin-left"
-            />
-          </div>
-
-          <div className="grid grid-cols-3 gap-12 relative z-10">
-            {steps.map((step, index) => (
-              <React.Fragment key={index}>
-                <StepCard {...step} index={index} />
-              </React.Fragment>
-            ))}
-          </div>
         </div>
 
-        {/* Steps Section - Mobile */}
-        <div className="lg:hidden space-y-12">
-          {steps.map((step, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="flex items-start space-x-6 group"
-            >
-              {/* Step Number */}
-              <div className="flex-shrink-0 relative">
-                <div className="w-16 h-16 rounded-full bg-card border border-indigo-500/30 flex items-center justify-center group-hover:bg-indigo-600 group-hover:border-indigo-500 transition-all duration-300 shadow-[0_0_15px_rgba(99,102,241,0.15)]">
-                  <div className="text-foreground text-xl font-bold">{step.step}</div>
-                </div>
-                {/* Icon */}
-                <div className="absolute -top-2 -right-2 bg-indigo-500 p-1.5 rounded-lg shadow-md">
-                  {React.cloneElement(step.icon, { className: "w-4 h-4 text-white" })}
-                </div>
-              </div>
+        {/* Timeline Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto relative">
+          {/* Connector lines on desktop */}
+          <div className="hidden lg:block absolute top-1/2 left-[15%] right-[15%] h-0.5 border-t border-dashed border-[#311081]/15 z-0 -translate-y-12" />
 
-              {/* Content */}
-              <div className="flex-1 pt-2">
-                <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-indigo-400 transition-colors duration-300">
-                  {step.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {step.description}
-                </p>
+          {steps.map((step, index) => {
+            const Icon = step.icon;
+            return (
+              <div 
+                key={index} 
+                className="bg-white border border-[#311081]/8 p-8 rounded-3xl flex flex-col justify-between hover-premium-card z-10 group"
+              >
+                <div>
+                  {/* Step Header */}
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-14 h-14 rounded-2xl bg-[#F6F1FC] border border-[#311081]/5 flex items-center justify-center text-[#311081] group-hover:bg-[#311081] group-hover:text-white transition-all duration-300 shadow-sm">
+                      <Icon className="w-6 h-6 stroke-[2]" />
+                    </div>
+                    <span className="font-display-landeros text-3xl font-black text-[#6D28D9]/40 group-hover:text-[#6D28D9] transition-colors">{step.num}</span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="font-tech-landeros text-xl font-bold mb-4 text-[#311081]">
+                    {step.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="font-semibold text-sm leading-relaxed text-[#3C354D] mb-6">
+                    {step.description}
+                  </p>
+                </div>
+
+                {/* Badge Tag */}
+                <div className="mt-4 pt-4 border-t border-[#311081]/5">
+                  <span className="inline-block px-3 py-1 bg-[#F6F1FC] border border-[#311081]/10 rounded-full text-[10px] font-bold uppercase tracking-wider text-[#311081]">
+                    {step.badge}
+                  </span>
+                </div>
+
               </div>
-            </motion.div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="text-center mt-24"
-        >
+        {/* Dynamic CTA box at bottom */}
+        <div className="mt-16 text-center">
           <button
-            onClick={() => navigate("/login")}
-            className="group relative px-8 py-4 bg-primary text-primary-foreground font-bold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(var(--primary),0.3)] overflow-hidden"
+            onClick={() => navigate("/signup")}
+            className="btn-landeros-primary h-14 px-8 text-sm inline-flex items-center gap-2"
           >
-            <span className="relative z-10 flex items-center gap-2">
-              Start Automating Now
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </span>
-            <div className="absolute inset-0 bg-primary/10 bg-opacity-0 group-hover:bg-opacity-100 transition-opacity duration-300" />
+            CLAIM YOUR 3 FREE UPLOADS <ArrowRight className="w-4 h-4" />
           </button>
-        </motion.div>
+        </div>
+
       </div>
     </section>
   );

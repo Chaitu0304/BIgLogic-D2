@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Menu, X, ShieldCheck } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTheme } from "@/components/ThemeProvider";
-import { ThemeToggle } from "../ThemeToggle";
 
 export const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,7 +23,6 @@ export const Navbar = () => {
 
     if (location.pathname !== "/") {
       navigate("/");
-      // Short timeout to allow navigation to complete before scrolling
       setTimeout(() => {
         const element = document.getElementById(id);
         if (element) {
@@ -43,155 +38,145 @@ export const Navbar = () => {
   };
 
   const navLinks = [
-    { name: "Services", id: "services" },
+    { name: "Automations", id: "services" },
     { name: "How it Works", id: "how-it-works" },
-    { name: "Testimonials", id: "testimonials" },
+    { name: "ROI Math", id: "roi-calculator" },
+    { name: "Evidence", id: "testimonials" },
     { name: "Who It's For", id: "who-its-for" },
-    { name: "Why Us", id: "why-us" },
-    { name: "Security", id: "security" },
     { name: "FAQ", id: "faq" },
   ];
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || mobileMenuOpen
-        ? "bg-background/80 backdrop-blur-md border-b border-border"
-        : "bg-transparent border-transparent"
+    <header className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[96%] lg:w-[95%] xl:w-[86%] lg:max-w-[1080px] xl:max-w-[1200px] transition-all duration-300">
+      {/* Floating Glass Container Capsule */}
+      <div 
+        className={`rounded-full border border-[#311081]/10 transition-all duration-300 px-5 py-2 flex items-center justify-between bg-glass-landeros ${
+          isScrolled 
+            ? "shadow-landeros-lg bg-white/95" 
+            : "shadow-landeros bg-white/80"
         }`}
-    >
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 group">
-          <img src={theme === "dark" ? "/logo.png" : "/logo-light-theme.png"} width="160px" height="160px" alt="BigLogic Logo" />
-        </Link>
-        {/* Desktop Menu */}
-        <div className={`hidden lg:flex items-center gap-6 text-sm font-medium ${theme === "dark" ? "text-muted-foreground" : "text-foreground"}`}>
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={`#${link.id}`}
-              onClick={(e) => scrollToSection(e, link.id)}
-              className="hover:text-foreground hover:text-indigo-400 transition-colors"
-            >
-              {link.name}
-            </a>
-          ))}
-        </div>
-
-        <div className="hidden lg:flex items-center gap-4">
-          <ThemeToggle />
-          {
-            localStorage.getItem("token") ? (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => navigate("/dashboard")}
-                className={`${theme === "dark" ? "text-muted-foreground" : "text-foreground"
-                  } hover:text-foreground hover:bg-accent`}
+      >
+        <div className="flex items-center justify-between w-full">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2 group shrink-0">
+            <span className="font-display-landeros text-base md:text-lg font-bold tracking-tight flex items-center gap-0.5 text-[#311081] whitespace-nowrap">
+              BigLogic<span className="text-[#6D28D9]">AI</span>
+            </span>
+          </Link>
+ 
+          {/* Desktop Menu */}
+          <div className="hidden lg:flex items-center gap-3.5 xl:gap-5 text-[9.5px] xl:text-[10px] font-bold uppercase tracking-widest text-[#645D75] whitespace-nowrap shrink-0">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={`#${link.id}`}
+                onClick={(e) => scrollToSection(e, link.id)}
+                className="hover:text-[#311081] transition-colors relative py-1 px-0.5 whitespace-nowrap shrink-0"
               >
-                Dashboard
-              </Button>
+                {link.name}
+              </a>
+            ))}
+          </div>
+ 
+          {/* Action Buttons */}
+          <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0 whitespace-nowrap">
+            {localStorage.getItem("token") ? (
+              <button
+                onClick={() => navigate("/dashboard")}
+                className="px-3.5 xl:px-4 py-2 text-[9.5px] xl:text-[10px] font-bold btn-landeros-primary flex items-center gap-1.5 group shrink-0"
+              >
+                DASHBOARD <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
+              </button>
             ) : (
               <>
-                <Button
-                  variant="ghost"
-                  size="sm"
+                <button
                   onClick={() => navigate("/login")}
-                  className={`${theme === "dark" ? "text-muted-foreground" : "text-foreground"
-                    } hover:text-foreground hover:bg-accent`}
+                  className="px-2 xl:px-3 py-2 text-[9.5px] xl:text-[10px] font-bold text-[#311081] hover:text-[#240b61] transition-colors uppercase tracking-widest font-sans-landeros shrink-0"
                 >
-                  Sign In
-                </Button>
-                <Button
-                  size="sm"
+                  SIGN IN
+                </button>
+                <button
                   onClick={() => navigate("/signup")}
-                  className={`${theme === "dark" ? "bg-primary" : "bg-primary"
-                    } text-primary-foreground hover:bg-primary/90 transition-colors`}
+                  className="px-4 xl:px-5 py-2.5 text-[9.5px] xl:text-[10px] font-bold btn-landeros-primary flex items-center gap-1.5 group shrink-0"
                 >
-                  Get Started
-                </Button>
-              </>)}
+                  GET STARTED <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
+                </button>
+              </>
+            )}
+          </div>
+ 
+          {/* Mobile Menu Toggle */}
+          <div className="flex items-center lg:hidden">
+            <button
+              className="p-2 rounded-full bg-white text-[#311081] border border-[#311081]/10 hover:bg-[#F6F1FC] transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            </button>
+          </div>
         </div>
-
-        {/* Mobile Menu Toggle */}
-        <button
-          className={`lg:hidden p-2 ${theme === "dark" ? "text-muted-foreground" : "text-foreground"
-            } hover:bg-accent rounded-lg transition-colors`}
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
       </div>
-
-      {/* Mobile Menu */}
+ 
+      {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-background border-t border-border overflow-hidden"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="absolute top-16 left-2 right-2 z-40 lg:hidden p-5 bg-glass-landeros border border-[#311081]/15 rounded-3xl shadow-landeros-lg bg-white/95"
           >
-            <div className="container mx-auto px-4 py-8 flex flex-col gap-6">
+            <div className="flex flex-col gap-3">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={`#${link.id}`}
                   onClick={(e) => scrollToSection(e, link.id)}
-                  className={`text-lg font-medium ${theme === "dark" ? "text-muted-foreground" : "text-foreground"
-                    } hover:text-indigo-400 transition-colors`}
+                  className="text-xs font-bold uppercase tracking-wider text-[#645D75] hover:text-[#311081] py-2 transition-colors border-b border-[#311081]/5 last:border-0"
                 >
                   {link.name}
                 </a>
               ))}
-              <div className="flex items-center justify-between">
-                <span className={`text-sm font-medium ${theme === "dark" ? "text-muted-foreground" : "text-foreground"}`}>Appearance</span>
-                <ThemeToggle />
-              </div>
-              <div className="h-px bg-border my-2" />
-              <div className="flex flex-col gap-4">
-                {
-                  localStorage.getItem("token") ? (
-                    <Button
-                      variant="ghost"
+              <div className="h-px bg-[#311081]/10 my-1" />
+              <div className="flex flex-col gap-2 pt-1">
+                {localStorage.getItem("token") ? (
+                  <button
+                    onClick={() => {
+                      navigate("/dashboard");
+                      setMobileMenuOpen(false);
+                    }}
+                    className="w-full py-2.5 text-center text-xs font-bold btn-landeros-primary"
+                  >
+                    DASHBOARD
+                  </button>
+                ) : (
+                  <>
+                    <button
                       onClick={() => {
-                        navigate("/dashboard");
+                        navigate("/login");
                         setMobileMenuOpen(false);
                       }}
-                      className={`justify-start ${theme === "dark" ? "text-muted-foreground" : "text-foreground"
-                        } hover:text-foreground hover:bg-accent`}
+                      className="w-full py-2.5 text-center text-xs font-bold text-[#311081] border border-[#311081]/10 rounded-full hover:bg-[#F6F1FC] transition-colors"
                     >
-                      Dashboard
-                    </Button>
-                  ) : (
-                    <>
-                      <Button
-                        variant="ghost"
-                        onClick={() => {
-                          navigate("/login");
-                          setMobileMenuOpen(false);
-                        }}
-                        className={`justify-start ${theme === "dark" ? "text-muted-foreground" : "text-foreground"
-                          } hover:text-foreground hover:bg-accent`}
-                      >
-                        Sign In
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          navigate("/signup");
-                          setMobileMenuOpen(false);
-                        }}
-                        className={`bg-indigo-600 text-white hover:bg-indigo-500 w-full`}
-                      >
-                        Get Started
-                      </Button>
-                    </>
-                  )}
+                      SIGN IN
+                    </button>
+                    <button
+                      onClick={() => {
+                        navigate("/signup");
+                        setMobileMenuOpen(false);
+                      }}
+                      className="w-full py-2.5 text-center text-xs font-bold btn-landeros-primary flex items-center justify-center gap-1"
+                    >
+                      START FREE NOW <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav >
+    </header>
   );
 };

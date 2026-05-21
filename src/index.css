@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
 #root {
   min-height: 100vh;
 }
@@ -147,3 +145,204 @@ All colors MUST be HSL.
 *::-webkit-scrollbar {
   display: none;
 }
+
+/* ==========================================================================
+   LanderOS Premium SaaS Style Overrides & Utilities
+   ========================================================================== */
+
+.theme-landeros {
+  --bg-pearl: #FCFBFE;
+  --fg-charcoal: #1C1629;
+  --brand-purple: #311081;
+  --brand-violet: #6D28D9;
+  --brand-indigo: #4F46E5;
+  --bg-lavender: #F6F1FC;
+  --text-muted: #645D75;
+  
+  background-color: var(--bg-pearl);
+  color: var(--fg-charcoal);
+  font-family: 'Satoshi', sans-serif;
+  min-height: 100vh;
+  letter-spacing: -0.01em;
+}
+
+/* Typography mappings for LanderOS */
+.theme-landeros h1,
+.theme-landeros h2,
+.theme-landeros .font-display-landeros {
+  font-family: 'Outfit', sans-serif !important;
+  font-weight: 900 !important; /* Ultra-Bold, high-impact geometric style */
+  letter-spacing: -0.04em !important;
+  color: var(--brand-purple) !important;
+  text-transform: uppercase !important;
+}
+
+.theme-landeros h3,
+.theme-landeros h4,
+.theme-landeros .font-tech-landeros {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  color: var(--brand-purple) !important;
+  text-transform: uppercase !important;
+}
+
+.theme-landeros .font-sans-landeros,
+.theme-landeros p,
+.theme-landeros span,
+.theme-landeros li,
+.theme-landeros a {
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* LanderOS Fine Grid Background */
+.theme-landeros .bg-grid-landeros {
+  background-size: 60px 60px;
+  background-image: 
+    linear-gradient(to right, rgba(49, 16, 129, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(49, 16, 129, 0.02) 1px, transparent 1px);
+}
+
+/* Fine hairline borders */
+.theme-landeros .border-landeros {
+  border: 1px solid rgba(49, 16, 129, 0.06) !important;
+}
+
+.theme-landeros .border-landeros-purple {
+  border: 1px solid rgba(49, 16, 129, 0.12) !important;
+}
+
+/* Ultra-soft, multi-layered diffused shadows */
+.theme-landeros .shadow-landeros {
+  box-shadow: 0 15px 35px -5px rgba(49, 16, 129, 0.03), 0 5px 15px -3px rgba(49, 16, 129, 0.01) !important;
+}
+
+.theme-landeros .shadow-landeros-lg {
+  box-shadow: 0 25px 60px -10px rgba(49, 16, 129, 0.05), 0 10px 20px -5px rgba(49, 16, 129, 0.02) !important;
+}
+
+.theme-landeros .shadow-landeros-glow {
+  box-shadow: 0 0 50px -10px rgba(109, 40, 217, 0.06) !important;
+}
+
+/* Glassmorphism Capsule definitions */
+.theme-landeros .bg-glass-landeros {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Premium LanderOS Buttons */
+.theme-landeros .btn-landeros-primary {
+  font-family: 'Space Grotesk', sans-serif !important;
+  background-color: var(--brand-purple) !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  border-radius: 9999px !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  box-shadow: 0 8px 20px -6px rgba(49, 16, 129, 0.3) !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.theme-landeros .btn-landeros-primary:hover {
+  transform: translateY(-2px) scale(1.01) !important;
+  background-color: var(--brand-violet) !important; /* Elegant background-color fade to violet! */
+  box-shadow: 0 15px 35px -5px rgba(109, 40, 217, 0.45), 0 0 20px 2px rgba(109, 40, 217, 0.2) !important; /* Premium deep violet glow! */
+}
+
+.theme-landeros .btn-landeros-primary:active {
+  transform: translateY(0) scale(0.98) !important;
+}
+
+.theme-landeros .btn-landeros-secondary {
+  font-family: 'Space Grotesk', sans-serif !important;
+  background-color: var(--bg-lavender) !important;
+  color: var(--brand-purple) !important;
+  font-weight: 700 !important;
+  border-radius: 9999px !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  border: 1px solid rgba(49, 16, 129, 0.05) !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.theme-landeros .btn-landeros-secondary:hover {
+  transform: translateY(-2px) scale(1.01) !important;
+  background-color: #ebdff7 !important;
+  border-color: rgba(109, 40, 217, 0.3) !important;
+  box-shadow: 0 10px 25px -5px rgba(109, 40, 217, 0.15) !important;
+}
+
+.theme-landeros .btn-landeros-secondary:active {
+  transform: translateY(0) scale(0.98) !important;
+}
+
+/* Utility to support rotated labels for the vertical background equalizer bars */
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* Deep hover shadow transitions globally */
+.theme-landeros .hover-premium-card {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.theme-landeros .hover-premium-card:hover {
+  transform: translateY(-8px) scale(1.01) !important;
+  border-color: rgba(109, 40, 217, 0.5) !important;
+  box-shadow: 0 45px 90px -15px rgba(49, 16, 129, 0.38), 0 15px 35px -5px rgba(109, 40, 217, 0.18), 0 0 30px 2px rgba(109, 40, 217, 0.12) !important;
+}
+
+/* Custom premium range slider */
+.slider-premium {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 9999px;
+  background: #F6F1FC;
+  outline: none;
+  border: 1px solid rgba(49, 16, 129, 0.08);
+  transition: all 0.2s;
+}
+
+.slider-premium::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #311081;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 4px 10px rgba(49, 16, 129, 0.25);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slider-premium::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  background: #6D28D9;
+  box-shadow: 0 6px 15px rgba(109, 40, 217, 0.4);
+}
+
+.slider-premium::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #311081;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 4px 10px rgba(49, 16, 129, 0.25);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.slider-premium::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  background: #6D28D9;
+  box-shadow: 0 6px 15px rgba(109, 40, 217, 0.4);
+}
+
+
+
+
