@@ -71,14 +71,14 @@ export const TrustSecurity = () => {
                   </h3>
 
                   {/* Description */}
-                  <p className="font-medium text-xs leading-relaxed text-[#645D75] mb-6">
+                  <p className="font-medium text-sm leading-relaxed text-[#645D75] mb-6">
                     {feat.desc}
                   </p>
                 </div>
 
                 {/* Security Tag */}
                 <div className="mt-auto border-t border-[#311081]/5 pt-4">
-                  <span className="inline-block px-3 py-1 rounded-full bg-[#F6F1FC] border border-[#311081]/10 text-[9px] font-bold tracking-wider text-[#311081] font-tech-landeros">
+                  <span className="inline-block px-3 py-1 rounded-full bg-[#F6F1FC] border border-[#311081]/10 text-xs font-bold tracking-wider text-[#311081] font-tech-landeros">
                     {feat.tag}
                   </span>
                 </div>

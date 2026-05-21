@@ -75,7 +75,7 @@ export const Testimonials = () => {
                 </h3>
 
                 {/* Testimonial Quote */}
-                <p className="font-bold text-xs md:text-sm leading-relaxed text-[#1C1629] mb-8">
+                <p className="font-bold text-sm leading-relaxed text-[#1C1629] mb-8">
                   "{item.quote}"
                 </p>
               </div>
@@ -85,10 +85,10 @@ export const Testimonials = () => {
                 <div className="text-left">
                   <h4 className="font-bold text-sm text-[#311081] font-tech-landeros">{item.author}</h4>
                   <p className="text-xs font-bold text-[#3C354D] mt-0.5">{item.role}</p>
-                  <p className="text-[10px] font-bold text-[#6D28D9] uppercase font-tech-landeros mt-1">{item.location}</p>
+                  <p className="text-xs font-bold text-[#6D28D9] uppercase font-tech-landeros mt-1">{item.location}</p>
                 </div>
                 {item.verified && (
-                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-[#311081]/10 text-[9px] font-bold uppercase tracking-wider text-[#311081] shrink-0 shadow-sm">
+                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-[#311081]/10 text-xs font-bold uppercase tracking-wider text-[#311081] shrink-0 shadow-sm">
                     <ShieldCheck className="w-3.5 h-3.5 text-green-500" />
                     <span>VERIFIED</span>
                   </span>

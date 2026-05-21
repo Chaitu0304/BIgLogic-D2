@@ -101,7 +101,7 @@ export const Faq = () => {
                         transition={{ duration: 0.25, ease: "easeInOut" }}
                       >
                         <div className="px-6 pb-6 pl-16 pr-8 text-left">
-                          <p className="font-medium text-xs leading-relaxed text-[#645D75] border-t border-[#311081]/5 pt-4">
+                          <p className="font-medium text-sm leading-relaxed text-[#645D75] border-t border-[#311081]/5 pt-4">
                             {item.answer}
                           </p>
                         </div>

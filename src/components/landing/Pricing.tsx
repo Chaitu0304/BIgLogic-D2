@@ -91,7 +91,7 @@ export const Pricing = () => {
               }`}
             >
               Annual Billing
-              <span className="bg-[#6D28D9] text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full tracking-normal uppercase shrink-0">
+              <span className="bg-[#6D28D9] text-white text-xs font-extrabold px-2 py-0.5 rounded-full tracking-normal uppercase shrink-0">
                 Save 20%
               </span>
             </button>
@@ -120,7 +120,7 @@ export const Pricing = () => {
                 {/* Popular Ribbon Label */}
                 {plan.popular && (
                   <div className="absolute top-6 right-6">
-                    <span className="bg-[#6D28D9] text-white text-[9px] font-black font-tech-landeros uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-sm flex items-center gap-1">
+                    <span className="bg-[#6D28D9] text-white text-xs font-black font-tech-landeros uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-sm flex items-center gap-1">
                       <Zap className="w-3 h-3 fill-current" /> MOST POPULAR
                     </span>
                   </div>
@@ -133,7 +133,7 @@ export const Pricing = () => {
                   </h3>
                   
                   {/* Tagline */}
-                  <p className="text-xs font-bold text-[#3C354D] mb-6">
+                  <p className="text-sm font-bold text-[#3C354D] mb-6">
                     {plan.tagline}
                   </p>
 
@@ -146,14 +146,14 @@ export const Pricing = () => {
                       / month
                     </span>
                     {isAnnual && (
-                      <span className="text-[10px] font-bold text-[#6D28D9] bg-[#F6F1FC] border border-[#6D28D9]/25 px-2 py-0.5 rounded-full tracking-wide font-tech-landeros shrink-0 ml-2">
+                      <span className="text-xs font-bold text-[#6D28D9] bg-[#F6F1FC] border border-[#6D28D9]/25 px-2 py-0.5 rounded-full tracking-wide font-tech-landeros shrink-0 ml-2">
                         BILLED ANNUALLY
                       </span>
                     )}
                   </div>
 
                   {/* Description */}
-                  <p className="font-semibold text-xs text-[#3C354D] leading-relaxed mb-8">
+                  <p className="font-semibold text-sm text-[#3C354D] leading-relaxed mb-8">
                     {plan.description}
                   </p>
 
@@ -164,7 +164,7 @@ export const Pricing = () => {
                         <div className="w-5 h-5 rounded-full bg-[#F6F1FC] border border-[#311081]/5 flex items-center justify-center shrink-0 mt-0.5 text-[#311081] group-hover:bg-[#311081] group-hover:text-white transition-all duration-300 shadow-sm">
                           <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                         </div>
-                        <span className="text-xs font-semibold text-[#1C1629]/90 leading-relaxed font-sans-landeros">
+                        <span className="text-sm font-semibold text-[#1C1629]/90 leading-relaxed font-sans-landeros">
                           {feature}
                         </span>
                       </li>
@@ -174,7 +174,7 @@ export const Pricing = () => {
 
                 {/* Staked value indicator tag */}
                 <div className="border-t border-[#311081]/5 pt-6 mt-auto">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F6F1FC] border border-[#311081]/10 font-bold uppercase tracking-wider text-[10px] text-[#311081] mb-6 group-hover:border-[#6D28D9]/30 transition-all duration-300">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F6F1FC] border border-[#311081]/10 font-bold uppercase tracking-wider text-xs text-[#311081] mb-6 group-hover:border-[#6D28D9]/30 transition-all duration-300">
                     <Zap className="w-3.5 h-3.5 fill-[#311081]/20 text-[#311081]" />
                     {plan.valueStack}
                   </div>
@@ -207,7 +207,7 @@ export const Pricing = () => {
             <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl from-[#6D28D9]/5 to-transparent rounded-full" />
           </div>
           
-          <div className="absolute top-0 left-8 -translate-y-1/2 px-5 py-1.5 rounded-full bg-gradient-to-r from-[#311081] to-[#6D28D9] text-white text-[9px] font-bold uppercase tracking-widest shadow-md font-tech-landeros flex items-center gap-1.5 z-40">
+          <div className="absolute top-0 left-8 -translate-y-1/2 px-5 py-1.5 rounded-full bg-gradient-to-r from-[#311081] to-[#6D28D9] text-white text-xs font-bold uppercase tracking-widest shadow-md font-tech-landeros flex items-center gap-1.5 z-40">
             <ShieldCheck className="w-3 h-3 text-emerald-400" />
             THE BIGLOGIC 100% RISK-REVERSAL CONTRACT
           </div>
@@ -218,7 +218,7 @@ export const Pricing = () => {
               <h3 className="font-tech-landeros text-2xl font-black text-[#311081] mb-4 uppercase tracking-tight leading-none">
                 "Save 20+ Hours & Accelerated Draws. Or You Pay $0."
               </h3>
-              <p className="font-bold text-xs text-[#1C1629] leading-relaxed max-w-2xl">
+              <p className="font-bold text-sm text-[#1C1629] leading-relaxed max-w-2xl">
                 We believe in mathematical guarantees, not sales talk. If BIGlogic does not save your estimating team at least 20 hours of manual administration and accelerate your outstanding bank draw schedule payouts by at least 15 days in your first 30 days of active operations, we will refund every single penny you paid. No awkward phone calls. No fine print. We'll let you keep all your generated excel models and compliance files for free.
               </p>
             </div>
@@ -227,10 +227,10 @@ export const Pricing = () => {
               <div className="w-20 h-20 bg-[#F6F1FC] border border-[#6D28D9]/10 rounded-3xl flex items-center justify-center mb-4 text-[#311081] shadow-inner">
                 <ShieldCheck className="w-10 h-10 text-[#6D28D9]" />
               </div>
-              <span className="font-tech-landeros text-[10px] font-extrabold text-[#311081] uppercase tracking-wider block">
+              <span className="font-tech-landeros text-xs font-extrabold text-[#311081] uppercase tracking-wider block">
                 100% Guaranteed
               </span>
-              <span className="text-[9px] font-bold text-[#6D28D9] uppercase tracking-wider mt-1 block">
+              <span className="text-xs font-bold text-[#6D28D9] uppercase tracking-wider mt-1 block">
                 Alex Hormozi Approved
               </span>
             </div>
@@ -239,7 +239,7 @@ export const Pricing = () => {
         </div>
 
         {/* Bottom trust indicator badges */}
-        <div className="mt-16 flex flex-wrap items-center justify-center gap-6 text-[10px] font-bold font-tech-landeros text-[#311081]/60">
+        <div className="mt-16 flex flex-wrap items-center justify-center gap-6 text-xs font-bold font-tech-landeros text-[#311081]/60">
           <span>&bull; CANCEL ANYTIME</span>
           <span>&bull; SECURE SOC-2 TYPE II ENCRYPTION</span>
           <span>&bull; NO SETUP FEES</span>

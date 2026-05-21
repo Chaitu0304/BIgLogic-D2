@@ -66,7 +66,7 @@ export const RoiCalculator = () => {
                     className="slider-premium cursor-pointer"
                   />
                 </div>
-                <div className="flex justify-between text-[10px] font-extrabold uppercase text-[#3C354D] font-tech-landeros">
+                <div className="flex justify-between text-xs font-extrabold uppercase text-[#3C354D] font-tech-landeros">
                   <span>5 estimates</span>
                   <span>75 estimates</span>
                   <span>150 estimates</span>
@@ -92,7 +92,7 @@ export const RoiCalculator = () => {
                     className="slider-premium cursor-pointer"
                   />
                 </div>
-                <div className="flex justify-between text-[10px] font-extrabold uppercase text-[#3C354D] font-tech-landeros">
+                <div className="flex justify-between text-xs font-extrabold uppercase text-[#3C354D] font-tech-landeros">
                   <span>$5,000</span>
                   <span>$150,000</span>
                   <span>$300,000</span>
@@ -102,7 +102,7 @@ export const RoiCalculator = () => {
             </div>
 
             {/* Explanatory Footnote */}
-            <div className="mt-10 border-t border-[#311081]/5 pt-6 flex items-start gap-3 text-xs font-semibold text-[#3C354D] text-left">
+            <div className="mt-10 border-t border-[#311081]/5 pt-6 flex items-start gap-3 text-sm font-semibold text-[#3C354D] text-left">
               <HelpCircle className="w-5 h-5 text-[#6D28D9] shrink-0 mt-0.5" />
               <p>
                 ROI math based on a standard contractor baseline of 4.5 administrative hours saved per estimate file (Excel conversion, material selection logging, draw schedule mapping) billed at a conservative estimator wage of $75/hour.
@@ -112,20 +112,20 @@ export const RoiCalculator = () => {
           </div>
 
           {/* Results panel (6 cols) */}
-          <div className="lg:col-span-6 bg-[#311081] text-white p-8 md:p-10 border border-[#6D28D9]/20 rounded-3xl flex flex-col justify-between text-left relative overflow-hidden hover-premium-card group z-10">
+          <div className="lg:col-span-6 bg-gradient-to-br from-[#311081] via-[#220B58] to-[#140638] text-white p-8 md:p-10 border border-[#6D28D9]/30 rounded-3xl flex flex-col justify-between text-left relative overflow-hidden hover-premium-card group z-10 shadow-landeros-lg">
             <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none z-0">
-              <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl from-[#6D28D9]/15 to-transparent rounded-full" />
+              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[#6D28D9]/20 via-[#4F46E5]/10 to-transparent rounded-full blur-xl opacity-80 group-hover:scale-110 transition-transform duration-700" />
             </div>
             
             <div className="relative z-10">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/10 font-bold uppercase tracking-wider text-[9px] mb-8 font-tech-landeros text-[#F3EBFC]">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/10 font-bold uppercase tracking-wider text-xs mb-8 font-tech-landeros text-[#F3EBFC] shadow-sm">
                 <TrendingUp className="w-3.5 h-3.5 text-[#F3EBFC]" />
                 CALCULATOR_RESULTS_ENG_v2.0
               </div>
 
               {/* Metric 1 */}
               <div className="mb-8">
-                <div className="text-[10px] font-bold uppercase tracking-widest text-[#F3EBFC] font-semibold mb-1.5 font-tech-landeros">MONTHLY LABOR TIME RECOVERED:</div>
+                <div className="text-xs font-bold uppercase tracking-widest text-[#F3EBFC] font-semibold mb-1.5 font-tech-landeros">MONTHLY LABOR TIME RECOVERED:</div>
                 <div className="text-4xl md:text-5xl font-extrabold font-display-landeros text-white flex items-baseline gap-2">
                   {monthlyHoursSaved} <span className="text-sm text-[#F3EBFC] font-bold tracking-wider font-tech-landeros uppercase">Hours / mo</span>
                 </div>
@@ -133,22 +133,22 @@ export const RoiCalculator = () => {
 
               {/* Metric 2 */}
               <div className="mb-8">
-                <div className="text-[10px] font-bold uppercase tracking-widest text-[#F3EBFC] font-semibold mb-1.5 font-tech-landeros">DIRECT ESTIMATING CASH SAVED:</div>
+                <div className="text-xs font-bold uppercase tracking-widest text-[#F3EBFC] font-semibold mb-1.5 font-tech-landeros">DIRECT ESTIMATING CASH SAVED:</div>
                 <div className="text-4xl md:text-5xl font-extrabold font-display-landeros text-white">
                   ${monthlyLaborSaved.toLocaleString()} <span className="text-sm text-[#F3EBFC] font-bold tracking-wider font-tech-landeros uppercase">/ mo</span>
                 </div>
-                <div className="text-xs font-bold text-white mt-2 font-sans-landeros">
+                <div className="text-sm font-bold text-white mt-2 font-sans-landeros">
                   (${yearlyLaborSaved.toLocaleString()} directly saved per year in labor overhead)
                 </div>
               </div>
 
               {/* Metric 3 */}
               <div className="mb-6">
-                <div className="text-[10px] font-bold uppercase tracking-widest text-[#F3EBFC] font-semibold mb-1.5 font-tech-landeros">CASH FLOW ACCELERATED 41 DAYS FASTER:</div>
+                <div className="text-xs font-bold uppercase tracking-widest text-[#F3EBFC] font-semibold mb-1.5 font-tech-landeros">CASH FLOW ACCELERATED 41 DAYS FASTER:</div>
                 <div className="text-4xl md:text-5xl font-extrabold font-display-landeros text-white">
                   ${cashFlowAccelerated.toLocaleString()}
                 </div>
-                <p className="text-xs font-semibold text-[#F3EBFC] mt-2 max-w-md leading-relaxed font-sans-landeros">
+                <p className="text-sm font-semibold text-[#F3EBFC] mt-2 max-w-md leading-relaxed font-sans-landeros">
                   Total outstanding project draws unlocked from lender inspection cycles and paid into your bank 41 days faster.
                 </p>
               </div>

@@ -64,7 +64,7 @@ export const WhoItsFor = () => {
             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-green-500/5 to-transparent rounded-full pointer-events-none" />
             
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-green-50 border border-green-500/10 text-green-700 font-bold uppercase tracking-wider text-[10px] mb-8 font-tech-landeros">
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-green-50 border border-green-500/10 text-green-700 font-bold uppercase tracking-wider text-xs mb-8 font-tech-landeros">
                 <Check className="w-3.5 h-3.5 stroke-[3]" />
                 WHO THIS IS FOR:
               </div>
@@ -73,11 +73,11 @@ export const WhoItsFor = () => {
                 {fits.map((fit, i) => (
                   <div key={i} className="flex gap-4 items-start">
                     <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center shrink-0 mt-1 text-white">
-                      <Check className="w-3.5 h-3.5 stroke-[3]" />
+                       <Check className="w-3.5 h-3.5 stroke-[3]" />
                     </div>
                     <div>
                       <h4 className="font-tech-landeros text-lg font-bold text-[#311081] mb-1">{fit.title}</h4>
-                      <p className="font-semibold text-xs text-[#3C354D] leading-relaxed">{fit.desc}</p>
+                      <p className="font-semibold text-sm text-[#3C354D] leading-relaxed">{fit.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -100,7 +100,7 @@ export const WhoItsFor = () => {
             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-red-500/5 to-transparent rounded-full pointer-events-none" />
             
             <div className="relative z-10">
-              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#311081]/5 text-[#311081]/60 font-bold uppercase tracking-wider text-[10px] mb-8 font-tech-landeros">
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#311081]/5 text-[#311081]/60 font-bold uppercase tracking-wider text-xs mb-8 font-tech-landeros">
                 <X className="w-3.5 h-3.5 stroke-[3]" />
                 WHO WE CANNOT HELP:
               </div>
@@ -113,7 +113,7 @@ export const WhoItsFor = () => {
                     </div>
                     <div>
                       <h4 className="font-tech-landeros text-lg font-bold text-[#311081]/70 mb-1">{fit.title}</h4>
-                      <p className="font-semibold text-xs text-[#3C354D]/90 leading-relaxed">{fit.desc}</p>
+                      <p className="font-semibold text-sm text-[#3C354D]/90 leading-relaxed">{fit.desc}</p>
                     </div>
                   </div>
                 ))}

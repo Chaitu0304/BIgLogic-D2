@@ -166,25 +166,32 @@
   letter-spacing: -0.01em;
 }
 
+
 /* Typography mappings for LanderOS */
 .theme-landeros h1,
-.theme-landeros h2,
-.theme-landeros .font-display-landeros {
+.theme-landeros h2 {
   font-family: 'Outfit', sans-serif !important;
   font-weight: 900 !important; /* Ultra-Bold, high-impact geometric style */
-  letter-spacing: -0.04em !important;
-  color: var(--brand-purple) !important;
-  text-transform: uppercase !important;
+  letter-spacing: -0.015em !important; /* Clean, modern, legible spacing */
+}
+
+.theme-landeros .font-display-landeros {
+  font-family: 'Outfit', sans-serif !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.015em !important;
 }
 
 .theme-landeros h3,
-.theme-landeros h4,
+.theme-landeros h4 {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important; /* Relaxed, professional spacing */
+}
+
 .theme-landeros .font-tech-landeros {
   font-family: 'Space Grotesk', sans-serif !important;
   font-weight: 700 !important;
-  letter-spacing: -0.02em !important;
-  color: var(--brand-purple) !important;
-  text-transform: uppercase !important;
+  letter-spacing: -0.01em !important;
 }
 
 .theme-landeros .font-sans-landeros,

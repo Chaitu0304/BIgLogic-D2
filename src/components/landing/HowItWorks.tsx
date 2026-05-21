@@ -83,7 +83,7 @@ export const HowItWorks = () => {
 
                 {/* Badge Tag */}
                 <div className="mt-4 pt-4 border-t border-[#311081]/5">
-                  <span className="inline-block px-3 py-1 bg-[#F6F1FC] border border-[#311081]/10 rounded-full text-[10px] font-bold uppercase tracking-wider text-[#311081]">
+                  <span className="inline-block px-3 py-1 bg-[#F6F1FC] border border-[#311081]/10 rounded-full text-xs font-bold uppercase tracking-wider text-[#311081]">
                     {step.badge}
                   </span>
                 </div>

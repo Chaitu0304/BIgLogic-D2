@@ -105,7 +105,7 @@ export const Services = () => {
 
                 {/* Value Stack Tag */}
                 <div className="border-t border-[#311081]/5 pt-4 mt-auto">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F6F1FC] border border-[#311081]/10 font-bold uppercase tracking-wider text-[10px] text-[#311081] group-hover:border-[#6D28D9]/30 transition-all duration-300">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F6F1FC] border border-[#311081]/10 font-bold uppercase tracking-wider text-xs text-[#311081] group-hover:border-[#6D28D9]/30 transition-all duration-300">
                     <Zap className="w-3.5 h-3.5 fill-[#311081]/20 text-[#311081]" />
                     {agent.value}
                   </div>
@@ -125,8 +125,8 @@ export const Services = () => {
               <ShieldCheck className="w-6 h-6 text-[#6D28D9]" />
             </div>
             <div>
-              <h4 className="font-tech-landeros font-bold text-xs tracking-wider text-[#311081] uppercase">Audit-Grade Validation Engine</h4>
-              <p className="text-xs font-bold text-[#3C354D] mt-0.5">Every draw schedule is formatted according to major U.S. bank & lender standards.</p>
+              <h4 className="font-tech-landeros font-bold text-sm tracking-wider text-[#311081] uppercase">Audit-Grade Validation Engine</h4>
+              <p className="text-sm font-bold text-[#3C354D] mt-0.5">Every draw schedule is formatted according to major U.S. bank & lender standards.</p>
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-4 text-xs font-bold font-tech-landeros text-[#311081]/80 relative z-10">

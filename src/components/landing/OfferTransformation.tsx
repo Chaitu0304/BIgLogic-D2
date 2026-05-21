@@ -36,8 +36,8 @@ export const OfferTransformation = () => {
             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-red-500/[0.02] to-transparent rounded-full pointer-events-none" />
             
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-red-50 border border-red-500/10 text-red-700 font-bold uppercase tracking-wider text-[9px] mb-8 font-tech-landeros">
-                <X className="w-3 h-3 stroke-[3]" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-red-50 border border-red-500/10 text-red-700 font-bold uppercase tracking-wider text-xs mb-8 font-tech-landeros">
+                <X className="w-3.5 h-3.5 stroke-[3]" />
                 THE OLD CHAOTIC WAY (LABOR INTENSIVE)
               </div>
               
@@ -48,7 +48,7 @@ export const OfferTransformation = () => {
                   </div>
                   <div>
                     <h4 className="font-tech-landeros text-sm font-bold text-[#311081]/90">Slow Manual Data Entry</h4>
-                    <p className="text-xs text-[#3C354D] font-semibold mt-0.5">Estimators waste 12+ hours per estimate copying material selections, building schedules, and typing spreadsheets.</p>
+                    <p className="text-sm text-[#3C354D] font-semibold mt-0.5">Estimators waste 12+ hours per estimate copying material selections, building schedules, and typing spreadsheets.</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-4">
@@ -57,7 +57,7 @@ export const OfferTransformation = () => {
                   </div>
                   <div>
                     <h4 className="font-tech-landeros text-sm font-bold text-[#311081]/90">Delayed Bank Funding</h4>
-                    <p className="text-xs text-[#3C354D] font-semibold mt-0.5">Lenders take 30 to 45 days to approve draw requests because of unorganized draw milestones and lack of proof.</p>
+                    <p className="text-sm text-[#3C354D] font-semibold mt-0.5">Lenders take 30 to 45 days to approve draw requests because of unorganized draw milestones and lack of proof.</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-4">
@@ -66,7 +66,7 @@ export const OfferTransformation = () => {
                   </div>
                   <div>
                     <h4 className="font-tech-landeros text-sm font-bold text-[#311081]/90">Expensive Office Overhead</h4>
-                    <p className="text-xs text-[#3C354D] font-semibold mt-0.5">Hiring coordinators and admin workers eating up thousands in margins to handle paperwork and basic coordination.</p>
+                    <p className="text-sm text-[#3C354D] font-semibold mt-0.5">Hiring coordinators and admin workers eating up thousands in margins to handle paperwork and basic coordination.</p>
                   </div>
                 </li>
               </ul>
@@ -91,7 +91,7 @@ export const OfferTransformation = () => {
             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-green-500/[0.02] to-transparent rounded-full pointer-events-none" />
             
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-green-50 border border-green-500/10 text-green-700 font-bold uppercase tracking-wider text-[9px] mb-8 font-tech-landeros">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-green-50 border border-green-500/10 text-green-700 font-bold uppercase tracking-wider text-xs mb-8 font-tech-landeros">
                 <Check className="w-3.5 h-3.5 stroke-[3]" />
                 THE CALM OPERATOR WAY (BIGLOGICAI)
               </div>
@@ -103,7 +103,7 @@ export const OfferTransformation = () => {
                   </div>
                   <div>
                     <h4 className="font-tech-landeros text-sm font-bold text-[#311081]">Instant Estimate Processing</h4>
-                    <p className="text-xs text-[#3C354D] font-semibold mt-0.5">Simply drop any PDF estimate. Our AI parses and extracts everything into flawless, structured schedules in 45 seconds.</p>
+                    <p className="text-sm text-[#3C354D] font-semibold mt-0.5">Simply drop any PDF estimate. Our AI parses and extracts everything into flawless, structured schedules in 45 seconds.</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-4">
@@ -112,7 +112,7 @@ export const OfferTransformation = () => {
                   </div>
                   <div>
                     <h4 className="font-tech-landeros text-sm font-bold text-[#311081]">Draw Payouts in 48 Hours</h4>
-                    <p className="text-xs text-[#3C354D] font-semibold mt-0.5">Format bank-ready milestones automatically, clearing draws and speeding up working capital in days.</p>
+                    <p className="text-sm text-[#3C354D] font-semibold mt-0.5">Format bank-ready milestones automatically, clearing draws and speeding up working capital in days.</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-4">
@@ -121,7 +121,7 @@ export const OfferTransformation = () => {
                   </div>
                   <div>
                     <h4 className="font-tech-landeros text-sm font-bold text-[#311081]">Single Operator Automation</h4>
-                    <p className="text-xs text-[#3C354D] font-semibold mt-0.5">Automate compliance, contracts, estimates, and tasks, letting one manager run the entire reconstruction pipeline.</p>
+                    <p className="text-sm text-[#3C354D] font-semibold mt-0.5">Automate compliance, contracts, estimates, and tasks, letting one manager run the entire reconstruction pipeline.</p>
                   </div>
                 </li>
               </ul>
@@ -143,7 +143,7 @@ export const OfferTransformation = () => {
             <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl from-[#6D28D9]/5 to-transparent rounded-full" />
           </div>
           
-          <div className="absolute top-0 left-8 -translate-y-1/2 px-5 py-1.5 rounded-full bg-gradient-to-r from-[#311081] to-[#6D28D9] text-white text-[9px] font-bold uppercase tracking-widest shadow-md font-tech-landeros flex items-center gap-1.5 z-40">
+          <div className="absolute top-0 left-8 -translate-y-1/2 px-5 py-1.5 rounded-full bg-gradient-to-r from-[#311081] to-[#6D28D9] text-white text-xs font-bold uppercase tracking-widest shadow-md font-tech-landeros flex items-center gap-1.5 z-40">
             <Zap className="w-3 h-3 fill-current text-yellow-400" />
             GRAND SLAM VALUE OFFER
           </div>
@@ -154,26 +154,26 @@ export const OfferTransformation = () => {
               <h3 className="font-tech-landeros text-xl md:text-2xl font-bold mb-4 text-[#311081]">
                 Try It 100% Free (Zero Risk, Massive Value)
               </h3>
-              <p className="text-xs font-semibold text-[#3C354D] mb-6 leading-relaxed">
+              <p className="text-sm font-semibold text-[#3C354D] mb-6 leading-relaxed">
                 Take the entire platform for a test drive. Upload real estimates, generate real Excel sheets, and audit real insurance files. No credit card required.
               </p>
               
               <ul className="space-y-4 mb-2">
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#6D28D9] shrink-0 mt-0.5 stroke-[2.5]" />
-                  <span className="text-xs font-semibold text-[#3C354D]">
+                  <span className="text-sm font-semibold text-[#3C354D]">
                     <span className="text-[#311081] font-bold">3 full estimate uploads</span> (extract schedules, materials, Excel exports) — <span className="line-through text-[#3C354D]/60">$150 Value</span>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#6D28D9] shrink-0 mt-0.5 stroke-[2.5]" />
-                  <span className="text-xs font-semibold text-[#3C354D]">
+                  <span className="text-sm font-semibold text-[#3C354D]">
                     <span className="text-[#311081] font-bold">Carrier Auditor Access</span> (audit estimates against major guidelines) — <span className="text-[#6D28D9] font-bold">FREE INCLUDED</span>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#6D28D9] shrink-0 mt-0.5 stroke-[2.5]" />
-                  <span className="text-xs font-semibold text-[#3C354D]">
+                  <span className="text-sm font-semibold text-[#3C354D]">
                     <span className="text-[#311081] font-bold">Risk-Free Clause:</span> No credit card required. No sales pressure. Cancel anytime with a click.
                   </span>
                 </li>
@@ -182,20 +182,20 @@ export const OfferTransformation = () => {
 
             <div className="md:col-span-5 bg-[#F6F1FC] border border-[#311081]/10 rounded-2xl p-6 text-center flex flex-col justify-between h-full relative">
               <div className="absolute top-2 right-2">
-                <span className="px-2 py-0.5 bg-[#311081] text-white text-[8px] font-bold rounded uppercase tracking-wider font-tech-landeros">
+                <span className="px-2 py-0.5 bg-[#311081] text-white text-xs font-bold rounded uppercase tracking-wider font-tech-landeros">
                   BETA SPECIAL
                 </span>
               </div>
               
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#3C354D] font-tech-landeros block mb-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#3C354D] font-tech-landeros block mb-1">
                   LIFETIME PRICE ACCESS
                 </span>
                 <div className="flex items-baseline justify-center gap-1.5">
                   <span className="text-3xl md:text-4xl font-black text-[#311081] font-display-landeros">$199</span>
                   <span className="text-xs font-bold text-[#3C354D] font-tech-landeros">/ month</span>
                 </div>
-                <span className="text-[9px] text-[#3C354D]/70 line-through block mt-1 font-semibold">
+                <span className="text-xs text-[#3C354D]/70 line-through block mt-1 font-semibold">
                   Standard price: $499/mo
                 </span>
               </div>
@@ -208,7 +208,7 @@ export const OfferTransformation = () => {
                   <Zap className="w-3.5 h-3.5 fill-current text-white" />
                   START UPLOADING NOW
                 </button>
-                <span className="text-[8px] font-bold text-[#6D28D9] block mt-2 uppercase tracking-widest font-tech-landeros">
+                <span className="text-xs font-bold text-[#6D28D9] block mt-2 uppercase tracking-widest font-tech-landeros">
                   * ONLY 14 SLOTS REMAINING FOR THE BETA OFFER
                 </span>
               </div>

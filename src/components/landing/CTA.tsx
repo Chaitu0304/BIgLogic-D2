@@ -87,18 +87,18 @@ export const CTA = () => {
 
               {/* The Bold Guarantee Card (Hormozi Principle #5) */}
               <div className="bg-white/5 backdrop-blur-md border border-white/10 p-6 md:p-8 rounded-[24px] relative max-w-2xl shadow-xl">
-                <div className="absolute -top-3.5 left-6 px-3 py-1 rounded-full bg-white text-[#311081] text-[9px] font-bold uppercase tracking-widest font-tech-landeros shadow-sm">
+                <div className="absolute -top-3.5 left-6 px-3 py-1 rounded-full bg-white text-[#311081] text-xs font-bold uppercase tracking-widest font-tech-landeros shadow-sm">
                   THE 10-HOUR DOUBLE GUARANTEE
                 </div>
                 
                 <h3 className="font-tech-landeros text-xl font-bold mb-3 text-white">Double Your Money Back.</h3>
-                              <p className="font-semibold text-xs leading-relaxed text-[#F3EBFC] mb-6">
+                <p className="font-semibold text-sm leading-relaxed text-[#F3EBFC] mb-6">
                   If BigLogicAI does not save your estimating team at least 10 hours in your first 30 days of use, we will not only refund your subscription 100% instantly &mdash; <span className="text-emerald-300 font-bold">we will write you a check for $500 for wasting your time.</span> We take 100% of the risk.
                 </p>
 
                 {/* Hand-signed signature effect */}
                 <div className="flex items-center justify-between border-t border-white/10 pt-4">
-                  <span className="flex items-center gap-1.5 text-[9px] font-bold tracking-wider font-tech-landeros text-purple-200">
+                  <span className="flex items-center gap-1.5 text-xs font-bold tracking-wider font-tech-landeros text-purple-200">
                     <ShieldCheck className="w-4 h-4 text-emerald-400" />
                     LEGAL BINDING REVERSAL
                   </span>
@@ -106,7 +106,7 @@ export const CTA = () => {
                     <div className="font-serif italic text-xl font-bold text-purple-200 tracking-wider select-none font-sans">
                       Chaitanya G.
                     </div>
-                    <div className="text-[8px] font-bold uppercase text-purple-200 mt-0.5 tracking-wider font-tech-landeros">Founder, BigLogicAI</div>
+                    <div className="text-xs font-bold uppercase text-purple-200 mt-0.5 tracking-wider font-tech-landeros">Founder, BigLogicAI</div>
                   </div>
                 </div>
 
@@ -119,11 +119,11 @@ export const CTA = () => {
               <div>
                 <div className="border-b-2 border-dashed border-white/20 pb-4 mb-6 text-center">
                   <h3 className="font-tech-landeros text-xl font-bold text-white">Value Stack Receipt</h3>
-                  <span className="text-[9px] font-bold uppercase tracking-widest text-purple-200 font-tech-landeros">INVOICE_PROPOSAL_COHORT_2026</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-purple-200 font-tech-landeros">INVOICE_PROPOSAL_COHORT_2026</span>
                 </div>
 
                 {/* Stack items */}
-                <div className="space-y-4 font-semibold text-xs text-[#F3EBFC]">
+                <div className="space-y-4 font-semibold text-sm text-[#F3EBFC]">
                   
                   {/* Item 1 */}
                   <div className="flex justify-between items-start gap-4">
@@ -165,7 +165,7 @@ export const CTA = () => {
 
                 {/* Total calculation */}
                 <div className="border-t-2 border-dashed border-white/20 pt-6 mt-8 space-y-3">
-                  <div className="flex justify-between items-baseline font-bold text-[10px] text-purple-200 tracking-wider font-tech-landeros">
+                  <div className="flex justify-between items-baseline font-bold text-xs text-purple-200 tracking-wider font-tech-landeros">
                     <span>TOTAL ESTIMATED VALUE:</span>
                     <span className="line-through text-purple-200 font-mono font-bold">$4,000/mo</span>
                   </div>
@@ -175,7 +175,7 @@ export const CTA = () => {
                     <span className="text-emerald-300">$199/mo</span>
                   </div>
                   
-                  <div className="text-[10px] font-bold uppercase text-emerald-300 tracking-wider text-center mt-4 bg-emerald-500/10 border border-emerald-500/20 py-2 rounded-full font-tech-landeros">
+                  <div className="text-xs font-bold uppercase text-emerald-300 tracking-wider text-center mt-4 bg-emerald-500/10 border border-emerald-500/20 py-2 rounded-full font-tech-landeros">
                     * First 3 Estimates 100% Free &bull; No Card
                   </div>
                 </div>
@@ -190,7 +190,7 @@ export const CTA = () => {
                     />
                   ))}
                 </div>
-                <div className="text-[8px] font-mono text-center text-purple-200 tracking-[0.25em] mt-1.5">
+                <div className="text-xs font-mono text-center text-purple-200 tracking-[0.25em] mt-1.5">
                   * BL-BETA-2026 *
                 </div>
 
@@ -204,7 +204,7 @@ export const CTA = () => {
                 >
                   CLAIM YOUR 3 FREE ESTIMATES <ArrowRight className="w-4 h-4 shrink-0 stroke-[2.5]" />
                 </button>
-                <div className="text-[10px] text-center font-bold uppercase tracking-wider text-purple-200 flex items-center justify-center gap-1.5 font-tech-landeros">
+                <div className="text-xs text-center font-bold uppercase tracking-wider text-purple-200 flex items-center justify-center gap-1.5 font-tech-landeros">
                   <ShieldCheck className="w-4 h-4 text-emerald-400" />
                   End-To-End AES-256 secure workspace
                 </div>
