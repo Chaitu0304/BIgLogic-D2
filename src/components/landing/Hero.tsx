@@ -324,12 +324,17 @@ export const Hero = () => {
             className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 pt-2 mb-20 border-t border-black/5 w-full max-w-xl"
           >
             <div className="flex -space-x-2">
-              {[1, 2, 3, 4].map((i) => (
+              {[
+                "photo-1534528741775-53994a69daeb",
+                "photo-1507003211169-0a1dd7228f2d",
+                "photo-1494790108377-be9c29b29330",
+                "photo-1500648767791-00dcc994a43e"
+              ].map((id, i) => (
                 <img
                   key={i}
                   className="inline-block h-8 w-8 rounded-full border border-white object-cover shadow-sm"
-                  src={`https://images.unsplash.com/photo-${1500000000000 + i * 100000}?auto=format&fit=facearea&facepad=2&w=100&h=100&q=80`}
-                  alt={`Active contractor ${i}`}
+                  src={`https://images.unsplash.com/${id}?auto=format&fit=facearea&facepad=2&w=100&h=100&q=80`}
+                  alt={`Active contractor ${i + 1}`}
                 />
               ))}
             </div>
@@ -337,9 +342,6 @@ export const Hero = () => {
               <span className="text-[#0A0A0A] font-bold">850+ U.S. Restoration Teams</span> Active &bull; <span className="text-[#0A0A0A] font-bold">45,000+ Hours Saved</span>
             </p>
           </motion.div>
-
-
-
           {/* ==========================================================================
              Interactive Task Automation Simulated Video Mockup (Framer Motion)
              ========================================================================== */}
@@ -348,26 +350,27 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.5, type: "spring", stiffness: 45 }}
-            className="w-full max-w-5xl border border-black/10 bg-white rounded-[32px] shadow-sm overflow-hidden relative z-20 flex flex-col scroll-mt-28"
+            className="w-full max-w-5xl border border-black/10 bg-white rounded-[32px] shadow-landeros-lg overflow-hidden relative z-20 flex flex-col scroll-mt-28"
           >
-            {/* Window Top Bar (Pearl White LanderOS style) */}
+            {/* Window Top Bar (Glossy macOS style) */}
             <div className="bg-[#F8F8F8] border-b border-black/5 px-6 py-4 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[#E5E7EB]" />
-                <div className="w-3 h-3 rounded-full bg-[#E5E7EB]" />
-                <div className="w-3 h-3 rounded-full bg-[#E5E7EB]" />
-                <span className="text-[10px] font-bold tracking-widest text-[#6B6B6B] uppercase ml-4 font-tech-landeros">
-                  BIGlogic System Core
+              <div className="flex items-center gap-1.5">
+                <div className="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]" />
+                <div className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]" />
+                <div className="w-3 h-3 rounded-full bg-[#27C93F] border border-[#1AAB2F]/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]" />
+                <span className="text-[10px] font-bold tracking-widest text-[#0A0A0A] uppercase ml-4 font-tech-landeros flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping inline-block" />
+                  BIGlogic System Core v2.4 (Active)
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 bg-emerald-50 border border-emerald-500/10 rounded-full px-3 py-1 text-[9px] font-bold text-emerald-700 uppercase font-tech-landeros">
+              <div className="flex items-center gap-1.5 bg-emerald-50 border border-emerald-500/15 rounded-full px-3 py-1.5 text-[9px] font-bold text-emerald-700 uppercase font-tech-landeros shadow-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-                System Active
+                Audited & Secured
               </div>
             </div>
 
-            {/* Dashboard Tabs for Video Simulation */}
-            <div className="grid grid-cols-2 md:grid-cols-4 bg-[#F8F8F8] border-b border-black/5 font-tech-landeros text-[11px] font-bold text-[#6B6B6B]">
+            {/* Dashboard Tabs for Video Simulation (Tactile Spaced Buttons) */}
+            <div className="grid grid-cols-2 md:grid-cols-4 bg-[#F5F5F3] border-b border-black/5 font-tech-landeros text-[11px] font-bold text-[#6B6B6B] p-2 gap-2">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
@@ -375,20 +378,20 @@ export const Hero = () => {
                   <button
                     key={tab.id}
                     onClick={() => handleTabClick(tab.id)}
-                    className={`flex flex-col items-center gap-2 py-4 px-3 border-r border-black/5 relative transition-all duration-300 ${
-                      isActive ? "bg-white text-[#0A0A0A] font-extrabold" : "hover:bg-black/[0.02] text-[#6B6B6B]/70"
+                    className={`flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl border transition-all duration-300 relative ${
+                      isActive 
+                        ? "bg-white text-[#0A0A0A] border-black/8 shadow-landeros font-extrabold scale-[1.01]" 
+                        : "bg-[#F8F8F8]/40 border-transparent hover:bg-white/60 text-[#6B6B6B]/80 hover:text-[#0A0A0A]"
                     }`}
                   >
-                    <div className="flex items-center gap-2">
-                      <Icon className={`w-4 h-4 ${isActive ? "text-[#0A0A0A]" : "text-[#6B6B6B]/60"}`} />
-                      <span>{tab.label}</span>
-                    </div>
+                    <Icon className={`w-4 h-4 shrink-0 transition-transform duration-300 ${isActive ? "text-[#0A0A0A] scale-110" : "text-[#6B6B6B]/60"}`} />
+                    <span className="truncate">{tab.label}</span>
                     {/* Animated Tab Progress Bar */}
                     {isActive && (
-                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-black/[0.03]">
+                      <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-black/[0.03] rounded-full overflow-hidden">
                         <motion.div
                           layoutId="tabProgress"
-                          className="h-full bg-gradient-to-r from-[#0A0A0A] to-[#6B6B6B]"
+                          className="h-full bg-gradient-to-r from-emerald-500 to-[#0A0A0A]"
                           style={{ width: `${progress}%` }}
                           transition={{ ease: "linear" }}
                         />
@@ -400,7 +403,7 @@ export const Hero = () => {
             </div>
 
             {/* Main Interactive Screen Canvas */}
-            <div className="p-8 md:p-12 min-h-[380px] md:min-h-[420px] bg-white relative flex flex-col justify-center overflow-hidden">
+            <div className="p-8 md:p-12 min-h-[380px] md:min-h-[420px] bg-gradient-to-b from-white to-[#F5F5F3] relative flex flex-col justify-center overflow-hidden border-t border-black/5 bg-grid-premium">
               <AnimatePresence mode="wait">
                 
                 {/* 1. PDF SCRAPING STATE */}
@@ -415,7 +418,7 @@ export const Hero = () => {
                   >
                     {/* Left: Dragging PDF Mock */}
                     <div className="md:col-span-5 flex flex-col items-center justify-center">
-                      <div className="w-48 h-60 border-2 border-dashed border-black/10 rounded-3xl bg-[#F8F8F8] flex flex-col items-center justify-center p-6 relative overflow-hidden group shadow-inner">
+                      <div className="w-48 h-60 border border-black/10 rounded-3xl bg-white flex flex-col items-center justify-center p-6 relative overflow-hidden group shadow-landeros">
                         
                         {/* Laser scan line inside document */}
                         <motion.div 
@@ -427,11 +430,17 @@ export const Hero = () => {
                             repeat: Infinity, 
                             ease: "easeInOut" 
                           }}
-                          className="absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#0A0A0A] to-transparent shadow-[0_0_12px_2px_rgba(0,0,0,0.15)] z-10"
+                          className="absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_20px_4px_rgba(16,185,129,0.3)] z-10"
                         />
 
-                        <FileText className="w-16 h-16 text-[#0A0A0A] mb-4" />
-                        <span className="font-tech-landeros text-[10px] font-bold text-black/70 truncate max-w-full text-center">
+                        {/* Faux Document Header */}
+                        <div className="absolute top-0 left-0 right-0 h-8 bg-[#F8F8F8] border-b border-black/5 px-4 flex items-center justify-between">
+                          <div className="w-1.5 h-1.5 rounded-full bg-red-400" />
+                          <span className="text-[7px] font-bold text-[#6B6B6B] font-tech-landeros">ESTIMATE_PDF</span>
+                        </div>
+
+                        <FileText className="w-14 h-14 text-[#0A0A0A] mb-3 mt-4" />
+                        <span className="font-tech-landeros text-[9px] font-bold text-black/70 truncate max-w-full text-center">
                           Estimate_Final_Xact.pdf
                         </span>
                         <span className="text-[8px] uppercase tracking-wider font-bold text-[#0A0A0A] bg-black/5 border border-black/10 px-2 py-0.5 rounded-full mt-2 font-tech-landeros">
@@ -443,7 +452,7 @@ export const Hero = () => {
                     {/* Right: Real-time Extraction Results */}
                     <div className="md:col-span-7 flex flex-col justify-center">
                       <div className="flex items-center gap-2 mb-4 font-tech-landeros text-xs font-bold text-[#0A0A0A]">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                         <span>EXTRACTING CUSTOM MATERIAL SELECTIONS:</span>
                       </div>
                       
@@ -459,16 +468,16 @@ export const Hero = () => {
                             initial={{ opacity: 0, y: 10, scale: 0.98 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             transition={{ duration: 0.4, delay: item.delay }}
-                            className="flex items-center justify-between p-3.5 border border-black/5 bg-[#F8F8F8] rounded-2xl shadow-sm hover:border-black/15 transition-all"
+                            className="flex items-center justify-between p-3.5 border border-black/8 bg-white/90 rounded-2xl shadow-sm hover:border-black/15 hover:shadow-landeros transition-all duration-300"
                           >
                             <div className="flex items-center gap-3">
-                              <div className="w-5 h-5 rounded-full bg-emerald-50 border border-emerald-500/10 flex items-center justify-center shrink-0 text-white">
-                                <Check className="w-3.5 h-3.5 stroke-[3]" />
+                              <div className="w-5 h-5 rounded-full bg-emerald-50 border border-emerald-500/20 flex items-center justify-center shrink-0 text-white">
+                                <Check className="w-3 h-3 text-emerald-600 stroke-[3.5]" />
                               </div>
                               <span className="text-xs font-bold text-[#0A0A0A] font-tech-landeros">{item.type}:</span>
-                              <span className="text-xs font-medium text-[#3A3A3A]">{item.label}</span>
+                              <span className="text-xs font-semibold text-[#3A3A3A]">{item.label}</span>
                             </div>
-                            <span className="text-[9px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-500/10 px-2 py-0.5 rounded-full">
+                            <span className="text-[9px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-500/10 px-2 py-0.5 rounded-full font-tech-landeros">
                               COMPLIED
                             </span>
                           </motion.div>
@@ -491,10 +500,10 @@ export const Hero = () => {
                     {/* Header Details */}
                     <div className="flex justify-between items-center mb-6 font-tech-landeros">
                       <div>
-                        <h4 className="text-sm font-bold text-[#0A0A0A]">LIVE PROJECT DRAW ANALYTICS</h4>
+                        <h4 className="text-sm font-bold text-[#0A0A0A] tracking-tight">LIVE PROJECT DRAW ANALYTICS</h4>
                         <p className="text-[10px] text-[#6B6B6B] font-semibold mt-0.5">Calculated automatically from extracted PDF coordinates.</p>
                       </div>
-                      <div className="text-[10px] font-bold text-[#0A0A0A] bg-black/5 border border-black/10 px-3 py-1 rounded-full uppercase tracking-wider">
+                      <div className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-500/20 px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
                         Compliance Score: 99.8%
                       </div>
                     </div>
@@ -511,20 +520,20 @@ export const Hero = () => {
                           initial={{ opacity: 0, scale: 0.95, y: 10 }}
                           animate={{ opacity: 1, scale: 1, y: 0 }}
                           transition={{ duration: 0.4, delay: i * 0.15 }}
-                          className="bg-[#F8F8F8] border border-black/5 p-5 rounded-2xl flex flex-col justify-between shadow-sm relative overflow-hidden"
+                          className="bg-white border border-black/8 p-5 rounded-2xl flex flex-col justify-between shadow-sm hover:border-black/15 transition-all duration-300 relative overflow-hidden"
                         >
                           <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-black/5 to-transparent rounded-full pointer-events-none" />
                           <span className="text-[9px] font-bold text-[#6B6B6B] tracking-wider font-tech-landeros uppercase">{card.title}</span>
                           <span className={`text-2xl font-black bg-gradient-to-r ${card.color} bg-clip-text text-transparent my-2 font-display-landeros`}>
                             {card.value}
                           </span>
-                          <span className="text-[9px] font-semibold text-[#3A3A3A]">{card.detail}</span>
+                          <span className="text-[9px] font-bold text-[#3A3A3A] font-tech-landeros">{card.detail}</span>
                         </motion.div>
                       ))}
                     </div>
 
                     {/* Mini Sparkline Chart */}
-                    <div className="border border-black/5 bg-[#F8F8F8] p-5 rounded-2xl shadow-sm h-36 flex flex-col justify-between relative overflow-hidden">
+                    <div className="border border-black/8 bg-white p-5 rounded-2xl shadow-sm h-36 flex flex-col justify-between relative overflow-hidden">
                       <span className="text-[9px] font-bold text-[#6B6B6B] font-tech-landeros uppercase tracking-wider">PROJECT CASH VELOCITY</span>
                       
                       {/* SVG Line Drawing Path with Framer Motion */}
@@ -534,7 +543,7 @@ export const Hero = () => {
                             d="M0,50 Q60,35 120,45 T240,15 T360,25 T480,5"
                             fill="none"
                             stroke="#0A0A0A"
-                            strokeWidth="3.5"
+                            strokeWidth="3"
                             strokeLinecap="round"
                             initial={{ pathLength: 0 }}
                             animate={{ pathLength: 1 }}
@@ -543,32 +552,34 @@ export const Hero = () => {
                           <motion.path
                             d="M0,50 Q60,35 120,45 T240,15 T360,25 T480,5 L480,60 L0,60 Z"
                             fill="url(#gradient-chart)"
-                            opacity="0.08"
+                            opacity="0.06"
                             initial={{ opacity: 0 }}
-                            animate={{ opacity: 0.08 }}
+                            animate={{ opacity: 0.06 }}
                             transition={{ duration: 1 }}
                           />
                           <defs>
                             <linearGradient id="gradient-chart" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="0%" stopColor="#0A0A0A" />
-                              <stop offset="100%" stopColor="#F8F8F8" />
+                              <stop offset="0%" stopColor="#10B981" />
+                              <stop offset="100%" stopColor="#FFFFFF" />
                             </linearGradient>
                           </defs>
                         </svg>
                         
-                        {/* Glowing dot on the peak */}
-                        <motion.div
-                          initial={{ scale: 0, opacity: 0 }}
-                          animate={{ scale: [1, 1.5, 1], opacity: 1 }}
-                          transition={{ repeat: Infinity, duration: 2 }}
-                          className="absolute right-4 top-0 w-2.5 h-2.5 bg-emerald-500 rounded-full border border-white shadow shadow-emerald-500/50"
-                        />
+                        {/* Glowing dot on the peak with concentric rings */}
+                        <div className="absolute right-4 top-0 w-3 h-3 flex items-center justify-center">
+                          <motion.div
+                            animate={{ scale: [1, 2.2, 1], opacity: [0.6, 0, 0.6] }}
+                            transition={{ repeat: Infinity, duration: 1.8 }}
+                            className="absolute w-6 h-6 bg-emerald-400 rounded-full"
+                          />
+                          <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-white shadow shadow-emerald-500/50 relative z-10" />
+                        </div>
                       </div>
 
                       <div className="flex justify-between items-center text-[9px] font-bold text-[#6B6B6B] font-tech-landeros">
                         <span>WEEK 1 (UPLOAD)</span>
                         <span>WEEK 2 (AUDITED)</span>
-                        <span className="text-emerald-600">WEEK 3 (FUNDED 45D FASTER)</span>
+                        <span className="text-emerald-600">WEEK 3 (FUNDED)</span>
                       </div>
                     </div>
                   </motion.div>
@@ -591,17 +602,17 @@ export const Hero = () => {
 
                     <div className="space-y-3 font-sans-landeros">
                       {[
-                        { step: 1, label: "Scanning Xactimate PDF document structural lines", desc: "Isolating raw material schedules and unit pricing counts.", delay: 0.2 },
-                        { step: 2, label: "Mapping milestone payouts to local lender percentages", desc: "Draw milestones structured accurately to meet banking tolerances.", delay: 1.4 },
-                        { step: 3, label: "Auditing line codes against top 10 insurance carrier rules", desc: "Flagged 0 guidelines errors, protecting payouts from carrier delays.", delay: 2.6 },
-                        { step: 4, label: "Compiling Excel files and cloud draw delivery packages", desc: "Structured excel lists ready to download in 1 click.", delay: 3.8 },
+                        { step: 1, label: "Scanning Xactimate PDF structural lines", desc: "Isolating material schedules and unit pricing counts.", delay: 0.2 },
+                        { step: 2, label: "Mapping milestone payouts", desc: "Draw milestones structured to meet banking tolerances.", delay: 1.4 },
+                        { step: 3, label: "Auditing line codes", desc: "Flagged 0 errors, protecting payouts from carrier delays.", delay: 2.6 },
+                        { step: 4, label: "Compiling delivery packages", desc: "Structured excel lists ready to download in 1 click.", delay: 3.8 },
                       ].map((task) => (
                         <motion.div
                           key={task.step}
                           initial={{ opacity: 0, y: 15 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.5, delay: task.delay }}
-                          className="flex gap-4 p-4 border border-black/5 bg-[#F8F8F8] rounded-2xl shadow-sm relative overflow-hidden hover:border-black/15 transition-all"
+                          className="flex gap-4 p-4 border border-black/8 bg-white rounded-2xl shadow-sm hover:border-black/15 hover:shadow-landeros transition-all duration-300"
                         >
                           <div className="relative flex items-center justify-center shrink-0">
                             {/* Animated Loading Circle changing to Checkmark */}
@@ -620,24 +631,13 @@ export const Hero = () => {
                               </motion.div>
                             </motion.div>
                           </div>
-
                           <div className="text-left">
-                            <h4 className="text-xs font-bold text-[#0A0A0A] font-tech-landeros">{task.label}</h4>
-                            <p className="text-[10px] text-[#6B6B6B] mt-0.5">{task.desc}</p>
+                            <h5 className="font-tech-landeros text-sm font-bold text-[#0A0A0A] mb-0.5">{task.label}</h5>
+                            <p className="text-xs text-[#6B6B6B] font-semibold">{task.desc}</p>
                           </div>
                         </motion.div>
                       ))}
                     </div>
-
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 5.2 }}
-                      className="mt-6 text-center text-[10px] font-bold text-emerald-600 font-tech-landeros uppercase tracking-wider flex items-center justify-center gap-1.5"
-                    >
-                      <Zap className="w-3.5 h-3.5 fill-emerald-500/10" />
-                      All Pipeline Stages Completed In 45 Seconds.
-                    </motion.div>
                   </motion.div>
                 )}
 
@@ -655,17 +655,21 @@ export const Hero = () => {
                     <div className="relative w-64 h-64 flex items-center justify-center mb-6">
                       
                       {/* Concentric glowing background circles */}
-                      <div className="absolute w-60 h-60 rounded-full border border-black/5 bg-[#F8F8F8] animate-pulse" />
-                      <div className="absolute w-44 h-44 rounded-full border border-black/10 bg-black/[0.02]" />
-                      <div className="absolute w-28 h-28 rounded-full bg-black/5 blur-md" />
+                      <motion.div 
+                        animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.05, 0.3] }}
+                        transition={{ repeat: Infinity, duration: 4 }}
+                        className="absolute w-60 h-60 rounded-full border-2 border-emerald-500/10 bg-emerald-500/[0.01]" 
+                      />
+                      <div className="absolute w-44 h-44 rounded-full border border-black/10 bg-black/[0.01]" />
+                      <div className="absolute w-28 h-28 rounded-full bg-emerald-500/5 blur-md" />
 
                       {/* Moving lines running to nodes */}
                       <svg className="absolute inset-0 w-full h-full overflow-visible pointer-events-none">
                         {[
-                          { id: 1, cx: 32, cy: 32, label: "LENDERS" },
-                          { id: 2, cx: 224, cy: 32, label: "OWNERS" },
-                          { id: 3, cx: 32, cy: 224, label: "INSURANCE" },
-                          { id: 4, cx: 224, cy: 224, label: "SUB-CONTRACTORS" },
+                          { id: 1, cx: 32, cy: 32 },
+                          { id: 2, cx: 224, cy: 32 },
+                          { id: 3, cx: 32, cy: 224 },
+                          { id: 4, cx: 224, cy: 224 },
                         ].map((node) => (
                           <g key={node.id}>
                             <motion.line
@@ -673,7 +677,7 @@ export const Hero = () => {
                               y1="128"
                               x2={node.cx}
                               y2={node.cy}
-                              stroke="#0A0A0A"
+                              stroke="#10B981"
                               strokeWidth="1.5"
                               strokeDasharray="4 4"
                               initial={{ strokeDashoffset: 0 }}
@@ -684,7 +688,7 @@ export const Hero = () => {
                               cx={node.cx}
                               cy={node.cy}
                               r="4"
-                              fill="#0A0A0A"
+                              fill="#10B981"
                               animate={{ scale: [1, 1.5, 1] }}
                               transition={{ repeat: Infinity, duration: 1.5, delay: node.id * 0.3 }}
                             />
@@ -693,24 +697,24 @@ export const Hero = () => {
                       </svg>
 
                       {/* Central Calm Operator Badge */}
-                      <div className="relative w-20 h-20 rounded-full bg-[#0A0A0A] shadow-[0_8px_30px_rgba(0,0,0,0.15)] border-2 border-white flex flex-col items-center justify-center z-10 text-white">
-                        <User className="w-8 h-8 stroke-[1.5]" />
+                      <div className="relative w-20 h-20 rounded-full bg-[#0A0A0A] shadow-[0_8px_30px_rgba(16,185,129,0.25)] border-2 border-emerald-500 flex flex-col items-center justify-center z-10 text-white animate-pulse">
+                        <User className="w-8 h-8 stroke-[1.5] text-emerald-400" />
                         <span className="text-[7px] font-bold uppercase tracking-widest mt-1 font-tech-landeros text-emerald-400">
                           CALM OP
                         </span>
                       </div>
 
-                      {/* Node Labels */}
-                      <span className="absolute left-[-10px] top-[15px] px-2.5 py-1 bg-white border border-black/10 rounded-xl font-tech-landeros text-[9px] font-bold text-[#0A0A0A] shadow-sm">
+                      {/* Node Labels (Premium Glass Capsules) */}
+                      <span className="absolute left-[-20px] top-[15px] px-3.5 py-1.5 bg-white/95 border border-black/8 rounded-full font-tech-landeros text-[9px] font-bold text-[#0A0A0A] shadow-sm hover:border-black/15 transition-all">
                         Lenders
                       </span>
-                      <span className="absolute right-[-10px] top-[15px] px-2.5 py-1 bg-white border border-black/10 rounded-xl font-tech-landeros text-[9px] font-bold text-[#0A0A0A] shadow-sm">
+                      <span className="absolute right-[-20px] top-[15px] px-3.5 py-1.5 bg-white/95 border border-black/8 rounded-full font-tech-landeros text-[9px] font-bold text-[#0A0A0A] shadow-sm hover:border-black/15 transition-all">
                         Property Owners
                       </span>
-                      <span className="absolute left-[-15px] bottom-[15px] px-2.5 py-1 bg-white border border-black/10 rounded-xl font-tech-landeros text-[9px] font-bold text-[#0A0A0A] shadow-sm">
+                      <span className="absolute left-[-25px] bottom-[15px] px-3.5 py-1.5 bg-white/95 border border-black/8 rounded-full font-tech-landeros text-[9px] font-bold text-[#0A0A0A] shadow-sm hover:border-black/15 transition-all">
                         Insurer Auditor
                       </span>
-                      <span className="absolute right-[-15px] bottom-[15px] px-2.5 py-1 bg-white border border-black/10 rounded-xl font-tech-landeros text-[9px] font-bold text-[#0A0A0A] shadow-sm">
+                      <span className="absolute right-[-25px] bottom-[15px] px-3.5 py-1.5 bg-white/95 border border-black/8 rounded-full font-tech-landeros text-[9px] font-bold text-[#0A0A0A] shadow-sm hover:border-black/15 transition-all">
                         Subcontractors
                       </span>
 
@@ -718,14 +722,14 @@ export const Hero = () => {
 
                     {/* Operational Status */}
                     <div className="text-center">
-                      <h4 className="font-tech-landeros text-base font-bold text-[#0A0A0A]">
+                      <h4 className="font-tech-landeros text-base font-bold text-[#0A0A0A] tracking-tight">
                         1 CALM OPERATOR CONTROLLING EVERYTHING
                       </h4>
                       <p className="text-xs text-[#6B6B6B] font-semibold mt-1 max-w-md mx-auto">
                         Estimating, audits, task notifications, contract workflows, and lender draws are controlled from a single dashboard. No phone tag. No document chase.
                       </p>
                       
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-500/10 text-emerald-700 font-bold uppercase tracking-wider text-[9px] rounded-full mt-4 font-tech-landeros">
+                      <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-50 border border-emerald-500/10 text-emerald-700 font-bold uppercase tracking-wider text-[9px] rounded-full mt-4 font-tech-landeros shadow-sm">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                         Operation Pipeline: 100% Automated
                       </div>
