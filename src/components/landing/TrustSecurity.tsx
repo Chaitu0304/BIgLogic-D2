@@ -29,23 +29,23 @@ export const TrustSecurity = () => {
   ];
 
   return (
-    <section id="security" className="py-24 bg-[#FCFBFE] bg-grid-landeros border-b border-[#311081]/5 font-sans-landeros text-[#1C1629] relative overflow-hidden">
+    <section id="security" className="py-24 bg-premium-luxury-gradient-alt bg-grid-premium border-b border-black/5 font-sans-landeros text-[#0A0A0A] relative overflow-hidden">
       {/* Background radial glow */}
-      <div className="absolute top-1/2 left-1/4 w-[350px] h-[350px] bg-gradient-to-tr from-[#6D28D9]/3 to-transparent rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/4 w-[350px] h-[350px] bg-gradient-to-tr from-black/3 to-transparent rounded-full blur-[100px] pointer-events-none" />
 
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
         
         {/* Header */}
         <div className="max-w-4xl text-left mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F6F1FC] border border-[#311081]/10 text-xs font-bold text-[#311081] tracking-wide mb-6">
-            <ShieldAlert className="w-4 h-4 text-[#6D28D9]" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/5 border border-black/10 text-xs font-bold text-[#0A0A0A] tracking-wide mb-6">
+            <ShieldAlert className="w-4 h-4 text-[#0A0A0A]" />
             <span>ENTERPRISE LIABILITY SAFEGUARDS</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-black mb-6 leading-[1.08] tracking-tight font-display-landeros text-[#311081]">
+          <h2 className="text-4xl md:text-5xl font-black mb-6 leading-[1.08] tracking-tight font-display-landeros text-[#0A0A0A]">
             Bank-Grade Security. <br />
             Built For Enterprise Restoration.
           </h2>
-          <p className="text-lg md:text-xl font-medium text-[#645D75] max-w-2xl leading-relaxed">
+          <p className="text-lg md:text-xl font-medium text-[#6B6B6B] max-w-2xl leading-relaxed">
             Estimates represent sensitive project capital and customer information. We maintain ironclad systems to ensure complete compliance and security.
           </p>
         </div>
@@ -57,28 +57,28 @@ export const TrustSecurity = () => {
             return (
               <div 
                 key={index} 
-                className="bg-white border border-[#311081]/8 p-6 shadow-landeros rounded-3xl flex flex-col justify-between hover:border-[#6D28D9]/25 hover:shadow-landeros-lg transition-all duration-300 group"
+                className="bg-white border border-black/8 p-6 shadow-premium-tactile rounded-3xl flex flex-col justify-between hover:border-black/20 hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-300 group"
               >
                 <div>
                   {/* Icon Block */}
-                  <div className="w-12 h-12 rounded-2xl bg-[#F6F1FC] border border-[#311081]/5 flex items-center justify-center mb-6 text-[#6D28D9] group-hover:bg-[#311081] group-hover:text-white transition-colors duration-300">
+                  <div className="w-12 h-12 rounded-2xl bg-black/5 border border-black/8 flex items-center justify-center mb-6 text-[#0A0A0A] group-hover:bg-[#0A0A0A] group-hover:text-white transition-colors duration-300">
                     <Icon className="w-5 h-5 stroke-[2.2]" />
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-tech-landeros text-lg font-bold text-[#311081] mb-3">
+                  <h3 className="font-tech-landeros text-lg font-bold text-[#0A0A0A] mb-3">
                     {feat.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="font-medium text-sm leading-relaxed text-[#645D75] mb-6">
+                  <p className="font-medium text-sm leading-relaxed text-[#6B6B6B] mb-6">
                     {feat.desc}
                   </p>
                 </div>
 
                 {/* Security Tag */}
-                <div className="mt-auto border-t border-[#311081]/5 pt-4">
-                  <span className="inline-block px-3 py-1 rounded-full bg-[#F6F1FC] border border-[#311081]/10 text-xs font-bold tracking-wider text-[#311081] font-tech-landeros">
+                <div className="mt-auto border-t border-black/5 pt-4">
+                  <span className="inline-block px-3 py-1 rounded-full bg-black/5 border border-black/10 text-xs font-bold tracking-wider text-[#0A0A0A] font-tech-landeros">
                     {feat.tag}
                   </span>
                 </div>
