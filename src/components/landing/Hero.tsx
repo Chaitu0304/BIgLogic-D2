@@ -134,7 +134,7 @@ export const Hero = () => {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F6F1FC] border border-[#311081]/10 text-xs font-bold text-[#311081] tracking-wide mb-8 shadow-sm"
           >
             <Sparkles className="w-4 h-4 text-[#6D28D9]" />
-            <span>99.8% AUDIT ACCURACY &bull; ATTN: U.S. RESTORATION CONTRACTORS</span>
+            <span>The #1 Platform for Reconstruction Companies</span>
           </motion.div>
 
           {/* Centered Satoshi Bold Headline */}

@@ -184,7 +184,7 @@ export const Pricing = () => {
                     className={`w-full h-14 text-xs font-extrabold uppercase tracking-widest flex items-center justify-center gap-2 group/btn relative overflow-hidden transition-all duration-300 ${
                       plan.popular
                         ? "btn-landeros-primary"
-                        : "btn-landeros-secondary"
+                        : "btn-landeros-secondary group-hover:bg-[#6D28D9] group-hover:text-white group-hover:scale-[1.02] group-hover:shadow-[0_0_30px_rgba(109,40,217,0.7)] group-hover:border-transparent hover:!scale-[1.04] hover:!shadow-[0_0_40px_rgba(109,40,217,0.9)] hover:!bg-[#6D28D9]"
                     }`}
                   >
                     <span>{plan.cta}</span>

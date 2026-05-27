@@ -65,7 +65,7 @@ export const Navbar = () => {
           </Link>
  
           {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center gap-3.5 xl:gap-5 text-[9.5px] xl:text-[10px] font-bold uppercase tracking-widest text-[#645D75] whitespace-nowrap shrink-0">
+          <div className="hidden lg:flex items-center gap-3.5 xl:gap-5 text-[11px] xl:text-xs font-extrabold uppercase tracking-widest text-[#645D75] whitespace-nowrap shrink-0">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -83,7 +83,7 @@ export const Navbar = () => {
             {localStorage.getItem("token") ? (
               <button
                 onClick={() => navigate("/dashboard")}
-                className="px-3.5 xl:px-4 py-2 text-[9.5px] xl:text-[10px] font-bold btn-landeros-primary flex items-center gap-1.5 group shrink-0"
+                className="px-3.5 xl:px-4 py-2 text-[11px] xl:text-xs font-extrabold btn-landeros-primary flex items-center gap-1.5 group shrink-0"
               >
                 DASHBOARD <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
               </button>
@@ -91,13 +91,13 @@ export const Navbar = () => {
               <>
                 <button
                   onClick={() => navigate("/login")}
-                  className="px-2 xl:px-3 py-2 text-[9.5px] xl:text-[10px] font-bold text-[#311081] hover:text-[#240b61] transition-colors uppercase tracking-widest font-sans-landeros shrink-0"
+                  className="px-2 xl:px-3 py-2 text-[11px] xl:text-xs font-extrabold text-[#311081] hover:text-[#240b61] transition-colors uppercase tracking-widest font-sans-landeros shrink-0"
                 >
                   SIGN IN
                 </button>
                 <button
                   onClick={() => navigate("/signup")}
-                  className="px-4 xl:px-5 py-2.5 text-[9.5px] xl:text-[10px] font-bold btn-landeros-primary flex items-center gap-1.5 group shrink-0"
+                  className="px-4 xl:px-5 py-2.5 text-[11px] xl:text-xs font-extrabold btn-landeros-primary flex items-center gap-1.5 group shrink-0"
                 >
                   GET STARTED <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
                 </button>
