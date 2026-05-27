@@ -138,15 +138,15 @@ export const OfferTransformation = () => {
  
         </div>
  
-        {/* Hormozi Grand Slam Value Stack Box (tactile double-border) */}
-        <div className="max-w-4xl mx-auto bg-white border border-black/8 rounded-[36px] p-8 md:p-12 shadow-landeros relative text-left hover-premium-card z-10 overflow-visible !overflow-visible">
+        {/* Hormozi Grand Slam Value Stack Box */}
+        <div className="max-w-4xl mx-auto bg-white border border-black/8 rounded-3xl p-8 md:p-12 shadow-landeros relative text-left hover-premium-card z-10 overflow-visible !overflow-visible">
           {/* Nested container to clip the radial flare within rounded corners */}
-          <div className="absolute inset-0 rounded-[36px] overflow-hidden pointer-events-none z-0">
-            <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl from-black/[0.015] to-transparent rounded-full" />
+          <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none z-0">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl from-black/3 to-transparent rounded-full" />
           </div>
           
-          <div className="absolute top-0 left-8 -translate-y-1/2 px-5 py-2 rounded-full bg-gradient-to-r from-[#0A0A0A] to-[#2A2A2A] text-white border border-white/10 text-[10px] font-bold uppercase tracking-widest shadow-md font-tech-landeros flex items-center gap-1.5 z-40">
-            <Zap className="w-3.5 h-3.5 fill-emerald-400 text-emerald-400" />
+          <div className="absolute top-0 left-8 -translate-y-1/2 px-5 py-1.5 rounded-full bg-gradient-to-r from-white to-neutral-400 text-black text-xs font-bold uppercase tracking-widest shadow-md font-tech-landeros flex items-center gap-1.5 z-40">
+            <Zap className="w-3 h-3 fill-current text-black" />
             GRAND SLAM VALUE OFFER
           </div>
           
@@ -174,7 +174,7 @@ export const OfferTransformation = () => {
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-[#0A0A0A] shrink-0 mt-0.5 stroke-[2.5]" />
+                  <Check className="w-4 h-4 text-white shrink-0 mt-0.5 stroke-[2.5]" />
                   <span className="text-sm font-semibold text-[#3A3A3A]">
                     <span className="text-[#0A0A0A] font-bold">Risk-Free Clause:</span> No credit card required. No sales pressure. Cancel anytime with a click.
                   </span>
@@ -182,15 +182,15 @@ export const OfferTransformation = () => {
               </ul>
             </div>
  
-            <div className="md:col-span-5 bg-black/5 border border-black/8 rounded-[24px] p-6 text-center flex flex-col justify-between h-full relative shadow-sm hover:border-[#0A0A0A]/20 transition-all duration-300">
+            <div className="md:col-span-5 bg-[#F0F0F0] border border-black/10 rounded-2xl p-6 text-center flex flex-col justify-between h-full relative">
               <div className="absolute top-2 right-2">
-                <span className="px-2 py-0.5 bg-white border border-black/10 text-black text-[9px] font-bold rounded uppercase tracking-wider font-tech-landeros shadow-sm">
+                <span className="px-2 py-0.5 bg-white text-black text-xs font-bold rounded uppercase tracking-wider font-tech-landeros">
                   BETA SPECIAL
                 </span>
               </div>
               
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#6B6B6B] font-tech-landeros block mb-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#6B6B6B] font-tech-landeros block mb-1">
                   LIFETIME PRICE ACCESS
                 </span>
                 <div className="flex items-baseline justify-center gap-1.5">
