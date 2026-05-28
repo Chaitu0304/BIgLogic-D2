@@ -44,6 +44,7 @@ export const Hero = () => {
 
   const scaleBg = useTransform(scrollY, [0, 450], [1, 1.15]);
   const opacityBg = useTransform(scrollY, [0, 300], [1, 0]);
+  const ySketch = useTransform(scrollY, [0, 1000], [0, -150]);
 
   const tabs = [
     { id: 0, label: "1. PDF Scraping", icon: FileText },
@@ -153,6 +154,31 @@ export const Hero = () => {
         {/* Smooth bottom linear fade to blend into the premium page body */}
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-[#F5F5F3] z-30" />
       </motion.div>
+
+      {/* Retained Pencil Sketches beside the dashboard at z-10 behind the dashboard container */}
+      <motion.div
+        style={{ y: ySketch }}
+        className="absolute bottom-[13%] left-[-80px] lg:left-[-120px] w-[380px] h-[380px] lg:w-[600px] lg:h-[600px] pointer-events-none z-10 mix-blend-multiply opacity-[0.15] overflow-hidden"
+      >
+        <img
+          src="/sketch_calculator_ruler.png"
+          alt="Calculator and Ruler Sketch"
+          className="w-full h-full object-contain scale-[1.08] drop-shadow-[2px_6px_12px_rgba(0,0,0,0.15)]"
+         style={{ clipPath: "inset(5%)" }} />
+      </motion.div>
+
+      <motion.div
+        style={{ y: ySketch }}
+        className="absolute bottom-[10%] right-[-80px] lg:right-[-120px] w-[350px] h-[350px] lg:w-[500px] lg:h-[500px] pointer-events-none z-10 mix-blend-multiply opacity-[0.15] overflow-hidden"
+      >
+        <img
+          src="/sketch_tape_measure.png"
+          alt="Tape Measure Sketch"
+          className="w-full h-full object-contain scale-[1.08] drop-shadow-[2px_6px_12px_rgba(0,0,0,0.15)]"
+         style={{ clipPath: "inset(5%)" }} />
+      </motion.div>
+
+
       
       <div className="container relative z-10 mx-auto px-4 max-w-7xl">
         <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
@@ -751,6 +777,36 @@ export const Hero = () => {
 
           </motion.div>
 
+        </div>
+      </div>
+
+
+
+      {/* Ecosystem Integrations Ribbon */}
+      <div className="border-t border-black/5 bg-white/40 backdrop-blur-sm py-8 mt-24 relative z-10 w-full overflow-hidden">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <p className="text-center font-tech-landeros text-[9px] font-black tracking-widest text-[#6B6B6B] uppercase mb-5">
+            NATIVE CONNECTIONS & WORKFLOW INTEGRATIONS
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-12 md:gap-20 opacity-55 grayscale hover:opacity-75 transition-opacity duration-300">
+            <div className="flex items-center gap-2 font-display-landeros text-sm font-black text-[#0A0A0A] tracking-tighter">
+              <span className="bg-[#0A0A0A] text-white px-1.5 py-0.5 rounded text-[10px] font-mono">qb</span>
+              QuickBooks
+            </div>
+            <div className="flex items-center gap-1.5 font-tech-landeros text-sm font-black text-[#0A0A0A]">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-600 inline-block" />
+              Xactimate
+            </div>
+            <div className="flex items-center gap-1 font-sans font-black text-sm text-[#0A0A0A] tracking-tight">
+              PROCORE
+            </div>
+            <div className="flex items-center gap-1 font-serif text-sm font-black text-[#0A0A0A] italic tracking-wider">
+              DocuSign
+            </div>
+            <div className="flex items-center gap-1.5 font-sans font-black text-sm text-[#0A0A0A] tracking-wider">
+              stripe
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -1,9 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Zap, Clock, ShieldCheck, ArrowRight, FileText, Check } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export const CTA = () => {
   const navigate = useNavigate();
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  const ySketch = useTransform(scrollYProgress, [0, 1], [-80, 80]);
   
   // Urgency Stateful Countdown Timer
   const [timeLeft, setTimeLeft] = useState({ hours: 2, minutes: 14, seconds: 45 });
@@ -28,7 +36,7 @@ export const CTA = () => {
   }, []);
 
   return (
-    <section className="py-24 bg-premium-luxury-gradient-alt bg-grid-premium border-b border-black/5 font-sans-landeros text-[#0A0A0A] relative overflow-hidden">
+    <section ref={sectionRef} className="py-24 bg-premium-luxury-gradient-alt bg-grid-premium border-b border-black/5 font-sans-landeros text-[#0A0A0A] relative overflow-hidden">
       {/* Huge diffused background glow behind the CTA container */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-black/3 to-transparent rounded-full blur-[140px] pointer-events-none" />
 
@@ -217,6 +225,51 @@ export const CTA = () => {
         </div>
 
       </div>
+
+      {/* Background Pencil Sketches surrounding the content */}
+      <motion.div
+        style={{ y: ySketch }}
+        className="absolute top-[10%] left-[-150px] w-[350px] h-[350px] pointer-events-none z-0 mix-blend-multiply opacity-[0.15] overflow-hidden"
+      >
+        <img
+          src="/sketch_house_framing.png"
+          alt="House Framing Sketch"
+          className="w-full h-full object-contain scale-[1.08] drop-shadow-[2px_6px_12px_rgba(0,0,0,0.15)]"
+         style={{ clipPath: "inset(5%)" }} />
+      </motion.div>
+
+      <motion.div
+        style={{ y: ySketch }}
+        className="absolute top-[5%] right-[-150px] w-[350px] h-[350px] pointer-events-none z-0 mix-blend-multiply opacity-[0.15] overflow-hidden"
+      >
+        <img
+          src="/sketch_blueprint_layout.png"
+          alt="Blueprint Layout Sketch"
+          className="w-full h-full object-contain scale-[1.08] drop-shadow-[2px_6px_12px_rgba(0,0,0,0.15)]"
+         style={{ clipPath: "inset(5%)" }} />
+      </motion.div>
+
+      <motion.div
+        style={{ y: ySketch }}
+        className="absolute bottom-[15%] left-[-150px] w-[350px] h-[350px] pointer-events-none z-0 mix-blend-multiply opacity-[0.15] overflow-hidden"
+      >
+        <img
+          src="/sketch_construction_truck.png"
+          alt="Construction Truck Sketch"
+          className="w-full h-full object-contain scale-[1.08] drop-shadow-[2px_6px_12px_rgba(0,0,0,0.15)]"
+         style={{ clipPath: "inset(5%)" }} />
+      </motion.div>
+
+      <motion.div
+        style={{ y: ySketch }}
+        className="absolute bottom-[5%] right-[-150px] w-[350px] h-[350px] pointer-events-none z-0 mix-blend-multiply opacity-[0.15] overflow-hidden"
+      >
+        <img
+          src="/sketch_paint_roller.png"
+          alt="Paint Roller Sketch"
+          className="w-full h-full object-contain scale-[1.08] drop-shadow-[2px_6px_12px_rgba(0,0,0,0.15)]"
+         style={{ clipPath: "inset(5%)" }} />
+      </motion.div>
     </section>
   );
 };

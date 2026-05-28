@@ -1,9 +1,16 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
 
 export const Faq = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  const ySketch = useTransform(scrollYProgress, [0, 1], [-80, 80]);
 
   const toggleItem = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -33,7 +40,7 @@ export const Faq = () => {
   ];
 
   return (
-    <section id="faq" className="py-24 bg-premium-luxury-gradient bg-grid-premium border-b border-black/5 font-sans-landeros text-[#0A0A0A] relative overflow-hidden">
+    <section ref={sectionRef} id="faq" className="py-24 bg-premium-luxury-gradient bg-grid-premium border-b border-black/5 font-sans-landeros text-[#0A0A0A] relative overflow-hidden">
       {/* Background radial glow */}
       <div className="absolute bottom-10 right-10 w-[400px] h-[400px] bg-gradient-to-tr from-black/3 to-transparent rounded-full blur-[100px] pointer-events-none" />
 
@@ -116,6 +123,51 @@ export const Faq = () => {
 
         </div>
       </div>
+
+      {/* Background Pencil Sketches surrounding the content */}
+      <motion.div
+        style={{ y: ySketch }}
+        className="absolute top-[10%] left-[-150px] w-[350px] h-[350px] pointer-events-none z-0 mix-blend-multiply opacity-[0.15] overflow-hidden"
+      >
+        <img
+          src="/sketch_clipboard_contract.png"
+          alt="Clipboard Sketch"
+          className="w-full h-full object-contain scale-[1.08] drop-shadow-[2px_6px_12px_rgba(0,0,0,0.15)]"
+         style={{ clipPath: "inset(5%)" }} />
+      </motion.div>
+
+      <motion.div
+        style={{ y: ySketch }}
+        className="absolute top-[5%] right-[-150px] w-[350px] h-[350px] pointer-events-none z-0 mix-blend-multiply opacity-[0.15] overflow-hidden"
+      >
+        <img
+          src="/sketch_drafting_tools.png"
+          alt="Drafting Tools Sketch"
+          className="w-full h-full object-contain scale-[1.08] drop-shadow-[2px_6px_12px_rgba(0,0,0,0.15)]"
+         style={{ clipPath: "inset(5%)" }} />
+      </motion.div>
+
+      <motion.div
+        style={{ y: ySketch }}
+        className="absolute bottom-[15%] left-[-150px] w-[350px] h-[350px] pointer-events-none z-0 mix-blend-multiply opacity-[0.15] overflow-hidden"
+      >
+        <img
+          src="/sketch_toolbox_wrenches.png"
+          alt="Toolbox and Wrenches Sketch"
+          className="w-full h-full object-contain scale-[1.08] drop-shadow-[2px_6px_12px_rgba(0,0,0,0.15)]"
+         style={{ clipPath: "inset(5%)" }} />
+      </motion.div>
+
+      <motion.div
+        style={{ y: ySketch }}
+        className="absolute bottom-[5%] right-[-150px] w-[350px] h-[350px] pointer-events-none z-0 mix-blend-multiply opacity-[0.15] overflow-hidden"
+      >
+        <img
+          src="/sketch_hardhat_hammer.png"
+          alt="Hardhat and Hammer Sketch"
+          className="w-full h-full object-contain scale-[1.08] drop-shadow-[2px_6px_12px_rgba(0,0,0,0.15)]"
+         style={{ clipPath: "inset(5%)" }} />
+      </motion.div>
     </section>
   );
 };

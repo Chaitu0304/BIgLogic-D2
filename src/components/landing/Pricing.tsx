@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Check, HelpCircle, Zap, ShieldCheck, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export const Pricing = () => {
   const navigate = useNavigate();
   const [isAnnual, setIsAnnual] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  const ySketch = useTransform(scrollYProgress, [0, 1], [-80, 80]);
 
   const plans = [
     {
@@ -47,7 +55,7 @@ export const Pricing = () => {
   ];
 
   return (
-    <section id="pricing" className="py-24 md:py-32 bg-premium-luxury-gradient relative overflow-hidden">
+    <section ref={sectionRef} id="pricing" className="py-24 md:py-32 bg-premium-luxury-gradient relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
         
         {/* Section badge tag */}
@@ -270,6 +278,51 @@ export const Pricing = () => {
         </div>
 
       </div>
+
+      {/* Background Pencil Sketches surrounding the content closer to content, larger, and more opaque */}
+      <motion.div
+        style={{ y: ySketch }}
+        className="absolute top-[10%] left-[-80px] lg:left-[-120px] w-[350px] h-[350px] lg:w-[500px] lg:h-[500px] pointer-events-none z-0 mix-blend-multiply opacity-[0.15] overflow-hidden"
+      >
+        <img
+          src="/sketch_house_framing.png"
+          alt="House Framing Sketch"
+          className="w-full h-full object-contain scale-[1.08] drop-shadow-[2px_6px_12px_rgba(0,0,0,0.15)]"
+         style={{ clipPath: "inset(5%)" }} />
+      </motion.div>
+
+      <motion.div
+        style={{ y: ySketch }}
+        className="absolute top-[5%] right-[-80px] lg:right-[-120px] w-[350px] h-[350px] lg:w-[500px] lg:h-[500px] pointer-events-none z-0 mix-blend-multiply opacity-[0.15] overflow-hidden"
+      >
+        <img
+          src="/sketch_contract_scroll.png"
+          alt="Contract Scroll Sketch"
+          className="w-full h-full object-contain scale-[1.08] drop-shadow-[2px_6px_12px_rgba(0,0,0,0.15)]"
+         style={{ clipPath: "inset(5%)" }} />
+      </motion.div>
+
+      <motion.div
+        style={{ y: ySketch }}
+        className="absolute bottom-[15%] left-[-80px] lg:left-[-120px] w-[350px] h-[350px] lg:w-[500px] lg:h-[500px] pointer-events-none z-0 mix-blend-multiply opacity-[0.15] overflow-hidden"
+      >
+        <img
+          src="/sketch_clipboard_contract.png"
+          alt="Clipboard Sketch"
+          className="w-full h-full object-contain scale-[1.08] drop-shadow-[2px_6px_12px_rgba(0,0,0,0.15)]"
+         style={{ clipPath: "inset(5%)" }} />
+      </motion.div>
+
+      <motion.div
+        style={{ y: ySketch }}
+        className="absolute bottom-[5%] right-[-80px] lg:right-[-120px] w-[350px] h-[350px] lg:w-[500px] lg:h-[500px] pointer-events-none z-0 mix-blend-multiply opacity-[0.15] overflow-hidden"
+      >
+        <img
+          src="/sketch_calculator_ruler.png"
+          alt="Calculator and Ruler Sketch"
+          className="w-full h-full object-contain scale-[1.08] drop-shadow-[2px_6px_12px_rgba(0,0,0,0.15)]"
+         style={{ clipPath: "inset(5%)" }} />
+      </motion.div>
     </section>
   );
 };

@@ -147,12 +147,14 @@ export const SaaSHeroMockup = () => {
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             src="/hardhat.png"
             className="w-12 h-auto filter drop-shadow-[0_12px_24px_rgba(0,0,0,0.12)] mix-blend-multiply"
+            style={{ clipPath: "inset(5%)" }}
           />
           <motion.img
             animate={{ y: [0, 6, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
             src="/spirit_level.png"
             className="w-14 h-auto filter drop-shadow-[0_12px_24px_rgba(0,0,0,0.12)] mix-blend-multiply"
+            style={{ clipPath: "inset(5%)" }}
           />
         </div>
       </motion.div>
