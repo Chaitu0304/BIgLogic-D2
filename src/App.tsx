@@ -48,6 +48,7 @@ import AdminSignup from "./pages/admin/AdminSignup";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import PrivateRoute from "./components/PrivateRoute";
+import { SaaSHeroMockup } from "./pages/SaaSHeroMockup";
 import PermissionRoute from "./components/PermissionRoute";
 import { ThemeProvider } from "./components/ThemeProvider";
 import DatesTab from "./pages/Jobs/tabs/DatesTab";
@@ -58,13 +59,14 @@ const queryClient = new QueryClient();
 
 const App = () => (
     <QueryClientProvider client={queryClient}>
-        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
             <TooltipProvider>
                 <Toaster />
                 <Sonner />
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Index />} />
+                        <Route path="/recreate-hero" element={<SaaSHeroMockup />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/signup" element={<Signup />} />
                         <Route path="/forgot-password" element={<ForgotPassword />} />

@@ -9,6 +9,8 @@ import { Testimonials } from "@/components/landing/Testimonials";
 import { WhoItsFor } from "@/components/landing/WhoItsFor";
 import { WhyBigLogic } from "@/components/landing/WhyBigLogic";
 import { TrustSecurity } from "@/components/landing/TrustSecurity";
+import { FomoScarcity } from "@/components/landing/FomoScarcity";
+import { GrandSlamOffer } from "@/components/landing/GrandSlamOffer";
 import Faq from "@/components/landing/Faq";
 import { CTA } from "@/components/landing/CTA";
 import { Footer } from "@/components/landing/Footer";
@@ -34,6 +36,8 @@ const Index = () => {
       <WhoItsFor />
       <WhyBigLogic />
       <TrustSecurity />
+      <FomoScarcity />
+      <GrandSlamOffer />
       <Faq />
       <CTA />
       <Footer />

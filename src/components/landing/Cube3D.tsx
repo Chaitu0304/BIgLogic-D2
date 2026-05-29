@@ -25,31 +25,35 @@ export const Cube3D: React.FC<Cube3DProps> = ({
   // Map delay to index to determine color theme if not explicitly provided
   const blockIndex = index !== undefined ? index : Math.round(delay / 0.4);
 
-  // Define unique premium hue-rotate and active glow settings for each cube
+  // Define unique premium monochrome and active glow settings for each cube
   const colorThemes = [
     {
-      // PDF Scraping - Signature LanderOS Blue/Indigo
-      hue: "hue-rotate(216deg)",
-      glow: "bg-indigo-600/10 shadow-[0_0_60px_rgba(99,102,241,0.25)]",
-      activeText: "text-indigo-600 dark:text-indigo-400",
+      // PDF Scraping - Silver Chrome
+      glow: "bg-black/8 shadow-[0_0_60px_rgba(0,0,0,0.1)]",
+      activeText: "text-[#0A0A0A]",
+      filter: "grayscale(1) contrast(1.25) brightness(1.15)",
+      idleFilter: "grayscale(1) contrast(0.95) brightness(0.8)",
     },
     {
-      // Live Dashboards - Royal Purple
-      hue: "hue-rotate(265deg)",
-      glow: "bg-purple-600/10 shadow-[0_0_60px_rgba(168,85,247,0.25)]",
-      activeText: "text-purple-600 dark:text-purple-400",
+      // Live Dashboards - Liquid Silver
+      glow: "bg-neutral-300/15 shadow-[0_0_60px_rgba(0,0,0,0.1)]",
+      activeText: "text-[#3A3A3A]",
+      filter: "grayscale(1) contrast(1.3) brightness(1.1)",
+      idleFilter: "grayscale(1) contrast(0.9) brightness(0.75)",
     },
     {
-      // Managing Tasks - Deep Teal / Cyan-Blue
-      hue: "hue-rotate(150deg)",
-      glow: "bg-teal-600/10 shadow-[0_0_60px_rgba(20,184,166,0.25)]",
-      activeText: "text-teal-600 dark:text-teal-400",
+      // Managing Tasks - Metallic Graphite
+      glow: "bg-black/5 shadow-[0_0_60px_rgba(0,0,0,0.1)]",
+      activeText: "text-[#3A3A3A]",
+      filter: "grayscale(1) contrast(1.2) brightness(0.95)",
+      idleFilter: "grayscale(1) contrast(0.85) brightness(0.7)",
     },
     {
-      // Automating - Warm Clay Rose
-      hue: "hue-rotate(335deg)",
-      glow: "bg-rose-600/10 shadow-[0_0_60px_rgba(244,63,94,0.25)]",
-      activeText: "text-rose-600 dark:text-rose-400",
+      // Automating - Frost Glass
+      glow: "bg-black/8 shadow-[0_0_60px_rgba(0,0,0,0.1)]",
+      activeText: "text-[#0A0A0A]",
+      filter: "grayscale(1) contrast(1.35) brightness(1.2)",
+      idleFilter: "grayscale(1) contrast(1.0) brightness(0.85)",
     },
   ];
 
@@ -242,8 +246,8 @@ export const Cube3D: React.FC<Cube3DProps> = ({
       <div
         className="relative w-[216px] h-[214px] scale-[0.62] md:scale-100 origin-bottom transition-transform duration-300 group-hover:scale-[0.66] md:group-hover:scale-105 select-none"
         style={{
-          filter: `${currentTheme.hue} contrast(1.04) grayscale(0.4)`,
-          WebkitFilter: `${currentTheme.hue} contrast(1.04) grayscale(0.4)`,
+          filter: isActive ? currentTheme.filter : currentTheme.idleFilter,
+          WebkitFilter: isActive ? currentTheme.filter : currentTheme.idleFilter,
         }}
       >
         {/* Floor drop shadow (pulsing in sync with height growth) */}
@@ -305,7 +309,7 @@ export const Cube3D: React.FC<Cube3DProps> = ({
           <div style={styles.iconsContainer}>
             <div className="absolute inset-0 flex items-center justify-center">
               <Icon
-                className="w-10 h-10 stroke-[2] select-none text-[rgb(179,128,52)] transition-opacity duration-300"
+                className="w-10 h-10 stroke-[2] select-none text-[#0A0A0A] transition-opacity duration-300"
                 style={{
                   opacity: isActive ? 1 : 0.65,
                 }}

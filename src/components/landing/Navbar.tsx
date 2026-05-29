@@ -7,15 +7,22 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isNavVisible, setIsNavVisible] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+      setIsNavVisible(window.scrollY > 80 || location.pathname !== "/");
     };
+    
+    // Set initial values
+    setIsScrolled(window.scrollY > 20);
+    setIsNavVisible(window.scrollY > 80 || location.pathname !== "/");
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -47,31 +54,45 @@ export const Navbar = () => {
   ];
 
   return (
-    <header className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[96%] lg:w-[95%] xl:w-[86%] lg:max-w-[1080px] xl:max-w-[1200px] transition-all duration-300">
+    <motion.header
+      initial={{ y: -120, opacity: 0, x: "-50%" }}
+      animate={{ 
+        y: isNavVisible ? 0 : -120, 
+        opacity: isNavVisible ? 1 : 0,
+        x: "-50%"
+      }}
+      transition={{ 
+        type: "spring", 
+        stiffness: 240, 
+        damping: 24,
+        opacity: { duration: 0.2 }
+      }}
+      className="fixed top-5 left-1/2 z-50 w-[96%] lg:w-[95%] xl:w-[86%] lg:max-w-[1080px] xl:max-w-[1200px]"
+    >
       {/* Floating Glass Container Capsule */}
       <div 
-        className={`rounded-full border border-[#311081]/10 transition-all duration-300 px-5 py-2 flex items-center justify-between bg-glass-landeros ${
+        className={`rounded-full border border-black/10 transition-all duration-300 px-5 py-2 flex items-center justify-between bg-glass-landeros ${
           isScrolled 
-            ? "shadow-landeros-lg bg-white/95" 
-            : "shadow-landeros bg-white/80"
+            ? "shadow-[0_4px_20px_rgba(0,0,0,0.1)] bg-white/90 backdrop-blur-md" 
+            : "shadow-[0_4px_20px_rgba(0,0,0,0.06)] bg-white/80 backdrop-blur-md"
         }`}
       >
         <div className="flex items-center justify-between w-full">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group shrink-0">
-            <span className="font-display-landeros text-base md:text-lg font-bold tracking-tight flex items-center gap-0.5 text-[#311081] whitespace-nowrap">
-              BigLogic<span className="text-[#6D28D9]">AI</span>
+            <span className="font-display-landeros text-base md:text-lg font-bold tracking-tight flex items-center gap-0.5 text-[#0A0A0A] whitespace-nowrap">
+              BigLogic<span className="text-[#3A3A3A]">AI</span>
             </span>
           </Link>
  
           {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center gap-3.5 xl:gap-5 text-[11px] xl:text-xs font-extrabold uppercase tracking-widest text-[#645D75] whitespace-nowrap shrink-0">
+          <div className="hidden lg:flex items-center gap-3.5 xl:gap-5 text-[9.5px] xl:text-[10px] font-bold uppercase tracking-widest text-[#6B6B6B] whitespace-nowrap shrink-0">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={`#${link.id}`}
                 onClick={(e) => scrollToSection(e, link.id)}
-                className="hover:text-[#311081] transition-colors relative py-1 px-0.5 whitespace-nowrap shrink-0"
+                className="hover:text-[#0A0A0A] transition-colors relative py-1 px-0.5 whitespace-nowrap shrink-0"
               >
                 {link.name}
               </a>
@@ -91,7 +112,7 @@ export const Navbar = () => {
               <>
                 <button
                   onClick={() => navigate("/login")}
-                  className="px-2 xl:px-3 py-2 text-[11px] xl:text-xs font-extrabold text-[#311081] hover:text-[#240b61] transition-colors uppercase tracking-widest font-sans-landeros shrink-0"
+                  className="px-2 xl:px-3 py-2 text-[9.5px] xl:text-[10px] font-bold text-[#0A0A0A] hover:text-[#6B6B6B] transition-colors uppercase tracking-widest font-sans-landeros shrink-0"
                 >
                   SIGN IN
                 </button>
@@ -108,7 +129,7 @@ export const Navbar = () => {
           {/* Mobile Menu Toggle */}
           <div className="flex items-center lg:hidden">
             <button
-              className="p-2 rounded-full bg-white text-[#311081] border border-[#311081]/10 hover:bg-[#F6F1FC] transition-colors"
+              className="p-2 rounded-full bg-[#0A0A0A] text-white border border-black/10 hover:bg-neutral-800 transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -125,7 +146,7 @@ export const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="absolute top-16 left-2 right-2 z-40 lg:hidden p-5 bg-glass-landeros border border-[#311081]/15 rounded-3xl shadow-landeros-lg bg-white/95"
+            className="absolute top-16 left-2 right-2 z-40 lg:hidden p-5 border border-black/5 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.1)] bg-white"
           >
             <div className="flex flex-col gap-3">
               {navLinks.map((link) => (
@@ -133,12 +154,12 @@ export const Navbar = () => {
                   key={link.name}
                   href={`#${link.id}`}
                   onClick={(e) => scrollToSection(e, link.id)}
-                  className="text-xs font-bold uppercase tracking-wider text-[#645D75] hover:text-[#311081] py-2 transition-colors border-b border-[#311081]/5 last:border-0"
+                  className="text-xs font-bold uppercase tracking-wider text-[#6B6B6B] hover:text-[#0A0A0A] py-2 transition-colors border-b border-black/5 last:border-0"
                 >
                   {link.name}
                 </a>
               ))}
-              <div className="h-px bg-[#311081]/10 my-1" />
+              <div className="h-px bg-black/10 my-1" />
               <div className="flex flex-col gap-2 pt-1">
                 {localStorage.getItem("token") ? (
                   <button
@@ -157,7 +178,7 @@ export const Navbar = () => {
                         navigate("/login");
                         setMobileMenuOpen(false);
                       }}
-                      className="w-full py-2.5 text-center text-xs font-bold text-[#311081] border border-[#311081]/10 rounded-full hover:bg-[#F6F1FC] transition-colors"
+                      className="w-full py-2.5 text-center text-xs font-bold text-[#0A0A0A] border border-black/10 rounded-full hover:bg-black/5 transition-colors"
                     >
                       SIGN IN
                     </button>
@@ -177,6 +198,6 @@ export const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 };
