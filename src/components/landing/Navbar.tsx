@@ -104,7 +104,7 @@ export const Navbar = () => {
             {localStorage.getItem("token") ? (
               <button
                 onClick={() => navigate("/dashboard")}
-                className="px-3.5 xl:px-4 py-2 text-[11px] xl:text-xs font-extrabold btn-landeros-primary flex items-center gap-1.5 group shrink-0"
+                className="px-3.5 xl:px-4 py-2 text-[9.5px] xl:text-[10px] font-bold btn-landeros-primary flex items-center gap-1.5 group shrink-0"
               >
                 DASHBOARD <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
               </button>
@@ -118,7 +118,7 @@ export const Navbar = () => {
                 </button>
                 <button
                   onClick={() => navigate("/signup")}
-                  className="px-4 xl:px-5 py-2.5 text-[11px] xl:text-xs font-extrabold btn-landeros-primary flex items-center gap-1.5 group shrink-0"
+                  className="px-4 xl:px-5 py-2.5 text-[9.5px] xl:text-[10px] font-bold btn-landeros-primary flex items-center gap-1.5 group shrink-0"
                 >
                   GET STARTED <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
                 </button>

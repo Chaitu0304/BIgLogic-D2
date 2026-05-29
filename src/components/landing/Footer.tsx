@@ -6,9 +6,7 @@ import {
   Mail,
   MapPin,
   ArrowRight,
-  ShieldCheck,
-  Globe,
-  Heart
+  ShieldCheck
 } from "lucide-react";
 
 const FooterLink = ({ to, children }: { to: string, children: React.ReactNode }) => (
@@ -30,7 +28,7 @@ const SocialIcon = ({ icon: Icon, href }: { icon: any, href: string }) => (
     rel="noopener noreferrer"
     className="w-10 h-10 rounded-full border border-black/10 bg-white flex items-center justify-center text-[#0A0A0A] shadow-premium-tactile hover:bg-[#0A0A0A] hover:text-white transition-all duration-300"
   >
-    <Icon className="w-4.5 h-4.5" />
+    <Icon className="w-4 h-4" />
   </a>
 );
 
@@ -40,13 +38,8 @@ export const Footer = () => {
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
 
-      <div className="container mx-auto px-4 max-w-7xl relative z-10">
-        
-        {/* Main Columns Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-20">
-
-          {/* Brand Info Column (Span 4) */}
-          <div className="space-y-6 text-left lg:col-span-4">
+          {/* Brand Column */}
+          <div className="space-y-4 text-left">
             <Link to="/" className="flex items-center gap-1.5 group">
               <span className="font-display-landeros text-2xl font-black tracking-tight text-[#0A0A0A] !font-bold">
                 BigLogic<span className="text-[#6B6B6B]">AI</span>
@@ -55,7 +48,7 @@ export const Footer = () => {
             <p className="font-medium text-xs leading-relaxed text-[#6B6B6B] max-w-xs">
               Enterprise-grade AI agents automating the restoration lifecycle. Rebuilding estimate data into approved cash flows in 60 seconds.
             </p>
-            <div className="flex gap-3.5 pt-2">
+            <div className="flex gap-3 pt-2">
               <SocialIcon icon={Twitter} href="#" />
               <SocialIcon icon={Linkedin} href="#" />
               <SocialIcon icon={Github} href="#" />
@@ -80,9 +73,9 @@ export const Footer = () => {
             <ul className="space-y-3 text-xs">
               <FooterLink to="/">About Us</FooterLink>
               <FooterLink to="/">Careers</FooterLink>
-              <FooterLink to="/">Engineering</FooterLink>
-              <FooterLink to="/">Partner Suite</FooterLink>
-              <FooterLink to="/">Support Desk</FooterLink>
+              <FooterLink to="/">Engineering Blog</FooterLink>
+              <FooterLink to="/">Contact Support</FooterLink>
+              <FooterLink to="/">Partner Ecosystem</FooterLink>
             </ul>
           </div>
 
@@ -113,7 +106,7 @@ export const Footer = () => {
                   aria-label="Subscribe" 
                   className="w-9 h-9 rounded-full bg-[#0A0A0A] text-white flex items-center justify-center shrink-0 shadow-md hover:bg-[#2A2A2A] transition-all duration-300 active:scale-95"
                 >
-                  <ArrowRight className="w-4.5 h-4.5 stroke-[2.5]" />
+                  <ArrowRight className="w-4 h-4 stroke-[2.5]" />
                 </button>
               </div>
             </div>
@@ -132,8 +125,8 @@ export const Footer = () => {
             <Link to="/signup" className="hover:text-[#0A0A0A] transition-colors">Cookie Settings</Link>
           </div>
         </div>
-
       </div>
     </footer>
   );
 };
+

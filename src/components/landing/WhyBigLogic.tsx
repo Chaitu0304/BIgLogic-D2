@@ -121,20 +121,7 @@ export const WhyBigLogic = () => {
       subText: "Estimators manual copying & spec writing vs. fast AI extraction with human audit review.",
       metricUnit: "Labor"
     }
-  }, [activeTab]);
-
-  const handleAutoRepair = () => {
-    if (auditState === "warning") {
-      setAuditState("repairing");
-      setTimeout(() => {
-        setAuditState("repaired");
-      }, 1500);
-    }
-  };
-
-  const resetAudit = () => {
-    setAuditState("warning");
-  };
+  ];
 
   // Tab 2: Grounded, Realistic Capital Velocity & Dispute Rate Data
   const velocityCharts = [
