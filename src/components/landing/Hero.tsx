@@ -158,7 +158,7 @@ export const Hero = () => {
       {/* Retained Pencil Sketches beside the dashboard at z-10 behind the dashboard container */}
       <motion.div
         style={{ y: ySketch }}
-        className="absolute bottom-[13%] left-[-80px] lg:left-[-120px] w-[380px] h-[380px] lg:w-[600px] lg:h-[600px] pointer-events-none z-10 mix-blend-multiply opacity-[0.15] overflow-hidden"
+        className="absolute bottom-[20%] left-[-80px] lg:left-[-120px] w-[380px] h-[380px] lg:w-[600px] lg:h-[600px] pointer-events-none z-10 mix-blend-multiply opacity-[0.15] overflow-hidden"
       >
         <img
           src="/sketch_calculator_ruler.png"
@@ -169,7 +169,7 @@ export const Hero = () => {
 
       <motion.div
         style={{ y: ySketch }}
-        className="absolute bottom-[10%] right-[-80px] lg:right-[-120px] w-[350px] h-[350px] lg:w-[500px] lg:h-[500px] pointer-events-none z-10 mix-blend-multiply opacity-[0.15] overflow-hidden"
+        className="absolute bottom-[17%] right-[-80px] lg:right-[-120px] w-[350px] h-[350px] lg:w-[500px] lg:h-[500px] pointer-events-none z-10 mix-blend-multiply opacity-[0.15] overflow-hidden"
       >
         <img
           src="/sketch_tape_measure.png"
@@ -780,33 +780,236 @@ export const Hero = () => {
         </div>
       </div>
 
+      {/* Ecosystem Integrations Ribbon (Premium Luxury Silver & Charcoal Blueprint) */}
+      <div className="border-y-2 border-double border-black/10 bg-gradient-to-b from-[#FFFFFF] to-[#F8F8F9] py-16 mt-24 relative z-10 w-full overflow-hidden bg-grid-landeros">
+        
+        {/* Dynamic Stylesheet for Blueprint patterns & Animations */}
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 38s linear infinite;
+          }
+          .animate-marquee:hover {
+            animation-play-state: paused;
+          }
+          .blueprint-grid-pattern {
+            background-size: 12px 12px;
+            background-image: 
+              linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+          }
+          .draft-grid-pattern {
+            background-size: 20px 20px;
+            background-image: 
+              linear-gradient(to right, rgba(0, 0, 0, 0.015) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(0, 0, 0, 0.015) 1px, transparent 1px);
+          }
+          .group:hover .group-hover-white-override {
+            color: #ffffff !important;
+          }
+          .group:hover svg {
+            color: #ffffff !important;
+            stroke: #ffffff !important;
+          }
+        `}} />
 
+        {/* Top Architectural Ruler Line & Repeating Ticks */}
+        <div className="absolute top-0 left-0 right-0 h-3 border-b border-black/5 overflow-hidden select-none pointer-events-none opacity-30">
+          <div className="w-full h-full bg-[linear-gradient(to_right,rgba(0,0,0,0.1)_1px,transparent_1px)] bg-[size:8px_100%]" />
+        </div>
+        
+        {/* Top Ruler Coordinates */}
+        <div className="absolute top-3 left-0 right-0 h-4 flex items-center justify-between px-8 select-none pointer-events-none opacity-45 font-mono text-[6px] text-black/50 uppercase tracking-widest">
+          <span>[COORD: 0.00mm]</span>
+          <span className="hidden md:inline">----------------- SECURE SYNC CHANNEL (PLANE 01) -----------------</span>
+          <span>[COORD: 100.00mm]</span>
+          <span className="hidden md:inline">----------------- 2-WAY CONNECTOR ENGINE -----------------</span>
+          <span>[COORD: 200.00mm]</span>
+        </div>
 
-      {/* Ecosystem Integrations Ribbon */}
-      <div className="border-t border-black/5 bg-white/40 backdrop-blur-sm py-8 mt-24 relative z-10 w-full overflow-hidden">
-        <div className="container mx-auto px-4 max-w-7xl">
-          <p className="text-center font-tech-landeros text-[9px] font-black tracking-widest text-[#6B6B6B] uppercase mb-5">
-            NATIVE CONNECTIONS & WORKFLOW INTEGRATIONS
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-12 md:gap-20 opacity-55 grayscale hover:opacity-75 transition-opacity duration-300">
-            <div className="flex items-center gap-2 font-display-landeros text-sm font-black text-[#0A0A0A] tracking-tighter">
-              <span className="bg-[#0A0A0A] text-white px-1.5 py-0.5 rounded text-[10px] font-mono">qb</span>
-              QuickBooks
-            </div>
-            <div className="flex items-center gap-1.5 font-tech-landeros text-sm font-black text-[#0A0A0A]">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-600 inline-block" />
-              Xactimate
-            </div>
-            <div className="flex items-center gap-1 font-sans font-black text-sm text-[#0A0A0A] tracking-tight">
-              PROCORE
-            </div>
-            <div className="flex items-center gap-1 font-serif text-sm font-black text-[#0A0A0A] italic tracking-wider">
-              DocuSign
-            </div>
-            <div className="flex items-center gap-1.5 font-sans font-black text-sm text-[#0A0A0A] tracking-wider">
-              stripe
-            </div>
+        {/* Technical Corner Brackets / Crosshairs for Drafting Blueprint Sheet */}
+        <div className="absolute top-6 left-6 w-3 h-3 border-t border-l border-black/20 pointer-events-none select-none" />
+        <div className="absolute top-6 right-6 w-3 h-3 border-t border-r border-black/20 pointer-events-none select-none" />
+        <div className="absolute bottom-6 left-6 w-3 h-3 border-b border-l border-black/20 pointer-events-none select-none" />
+        <div className="absolute bottom-6 right-6 w-3 h-3 border-b border-r border-black/20 pointer-events-none select-none" />
+
+        {/* Visual Drawing Drafting Tape at Corners (Frosted glass luxury details) */}
+        <div className="absolute top-4 left-4 w-12 h-3.5 bg-white/40 backdrop-blur-sm border border-black/5 -rotate-12 shadow-sm rounded-sm opacity-55 pointer-events-none" />
+        <div className="absolute top-4 right-4 w-12 h-3.5 bg-white/40 backdrop-blur-sm border border-black/5 rotate-12 shadow-sm rounded-sm opacity-55 pointer-events-none" />
+        <div className="absolute bottom-4 left-4 w-12 h-3.5 bg-white/40 backdrop-blur-sm border border-black/5 rotate-12 shadow-sm rounded-sm opacity-55 pointer-events-none" />
+        <div className="absolute bottom-4 right-4 w-12 h-3.5 bg-white/40 backdrop-blur-sm border border-black/5 -rotate-12 shadow-sm rounded-sm opacity-55 pointer-events-none" />
+
+        {/* Blueprint Title Block (Architectural Style Stamp at Bottom Right) */}
+        <div className="hidden lg:flex absolute right-8 bottom-6 border border-black/10 bg-white/90 backdrop-blur-sm p-3 rounded-lg flex-col gap-1.5 z-20 font-mono text-[7px] text-black/55 select-none shadow-[0_4px_12px_rgba(0,0,0,0.02)] uppercase tracking-wide">
+          <div className="border-b border-black/10 pb-1 font-bold text-black/80 flex items-center justify-between gap-6">
+            <span className="tracking-widest">SYSTEM CONNECTIONS</span>
+            <span className="text-black font-black">v2.8-CORE</span>
           </div>
+          <div className="flex justify-between gap-6">
+            <span>DRAWING SCHEMATIC:</span>
+            <span className="font-bold text-black/80">BL-D2-INT-88</span>
+          </div>
+          <div className="flex justify-between gap-6">
+            <span>PIPELINE ENGINE:</span>
+            <span className="font-bold text-black">REAL-TIME SYNC</span>
+          </div>
+          <div className="flex justify-between gap-6 border-t border-black/10 pt-1.5 font-tech-landeros text-[8px] font-black text-black">
+            <span>APPROVED STAMP:</span>
+            <span>LANDEROS QA PASSED</span>
+          </div>
+        </div>
+
+        {/* Central Blueprint Details Text block */}
+        <div className="max-w-3xl mx-auto px-4 text-center mb-10 relative z-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white border-2 border-double border-black/10 text-black font-tech-landeros text-[9px] font-black uppercase tracking-wider rounded-md mb-4 shadow-[0_2px_4px_rgba(0,0,0,0.02)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            Ecosystem Integrations
+          </div>
+          <h3 className="font-display-landeros text-2xl md:text-3xl font-black text-black leading-tight tracking-tight uppercase">
+            NATIVE CONNECTIONS &amp; WORKFLOW INTEGRATIONS
+          </h3>
+          <p className="font-tech-landeros text-[9px] font-bold text-[#6B6B6B] tracking-widest uppercase mt-2.5">
+            Syncing Estimate Data, Insurer Files, and Draws Across Your Business Stack
+          </p>
+        </div>
+
+        {/* Sliding Marquee Track */}
+        <div className="relative w-full overflow-hidden py-4 select-none pointer-events-auto z-10">
+          {/* Gradient Overlays for Soft Fade on Edges */}
+          <div className="absolute top-0 bottom-0 left-0 w-36 bg-gradient-to-r from-white via-white/70 to-transparent z-20 pointer-events-none" />
+          <div className="absolute top-0 bottom-0 right-0 w-36 bg-gradient-to-l from-white via-white/70 to-transparent z-20 pointer-events-none" />
+
+          <div className="animate-marquee gap-6 flex items-center">
+            {/* Duplicated set for seamless loop scrolling */}
+            {Array(2).fill(null).map((_, groupIdx) => {
+              const integrationsList = [
+                {
+                  name: "QuickBooks",
+                  sub: "DIRECT LEDGER SYNC",
+                  tech: "NATIVE REST API v4",
+                  iconType: "text",
+                  textVal: "qb",
+                  accent: "#0A0A0A",
+                },
+                {
+                  name: "Xactimate",
+                  sub: "ESX ESTIMATE PARSER",
+                  tech: "PROPRIETARY COMPILER",
+                  icon: Layers,
+                  iconType: "lucide",
+                  accent: "#0A0A0A",
+                },
+                {
+                  name: "PROCORE",
+                  sub: "CONSTRUCTION HUB",
+                  tech: "2-WAY PARTNER CONNECT",
+                  icon: Workflow,
+                  iconType: "lucide",
+                  accent: "#0A0A0A",
+                },
+                {
+                  name: "DocuSign",
+                  sub: "SECURE DRAW SIGNING",
+                  tech: "ENVELOPE WEBHOOK v2.1",
+                  icon: FileText,
+                  iconType: "lucide",
+                  accent: "#0A0A0A",
+                },
+                {
+                  name: "stripe",
+                  sub: "PAYOUT GATEWAY",
+                  tech: "PCI COMPLIANT SDK",
+                  icon: Zap,
+                  iconType: "lucide",
+                  accent: "#0A0A0A",
+                },
+                {
+                  name: "LanderOS",
+                  sub: "COORDINATING CORE",
+                  tech: "GEMINI MULTI-AGENT",
+                  icon: Brain,
+                  iconType: "lucide",
+                  accent: "#0A0A0A",
+                }
+              ];
+
+              return (
+                <div key={groupIdx} className="flex items-center gap-6 shrink-0">
+                  {integrationsList.map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <div 
+                        key={index}
+                        className="bg-white border-2 border-double border-black/10 hover:border-transparent px-5 py-3 rounded-2xl flex items-center gap-3.5 transition-all duration-500 hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)] hover:-translate-y-1 cursor-pointer shadow-sm relative overflow-hidden group w-[250px] md:w-[270px]"
+                      >
+                        {/* Draft Grid underlay */}
+                        <div className="absolute inset-0 draft-grid-pattern opacity-[0.03] pointer-events-none" />
+
+                        {/* Blueprint Metamorphosis (Hover State Background - Premium Charcoal Blackout) */}
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 bg-gradient-to-br from-[#0F0F0F] via-[#1A1A1A] to-[#262626] border border-black pointer-events-none z-0" />
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-10 blueprint-grid-pattern pointer-events-none z-0 transition-opacity duration-500" />
+                        
+                        {/* Tiny dimension marking */}
+                        <span className="font-mono text-[5px] text-black/40 group-hover:text-white/40 absolute top-1 right-2.5 transition-colors duration-300">
+                          [ {item.tech} ]
+                        </span>
+
+                        {/* Technical compass circle decoration at back */}
+                        <div className="absolute -right-6 -bottom-6 w-14 h-14 rounded-full border border-black/5 group-hover:border-white/10 transition-colors duration-500 pointer-events-none flex items-center justify-center">
+                          <div className="w-8 h-8 rounded-full border border-dashed border-black/5 group-hover:border-white/5" />
+                        </div>
+
+                        {/* Icon Frame */}
+                        <div className="relative z-10 w-9 h-9 rounded-xl border border-black/10 bg-[#F8F8F8] flex items-center justify-center shadow-sm transition-all duration-500 group-hover:bg-white/10 group-hover:border-white/30 group-hover:shadow-[0_0_12px_rgba(255,255,255,0.15)] group-hover:scale-105">
+                          {/* Tiny corner crosshairs */}
+                          <span className="absolute -top-0.5 -left-0.5 text-[5px] text-black/30 group-hover:text-white/50 select-none font-sans">+</span>
+                          <span className="absolute -top-0.5 -right-0.5 text-[5px] text-black/30 group-hover:text-white/50 select-none font-sans">+</span>
+                          <span className="absolute -bottom-0.5 -left-0.5 text-[5px] text-black/30 group-hover:text-white/50 select-none font-sans">+</span>
+                          <span className="absolute -bottom-0.5 -right-0.5 text-[5px] text-black/30 group-hover:text-white/50 select-none font-sans">+</span>
+
+                          {item.iconType === "text" ? (
+                            <span 
+                              className="font-display-landeros text-xs font-black tracking-tighter transition-all duration-300 group-hover-white-override"
+                              style={{ color: item.accent }}
+                            >
+                              {item.textVal}
+                            </span>
+                          ) : (
+                            Icon && <Icon 
+                              className="w-4.5 h-4.5 transition-all duration-300 stroke-[2.2]" 
+                              style={{ color: item.accent }}
+                            />
+                          )}
+                        </div>
+
+                        {/* Text block */}
+                        <div className="flex flex-col relative z-10 select-none">
+                          <span className="font-tech-landeros text-[7px] font-black tracking-widest text-[#8E8E8E] group-hover:text-[#D9D9D9] transition-colors duration-300 uppercase">
+                            {item.sub}
+                          </span>
+                          <span className="font-display-landeros text-xs font-black text-black group-hover:text-white transition-colors duration-300 tracking-tight flex items-center gap-1.5 mt-0.5 uppercase">
+                            {item.name}
+                            <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse inline-block" />
+                          </span>
+                        </div>
+
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Bottom Architectural Ruler Line & Repeating Ticks */}
+        <div className="absolute bottom-0 left-0 right-0 h-3 border-t border-black/5 overflow-hidden select-none pointer-events-none opacity-30">
+          <div className="w-full h-full bg-[linear-gradient(to_right,rgba(0,0,0,0.1)_1px,transparent_1px)] bg-[size:8px_100%]" />
         </div>
       </div>
     </section>
